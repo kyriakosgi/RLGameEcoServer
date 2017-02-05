@@ -1,11 +1,17 @@
 package gr.eap.RLGameEcoServer;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 import java.util.Collections;
+import java.util.Properties;
 
 import org.java_websocket.WebSocket;
 import org.java_websocket.drafts.Draft;
+import org.java_websocket.drafts.Draft_17;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
@@ -45,7 +51,35 @@ public class Server extends WebSocketServer {
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		//Load application settings as Properties object
+		Properties settings = new Properties();
+		try(Reader reader = new FileReader("settings")){
+			settings.load(reader);
+		} catch (FileNotFoundException e) {
+			// TODO Log
+			System.out.println(e.getMessage());
+			return;
+		} catch (IOException e) {
+			// TODO Log
+			System.out.println(e.getMessage());;
+			return;
+		}
+
+		//Ensure there is a Port number in application settings
+		if (!settings.containsKey("Port")) settings.put("Port", "9003");
+		
+		//Start Web Sockets Server
+		try {
+			new Server(Integer.parseInt(settings.getProperty("Port")), new Draft_17() ).start();
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());;
+			return;
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());;
+			return;
+		}
 
 	}
 
