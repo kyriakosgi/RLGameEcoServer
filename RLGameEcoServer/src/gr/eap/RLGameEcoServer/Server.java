@@ -29,6 +29,7 @@ public class Server extends WebSocketServer {
 	@Override
 	public void onClose(WebSocket arg0, int arg1, String arg2, boolean arg3) {
 		// TODO Auto-generated method stub
+		System.out.println("closed " + arg2);
 
 	}
 
@@ -41,13 +42,15 @@ public class Server extends WebSocketServer {
 	@Override
 	public void onMessage(WebSocket arg0, String arg1) {
 		// TODO Auto-generated method stub
-
+		System.out.println(arg1);
+		for (Long i = (long) 0; i<1000000000;i++);
+		System.out.println(arg1);
 	}
 
 	@Override
 	public void onOpen(WebSocket arg0, ClientHandshake arg1) {
 		// TODO Auto-generated method stub
-
+		System.out.println("open");
 	}
 
 	public static void main(String[] args) {
