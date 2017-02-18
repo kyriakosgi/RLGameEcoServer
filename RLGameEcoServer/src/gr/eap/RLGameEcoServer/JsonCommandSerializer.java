@@ -20,8 +20,8 @@ public class JsonCommandSerializer implements CommandSerializer {
 	}
 
 	@Override
-	public Command deserialize(String serializedCommand, String commandType) {
-		// TODO Auto-generated method stub
+	public Command deserialize(String serializedCommand) {
+		String commandType;
 		return null;
 	}
 
