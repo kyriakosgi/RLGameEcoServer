@@ -1,5 +1,7 @@
 package gr.eap.RLGameEcoServer;
 
+import java.util.List;
+
 public interface Command {
-	public void execute();
+	public List<Command> execute();
 }

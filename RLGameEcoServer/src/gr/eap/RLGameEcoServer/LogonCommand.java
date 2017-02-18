@@ -1,11 +1,12 @@
 package gr.eap.RLGameEcoServer;
 
+import java.util.List;
+
 public class LogonCommand implements Command {
 
 	@Override
-	public void execute() {
-		// TODO Auto-generated method stub
-
+	public List<Command> execute() {
+		return null;
 	}
 
 }
