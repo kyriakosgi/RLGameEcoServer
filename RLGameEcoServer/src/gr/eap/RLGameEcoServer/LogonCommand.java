@@ -5,7 +5,7 @@ import java.util.List;
 public class LogonCommand implements Command {
 
 	@Override
-	public List<Command> execute() {
+	public List<Response> execute() {
 		return null;
 	}
 
