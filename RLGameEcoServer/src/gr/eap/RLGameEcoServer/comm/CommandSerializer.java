@@ -1,4 +1,4 @@
-package gr.eap.RLGameEcoServer;
+package gr.eap.RLGameEcoServer.comm;
 
 // The general format of a serialized command is the serialized Command Object with the addition of the Command type name info
 public interface CommandSerializer {

@@ -1,4 +1,4 @@
-package gr.eap.RLGameEcoServer;
+package gr.eap.RLGameEcoServer.comm;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

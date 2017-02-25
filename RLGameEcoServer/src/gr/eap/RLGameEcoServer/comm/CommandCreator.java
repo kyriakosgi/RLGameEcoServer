@@ -1,4 +1,4 @@
-package gr.eap.RLGameEcoServer;
+package gr.eap.RLGameEcoServer.comm;
 
 public class CommandCreator {
 	public static Command create(String commandType){

@@ -1,6 +1,8 @@
-package gr.eap.RLGameEcoServer;
+package gr.eap.RLGameEcoServer.comm;
 
 import java.util.ArrayList;
+
+import gr.eap.RLGameEcoServer.GameState;
 
 public class Response {
 	private int userId;
