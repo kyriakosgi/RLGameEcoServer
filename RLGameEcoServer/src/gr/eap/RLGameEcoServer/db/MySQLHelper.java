@@ -18,7 +18,7 @@ public class MySQLHelper {
 	private static String password;
 	private static Connection connection;
 
-	public static void initializeConnectionParameters(String dbLocation, String userName, String password){
+	public void initializeConnectionParameters(String dbLocation, String userName, String password){
 		MySQLHelper.dbLocation = dbLocation;
 		MySQLHelper.userName = userName;
 		MySQLHelper.password = password;
@@ -30,7 +30,7 @@ public class MySQLHelper {
 		return __me;
 	}
 
-	private static Connection getConnection() {
+	private Connection getConnection() {
 		if (connection == null) {
 			try {
 				connection = DriverManager.getConnection(MySQLHelper.dbLocation, MySQLHelper.userName,
@@ -51,7 +51,7 @@ public class MySQLHelper {
 		}
 	}
 
-	public static ResultSet query(String SQLString, List<parameterValue<?>> parameters) {
+	public ResultSet query(String SQLString, List<parameterValue<?>> parameters) {
 		Connection conn = getConnection();
 		ResultSet rs = null;
 		try (PreparedStatement statement = conn.prepareStatement(SQLString, ResultSet.TYPE_FORWARD_ONLY,
