@@ -18,12 +18,15 @@ public class MySQLHelper {
 	private static String password;
 	private static Connection connection;
 
-	public static MySQLHelper getInstance(String dbLocation, String userName, String password) {
-		if (__me == null)
-			__me = new MySQLHelper();
+	public static void initializeConnectionParameters(String dbLocation, String userName, String password){
 		MySQLHelper.dbLocation = dbLocation;
 		MySQLHelper.userName = userName;
 		MySQLHelper.password = password;
+	}
+	
+	public static MySQLHelper getInstance() {
+		if (__me == null)
+			__me = new MySQLHelper();
 		return __me;
 	}
 
