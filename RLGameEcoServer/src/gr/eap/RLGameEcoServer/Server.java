@@ -15,6 +15,8 @@ import org.java_websocket.drafts.Draft_17;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
+import gr.eap.RLGameEcoServer.db.MySQLHelper;
+
 public class Server extends WebSocketServer {
 
 	
@@ -60,14 +62,17 @@ public class Server extends WebSocketServer {
 			settings.load(reader);
 		} catch (FileNotFoundException e) {
 			// TODO Log
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 			return;
 		} catch (IOException e) {
 			// TODO Log
-			System.out.println(e.getMessage());;
+			System.err.println(e.getMessage());;
 			return;
 		}
 
+		//Initialize SQL connection parameters
+		MySQLHelper.getInstance().initializeConnectionParameters(settings.getProperty("dbLocation"), settings.getProperty("userName"), settings.getProperty("password"));
+		
 		//Ensure there is a Port number in application settings
 		if (!settings.containsKey("Port")) settings.put("Port", "9003");
 		
