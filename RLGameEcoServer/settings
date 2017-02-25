@@ -2,3 +2,6 @@
 #Sun Feb 05 00:22:39 EET 2017
 Debug=false
 Port=33313
+dbLocation=jdbc:mysql://localhost/rl_game_eco_server
+userName=server_user
+password=eco,rl,17
