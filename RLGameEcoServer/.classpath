@@ -5,6 +5,6 @@
 	<classpathentry kind="lib" path="E:/Kyriakos/OneDrive/ΕΑΠ/Διπλωματική/Διπλωματική/Java Projects/libs/TooTallNate-Java-WebSocket.jar"/>
 	<classpathentry kind="lib" path="E:/Kyriakos/OneDrive/ΕΑΠ/Διπλωματική/Διπλωματική/Java Projects/libs/gson-2.8.0.jar"/>
 	<classpathentry kind="lib" path="E:/Kyriakos/OneDrive/ΕΑΠ/Διπλωματική/Διπλωματική/Java Projects/libs/mysql-connector-java-5.1.40-bin.jar"/>
-	<classpathentry kind="lib" path="E:/Kyriakos/OneDrive/ΕΑΠ/Διπλωματική/Διπλωματική/Java Projects/libs/SimpleMySQL.jar"/>
+	<classpathentry kind="lib" path="E:/Kyriakos/OneDrive/ΕΑΠ/Διπλωματική/Διπλωματική/Java Projects/libs/jdbc-helper-0.3.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
