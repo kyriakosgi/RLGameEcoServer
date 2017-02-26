@@ -9,6 +9,8 @@ public class Response {
 	private int commandID;
 	private ArrayList<String> availableCommands;
 	private GameState gameState;
+	private String message;
+	
 	public int getUserId() {
 		return userId;
 	}
@@ -32,5 +34,11 @@ public class Response {
 	}
 	public void setGameState(GameState gameState) {
 		this.gameState = gameState;
+	}
+	public String getMessage() {
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
 	}
 }
