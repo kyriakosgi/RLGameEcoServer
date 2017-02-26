@@ -43,7 +43,7 @@ public class MySQLHelper {
 		return connection;
 	}
 
-	public class parameterValue<T> {
+	public static class parameterValue<T> {
 		public T value;
 
 		public parameterValue(T value) {
