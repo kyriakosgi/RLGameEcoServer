@@ -2,8 +2,19 @@ package gr.eap.RLGameEcoServer.comm;
 
 import java.util.List;
 
-public interface Command extends CommunicationsObject{
-	public int getId();
-	public void setId(int value);
-	public List<Response> execute();
+public abstract class Command extends CommunicationsObject{
+	private int id;
+	
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+	public abstract List<Response> execute();
 }
