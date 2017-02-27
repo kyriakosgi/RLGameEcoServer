@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import gr.eap.RLGameEcoServer.db.MySQLHelper;
 import gr.eap.RLGameEcoServer.db.MySQLHelper.parameterValue;
@@ -12,6 +13,8 @@ public class LogonCommand implements Command {
 	private String userName;
 	private String password;
 	private int id;
+	private int userId;
+	private UUID gameUid;
 
 	@Override
 	public int getId() {
@@ -63,6 +66,26 @@ public class LogonCommand implements Command {
 		}
 
 		return returnValue;
+	}
+
+	@Override
+	public int getUserId() {
+		return userId;
+	}
+
+	@Override
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	@Override
+	public UUID getGameUid() {
+		return gameUid;
+	}
+
+	@Override
+	public void setGameUid(UUID gameUid) {
+		this.gameUid = gameUid;
 	}
 
 }
