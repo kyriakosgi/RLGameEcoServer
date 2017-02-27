@@ -15,6 +15,9 @@ import org.java_websocket.drafts.Draft_17;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
+import gr.eap.RLGameEcoServer.comm.Command;
+import gr.eap.RLGameEcoServer.comm.JsonCommObjectSerializer;
+import gr.eap.RLGameEcoServer.comm.Response;
 import gr.eap.RLGameEcoServer.db.MySQLHelper;
 
 public class Server extends WebSocketServer {
@@ -45,8 +48,14 @@ public class Server extends WebSocketServer {
 	public void onMessage(WebSocket arg0, String arg1) {
 		// TODO Auto-generated method stub
 		System.out.println(arg1);
-		for (Long i = (long) 0; i<1000000000;i++);
-		System.out.println(arg1);
+		JsonCommObjectSerializer js = new JsonCommObjectSerializer();
+		Command cmd = (Command) js.deserialize(arg1);
+		if (cmd != null){
+			for (Response res : cmd.execute()){
+				String outco = js.serialize(res);
+				arg0.send(outco);
+			}
+		}
 	}
 
 	@Override
