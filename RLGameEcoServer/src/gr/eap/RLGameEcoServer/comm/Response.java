@@ -1,27 +1,14 @@
 package gr.eap.RLGameEcoServer.comm;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 import gr.eap.RLGameEcoServer.GameState;
 
-public class Response implements CommunicationsObject {
-	private int userId;
-	private UUID gameUid;
+public class Response extends CommunicationsObject {
 	private int commandID;
 	private ArrayList<String> availableCommands;
 	private GameState gameState;
 	private String message;
-
-	@Override
-	public int getUserId() {
-		return userId;
-	}
-
-	@Override
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
 
 	public int getCommandID() {
 		return commandID;
@@ -55,13 +42,4 @@ public class Response implements CommunicationsObject {
 		this.message = message;
 	}
 
-	@Override
-	public UUID getGameUid() {
-		return gameUid;
-	}
-
-	@Override
-	public void setGameUid(UUID gameUid) {
-		this.gameUid = gameUid;
-	}
 }
