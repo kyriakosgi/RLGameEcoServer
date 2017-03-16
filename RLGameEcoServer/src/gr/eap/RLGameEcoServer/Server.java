@@ -76,8 +76,11 @@ public class Server extends WebSocketServer {
 	public void onOpen(WebSocket arg0, ClientHandshake arg1) {
 		System.out.println("open");
 		System.out.println(arg0.hashCode());
-//		Response r = new Response();
-//		r.setMessage("Login Successful");
+		Response r = new Response();
+		r.setMessage("Connection Successful");
+		JsonCommObjectSerializer js = new JsonCommObjectSerializer();
+		String outco = js.serialize(r);
+		arg0.send(outco);
 	}
 
 	public static void main(String[] args) {
