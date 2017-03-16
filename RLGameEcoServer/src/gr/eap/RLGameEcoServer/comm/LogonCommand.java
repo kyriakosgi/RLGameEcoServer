@@ -28,7 +28,7 @@ public class LogonCommand extends Command {
 
 	@Override
 	public List<Response> execute() {
-		Player newPlayer = PlayersRegister.getInstance().registerPlayer(userName, password);
+		Player newPlayer = PlayersRegister.getInstance().registerPlayer(userName, password, getSocketHash());
 
 		ArrayList<Response> returnValue = new ArrayList<Response>();
 		Response r1 = new Response();
