@@ -27,7 +27,7 @@ public class LogonCommand extends Command {
 	}
 
 	public LogonCommand(){
-		super.setType("gr.eap.RLGameEcoServer.comm.LogonCommand");
+		this.setType("gr.eap.RLGameEcoServer.comm.LogonCommand");
 	}
 	
 	@Override
