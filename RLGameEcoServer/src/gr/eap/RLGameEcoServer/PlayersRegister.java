@@ -7,6 +7,7 @@ public class PlayersRegister {
 	private static PlayersRegister __me;
 
 	private PlayersRegister() {
+		players = new ArrayList<Player>();
 	}
 
 	private ArrayList<Player> players;
@@ -28,6 +29,6 @@ public class PlayersRegister {
 			players.add(newPlayer);
 		}
 
-		return null;
+		return newPlayer;
 	}
 }
