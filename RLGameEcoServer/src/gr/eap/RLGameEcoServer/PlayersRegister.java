@@ -1,16 +1,16 @@
 package gr.eap.RLGameEcoServer;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class PlayersRegister {
 	private static PlayersRegister __me;
+	private Map<Integer, Player> players;
 
 	private PlayersRegister() {
-		players = new ArrayList<Player>();
+		players = new HashMap<Integer, Player>();
 	}
-
-	private ArrayList<Player> players;
 
 	public static PlayersRegister getInstance() {
 		if (__me == null)
@@ -18,15 +18,15 @@ public class PlayersRegister {
 		return __me;
 	}
 
-	public ArrayList<Player> getPlayers() {
+	public Map<Integer, Player> getPlayers() {
 		return players;
 	}
 
-	public Player registerPlayer(String userName, String password) {
+	public Player registerPlayer(String userName, String password, int socketHash) {
 		Player newPlayer = Player.getPlayer(userName, password);
 
 		if (newPlayer != null) {
-			players.add(newPlayer);
+			players.put(socketHash, newPlayer);
 		}
 
 		return newPlayer;
