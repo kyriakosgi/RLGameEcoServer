@@ -22,7 +22,8 @@ public abstract class CommunicationsObject {
 	public String getType() {
 		return type;
 	}
-	public void setType(String type) {
+	//The type property should only be set by concrete subclasses
+	protected void setType(String type) {
 		this.type = type;
 	}
 	
