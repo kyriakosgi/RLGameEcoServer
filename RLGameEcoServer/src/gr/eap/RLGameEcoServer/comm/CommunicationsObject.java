@@ -5,6 +5,8 @@ import java.util.UUID;
 public abstract class CommunicationsObject {
 	private int userId;
 	private UUID gameId;
+	private String type;
+	
 	public int getUserId() {
 		return userId;
 	}
@@ -16,6 +18,12 @@ public abstract class CommunicationsObject {
 	}
 	public void setGameId(UUID gameId) {
 		this.gameId = gameId;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 }
