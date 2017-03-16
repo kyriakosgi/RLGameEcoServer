@@ -9,14 +9,12 @@ import com.google.gson.JsonPrimitive;
 
 //The general format of a serialized command is the Json serialized Command Object with the addition of the property "className" holding the Command type name
 public class JsonCommObjectSerializer implements CommObjectSerializer {
-	private static final String COMMAND_TYPE_PROPERTY = "commandType";
+	private static final String COMMAND_TYPE_PROPERTY = "type";
 	@Override
 	public String serialize(CommunicationsObject command) {
 		GsonBuilder builder = new GsonBuilder();
 		Gson gson = builder.create();
 		JsonObject a = gson.toJsonTree(command).getAsJsonObject();
-		//Next we add the command type name as a new property ("className")
-		a.add(COMMAND_TYPE_PROPERTY, new JsonPrimitive(command.getClass().getName()));
 		
 		return a.toString();
 	}
@@ -27,7 +25,7 @@ public class JsonCommObjectSerializer implements CommObjectSerializer {
 		JsonParser parser = new JsonParser();
 		JsonElement tree = parser.parse(serializedCommand);
 		JsonObject jobject = tree.getAsJsonObject();
-		String commandType = jobject.remove(COMMAND_TYPE_PROPERTY).getAsString();
+		String commandType = jobject.get(COMMAND_TYPE_PROPERTY).getAsString();
 		return (CommunicationsObject) gson.fromJson(jobject, CommObjectClassCreator.create(commandType));
 		
 	}
