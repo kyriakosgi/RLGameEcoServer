@@ -26,6 +26,10 @@ public class LogonCommand extends Command {
 		this.password = password;
 	}
 
+	public LogonCommand(){
+		super.setType("gr.eap.RLGameEcoServer.comm.LogonCommand");
+	}
+	
 	@Override
 	public List<Response> execute() {
 		Player newPlayer = PlayersRegister.getInstance().registerPlayer(userName, password, getSocketHash());

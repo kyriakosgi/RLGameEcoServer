@@ -42,4 +42,7 @@ public class Response extends CommunicationsObject {
 		this.message = message;
 	}
 
+	public Response(){
+		this.setType("gr.eap.RLGameEcoServer.comm.Response");
+	}
 }
