@@ -10,7 +10,6 @@ public class LogonCommand extends Command {
 	private String userName;
 	private String password;
 
-
 	public String getUserName() {
 		return userName;
 	}
@@ -29,19 +28,22 @@ public class LogonCommand extends Command {
 
 	@Override
 	public List<Response> execute() {
-		Player newPlayer =  PlayersRegister.getInstance().registerPlayer(userName, password);
+		Player newPlayer = PlayersRegister.getInstance().registerPlayer(userName, password);
 
 		ArrayList<Response> returnValue = new ArrayList<Response>();
-			if (newPlayer != null) {
-				Response r1 = new Response();
-				r1.setCommandID(super.getId());
-				r1.setUserId(newPlayer.getId());
-				r1.setMessage("Logon successfull");
-				
-				returnValue.add(r1);
-			}
+		Response r1 = new Response();
+		r1.setCommandID(super.getId());
+
+		if (newPlayer != null) {
+			r1.setUserId(newPlayer.getId());
+			r1.setMessage("Logon successfull");
+		}
+		else
+		{
+			r1.setMessage("Logon failed");
+		}
+		returnValue.add(r1);
 		return returnValue;
 	}
-
 
 }
