@@ -18,12 +18,12 @@ public class MySQLHelper {
 	private static String password;
 	private static Connection connection;
 
-	public void initializeConnectionParameters(String dbLocation, String userName, String password){
+	public void initializeConnectionParameters(String dbLocation, String userName, String password) {
 		MySQLHelper.dbLocation = dbLocation;
 		MySQLHelper.userName = userName;
 		MySQLHelper.password = password;
 	}
-	
+
 	public static MySQLHelper getInstance() {
 		if (__me == null)
 			__me = new MySQLHelper();
@@ -36,7 +36,7 @@ public class MySQLHelper {
 				connection = DriverManager.getConnection(MySQLHelper.dbLocation, MySQLHelper.userName,
 						MySQLHelper.password);
 			} catch (SQLException e) {
-				System.err.println(e.getMessage());
+				System.err.println("Connect: " + e);
 				return null;
 			}
 		}
@@ -54,9 +54,9 @@ public class MySQLHelper {
 	public ResultSet query(String SQLString, List<parameterValue<?>> parameters) {
 		Connection conn = getConnection();
 		ResultSet rs = null;
-		try (PreparedStatement statement = conn.prepareStatement(SQLString, ResultSet.TYPE_FORWARD_ONLY,
-				ResultSet.CONCUR_READ_ONLY);) {
-
+		try {
+			PreparedStatement statement = conn.prepareStatement(SQLString, ResultSet.TYPE_FORWARD_ONLY,
+					ResultSet.CONCUR_READ_ONLY); //Statement doesn't get destroyed after execution. TODO Check for potential memory leak
 			for (int i = 0; i < parameters.size(); i++) {
 				statement.setObject(i + 1, parameters.get(i).value);
 			}
@@ -64,15 +64,15 @@ public class MySQLHelper {
 			rs = statement.executeQuery();
 
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
-		} finally {
-			if (rs != null)
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					System.err.println(e.getMessage());
-				}
-		}
+			System.err.println("Query: " + e.getMessage());
+		} // finally {
+		// if (rs != null)
+		// try {
+		// rs.close();
+		// } catch (SQLException e) {
+		// System.err.println(e.getMessage());
+		// }
+		// }
 		return rs;
 	}
 }
