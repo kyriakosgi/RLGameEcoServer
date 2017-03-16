@@ -17,7 +17,8 @@ public class JsonCommObjectSerializer implements CommObjectSerializer {
 		JsonObject a = gson.toJsonTree(command).getAsJsonObject();
 		//Next we add the command type name as a new property ("className")
 		a.add(COMMAND_TYPE_PROPERTY, new JsonPrimitive(command.getClass().getName()));
-		return a.getAsString();
+		
+		return a.toString();
 	}
 
 	@Override
