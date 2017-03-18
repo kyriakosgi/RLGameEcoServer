@@ -41,10 +41,12 @@ public class LogonCommand extends Command {
 		if (newPlayer != null) {
 			r1.setUserId(newPlayer.getId());
 			r1.setMessage("Logon successfull");
+			r1.setConnectionState("Logged On");
 		}
 		else
 		{
 			r1.setMessage("Logon failed");
+			r1.setConnectionState("Connected");
 		}
 		returnValue.add(r1);
 		return returnValue;
