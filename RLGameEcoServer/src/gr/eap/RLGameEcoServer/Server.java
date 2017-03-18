@@ -78,6 +78,7 @@ public class Server extends WebSocketServer {
 		System.out.println(arg0.hashCode());
 		Response r = new Response();
 		r.setMessage("Connection Successful");
+		r.setConnectionState("Connected");
 		JsonCommObjectSerializer js = new JsonCommObjectSerializer();
 		String outco = js.serialize(r);
 		arg0.send(outco);
