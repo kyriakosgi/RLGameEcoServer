@@ -9,6 +9,7 @@ public class Response extends CommunicationsObject {
 	private ArrayList<String> availableCommands;
 	private GameState gameState;
 	private String message;
+	private String connectionState;
 
 	public int getCommandID() {
 		return commandID;
@@ -44,5 +45,13 @@ public class Response extends CommunicationsObject {
 
 	public Response(){
 		this.setType("gr.eap.RLGameEcoServer.comm.Response");
+	}
+
+	public String getConnectionState() {
+		return connectionState;
+	}
+
+	public void setConnectionState(String connectionState) {
+		this.connectionState = connectionState;
 	}
 }
