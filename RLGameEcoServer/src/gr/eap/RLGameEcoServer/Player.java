@@ -88,4 +88,16 @@ public abstract class Player extends Participant {
 		}
 		return newPlayer;
 	}
+	
+	//The player's unique id is enough. It will be used for the Players Register
+	@Override
+	public int hashCode(){
+		return super.getId();
+	}
+	
+	//Equal IDs should be enough for equal objects
+	@Override
+	public boolean equals(Object object){
+		return (((Player)object).getId() == super.getId());
+	}
 }
