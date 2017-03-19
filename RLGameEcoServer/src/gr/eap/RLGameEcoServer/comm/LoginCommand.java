@@ -32,7 +32,7 @@ public class LoginCommand extends Command {
 	
 	@Override
 	public List<Response> execute() {
-		Player newPlayer = PlayersRegister.getInstance().registerPlayer(userName, password, getSocketHash());
+		Player newPlayer = PlayersRegister.getInstance().registerPlayer(userName, password, getSocket());
 
 		ArrayList<Response> returnValue = new ArrayList<Response>();
 		Response r1 = new Response();
