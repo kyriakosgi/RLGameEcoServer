@@ -39,4 +39,9 @@ public abstract class CommunicationsObject {
 		this.socket = socket;
 	}
 	
+	public void send(){
+		JsonCommObjectSerializer js = new JsonCommObjectSerializer();
+		String outco = js.serialize(this);
+		this.socket.send(outco);
+	}
 }
