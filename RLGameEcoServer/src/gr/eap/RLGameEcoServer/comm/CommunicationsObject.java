@@ -8,7 +8,7 @@ public abstract class CommunicationsObject {
 	private int userId;
 	private UUID gameId;
 	private String type;
-	private WebSocket socket;
+	private transient WebSocket socket;
 	
 	public int getUserId() {
 		return userId;
