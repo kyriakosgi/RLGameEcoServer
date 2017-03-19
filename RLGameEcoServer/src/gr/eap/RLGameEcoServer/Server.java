@@ -55,7 +55,7 @@ public class Server extends WebSocketServer {
 			System.out.println(arg1);
 			System.out.println(arg0.hashCode());
 			JsonCommObjectSerializer js = new JsonCommObjectSerializer();
-			Command cmd = (Command) js.deserialize(arg1);
+			Command cmd = (Command)js.deserialize(arg1);
 			if (cmd != null) {
 				cmd.setSocketHash(arg0.hashCode());
 				for (Response res : cmd.execute()) {
