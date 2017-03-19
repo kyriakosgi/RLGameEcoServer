@@ -1,7 +1,5 @@
 package gr.eap.RLGameEcoServer.comm;
 
-import java.util.List;
-
 
 public abstract class Command extends CommunicationsObject{
 	private int id;
@@ -19,5 +17,5 @@ public abstract class Command extends CommunicationsObject{
 
 
 
-	public abstract List<Response> execute();
+	public abstract void execute();
 }
