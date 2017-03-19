@@ -8,10 +8,10 @@ import org.java_websocket.WebSocket;
 
 public class PlayersRegister {
 	private static PlayersRegister __me;
-	private Map<WebSocket, Player> players;
+	private Map<Player, WebSocket> players;
 
 	private PlayersRegister() {
-		players = new HashMap<WebSocket, Player>();
+		players = new HashMap<Player, WebSocket>();
 	}
 
 	public static PlayersRegister getInstance() {
@@ -20,7 +20,7 @@ public class PlayersRegister {
 		return __me;
 	}
 
-	public Map<WebSocket, Player> getPlayers() {
+	public Map<Player, WebSocket> getPlayers() {
 		return players;
 	}
 
@@ -30,12 +30,12 @@ public class PlayersRegister {
 		if (newPlayer != null) {
 			//Add player to the connected players register along with his websocket hashcode
 			//If a player was disconnected we add her with the new socketHash, so that she can continue playing
-			if (players.containsValue(newPlayer)){
+			if (players.containsKey(newPlayer)){
 				//TODO Send disconnect message
 				socket.close();
 				players.remove(socket);
 			}
-			players.put(socket, newPlayer);
+			players.put(newPlayer, socket);
 		}
 
 		return newPlayer;
