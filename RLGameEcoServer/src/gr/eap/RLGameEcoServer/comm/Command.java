@@ -6,7 +6,7 @@ import org.java_websocket.WebSocket;
 
 public abstract class Command extends CommunicationsObject{
 	private int id;
-	private int socketHash;
+	private WebSocket socket;
 	
 
 	public int getId() {
@@ -19,13 +19,13 @@ public abstract class Command extends CommunicationsObject{
 	}
 
 
-	public int getSocketHash() {
-		return socketHash;
+	public WebSocket getSocket() {
+		return socket;
 	}
 
 
-	public void setSocketHash(int socketHash) {
-		this.socketHash = socketHash;
+	public void setSocket(WebSocket socket) {
+		this.socket = socket;
 	}
 
 
