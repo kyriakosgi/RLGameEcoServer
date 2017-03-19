@@ -75,11 +75,10 @@ public class Server extends WebSocketServer {
 		System.out.println("open");
 		System.out.println(arg0.hashCode());
 		Response r = new Response();
+		r.setSocket(arg0);
 		r.setMessage("Connection Successful");
 		r.setConnectionState("Connected");
-		JsonCommObjectSerializer js = new JsonCommObjectSerializer();
-		String outco = js.serialize(r);
-		arg0.send(outco);
+		r.send();
 	}
 
 	public static void main(String[] args) {
