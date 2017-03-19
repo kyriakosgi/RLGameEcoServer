@@ -19,7 +19,7 @@ import org.java_websocket.server.WebSocketServer;
 import gr.eap.RLGameEcoServer.comm.Command;
 import gr.eap.RLGameEcoServer.comm.JsonCommObjectSerializer;
 import gr.eap.RLGameEcoServer.comm.LoginCommand;
-import gr.eap.RLGameEcoServer.comm.Response;
+import gr.eap.RLGameEcoServer.comm.MessageResponse;
 import gr.eap.RLGameEcoServer.db.MySQLHelper;
 
 public class Server extends WebSocketServer {
@@ -74,7 +74,7 @@ public class Server extends WebSocketServer {
 	public void onOpen(WebSocket arg0, ClientHandshake arg1) {
 		System.out.println("open");
 		System.out.println(arg0.hashCode());
-		Response r = new Response();
+		MessageResponse r = new MessageResponse();
 		r.setSocket(arg0);
 		r.setMessage("Connection Successful");
 		r.setConnectionState("Connected");

@@ -4,11 +4,10 @@ import java.util.ArrayList;
 
 import gr.eap.RLGameEcoServer.GameState;
 
-public class Response extends CommunicationsObject {
+public abstract class Response extends CommunicationsObject {
 	private int commandID;
 	private ArrayList<String> availableCommands;
 	private GameState gameState;
-	private String message;
 	private String connectionState;
 
 	public int getCommandID() {
@@ -35,17 +34,6 @@ public class Response extends CommunicationsObject {
 		this.gameState = gameState;
 	}
 
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
-	public Response(){
-		this.setType("gr.eap.RLGameEcoServer.comm.Response");
-	}
 
 	public String getConnectionState() {
 		return connectionState;

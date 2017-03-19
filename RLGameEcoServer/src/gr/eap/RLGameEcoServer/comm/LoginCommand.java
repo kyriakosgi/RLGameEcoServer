@@ -32,7 +32,7 @@ public class LoginCommand extends Command {
 	public void execute() {
 		Player newPlayer = PlayersRegister.getInstance().registerPlayer(userName, password, getSocket());
 
-		Response r1 = new Response();
+		MessageResponse r1 = new MessageResponse();
 		r1.setCommandID(super.getId());
 		r1.setSocket(getSocket());
 		if (newPlayer != null) {
