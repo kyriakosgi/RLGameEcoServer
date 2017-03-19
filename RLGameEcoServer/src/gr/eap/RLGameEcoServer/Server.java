@@ -55,19 +55,17 @@ public class Server extends WebSocketServer {
 			System.out.println(arg1);
 			System.out.println(arg0.hashCode());
 			JsonCommObjectSerializer js = new JsonCommObjectSerializer();
-			Command cmd = (Command)js.deserialize(arg1);
+			Command cmd = (Command) js.deserialize(arg1);
 			if (cmd != null) {
 				cmd.setSocket(arg0);
-				for (Response res : cmd.execute()) {
-					String outco = js.serialize(res);
-					arg0.send(outco);
+				cmd.execute();
 
-				}
-			} else 
-			{
+			} else {
 				System.out.println("Unknown command received\r\n" + arg1);
 			}
-		} catch (Exception ex) {
+		} catch (
+
+		Exception ex) {
 			System.err.println("onMessage:" + ex);
 		}
 	}
@@ -105,7 +103,7 @@ public class Server extends WebSocketServer {
 		lg.setPassword("pass");
 		lg.setUserId(2);
 		lg.setUserName("kyriakos");
-		//lg.setConnection(null);
+		// lg.setConnection(null);
 
 		try {
 			JsonCommObjectSerializer ser = new JsonCommObjectSerializer();
