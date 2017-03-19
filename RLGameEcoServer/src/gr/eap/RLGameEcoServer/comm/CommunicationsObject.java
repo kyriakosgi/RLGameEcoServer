@@ -2,10 +2,13 @@ package gr.eap.RLGameEcoServer.comm;
 
 import java.util.UUID;
 
+import org.java_websocket.WebSocket;
+
 public abstract class CommunicationsObject {
 	private int userId;
 	private UUID gameId;
 	private String type;
+	private WebSocket socket;
 	
 	public int getUserId() {
 		return userId;
@@ -25,6 +28,15 @@ public abstract class CommunicationsObject {
 	//The type property should only be set by concrete subclasses
 	protected void setType(String type) {
 		this.type = type;
+	}
+
+	public WebSocket getSocket() {
+		return socket;
+	}
+
+
+	public void setSocket(WebSocket socket) {
+		this.socket = socket;
 	}
 	
 }
