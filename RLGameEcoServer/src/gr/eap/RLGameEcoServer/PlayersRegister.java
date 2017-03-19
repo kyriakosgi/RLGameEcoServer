@@ -3,13 +3,15 @@ package gr.eap.RLGameEcoServer;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.java_websocket.WebSocket;
+
 
 public class PlayersRegister {
 	private static PlayersRegister __me;
-	private Map<Integer, Player> players;
+	private Map<WebSocket, Player> players;
 
 	private PlayersRegister() {
-		players = new HashMap<Integer, Player>();
+		players = new HashMap<WebSocket, Player>();
 	}
 
 	public static PlayersRegister getInstance() {
@@ -18,20 +20,22 @@ public class PlayersRegister {
 		return __me;
 	}
 
-	public Map<Integer, Player> getPlayers() {
+	public Map<WebSocket, Player> getPlayers() {
 		return players;
 	}
 
-	public Player registerPlayer(String userName, String password, int socketHash) {
+	public Player registerPlayer(String userName, String password, WebSocket socket) {
 		Player newPlayer = Player.getPlayer(userName, password);
 
 		if (newPlayer != null) {
 			//Add player to the connected players register along with his websocket hashcode
 			//If a player was disconnected we add her with the new socketHash, so that she can continue playing
-			if (players.containsKey(socketHash)){
-				players.remove(socketHash);
+			if (players.containsValue(newPlayer)){
+				//TODO Send disconnect message
+				socket.close();
+				players.remove(socket);
 			}
-			players.put(socketHash, newPlayer);
+			players.put(socket, newPlayer);
 		}
 
 		return newPlayer;
