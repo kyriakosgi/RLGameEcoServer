@@ -1,7 +1,5 @@
 package gr.eap.RLGameEcoServer.comm;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import gr.eap.RLGameEcoServer.Player;
 import gr.eap.RLGameEcoServer.PlayersRegister;
@@ -31,25 +29,23 @@ public class LoginCommand extends Command {
 	}
 	
 	@Override
-	public List<Response> execute() {
+	public void execute() {
 		Player newPlayer = PlayersRegister.getInstance().registerPlayer(userName, password, getSocket());
 
-		ArrayList<Response> returnValue = new ArrayList<Response>();
 		Response r1 = new Response();
 		r1.setCommandID(super.getId());
-
+		r1.setSocket(getSocket());
 		if (newPlayer != null) {
 			r1.setUserId(newPlayer.getId());
 			r1.setMessage("Login successfull");
-			r1.setConnectionState("Logged On");
+			r1.setConnectionState("Logged In");
 		}
 		else
 		{
 			r1.setMessage("Login failed");
 			r1.setConnectionState("Connected");
 		}
-		returnValue.add(r1);
-		return returnValue;
+		r1.send();
 	}
 
 }
