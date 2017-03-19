@@ -6,7 +6,7 @@ import java.util.List;
 import gr.eap.RLGameEcoServer.Player;
 import gr.eap.RLGameEcoServer.PlayersRegister;
 
-public class LogonCommand extends Command {
+public class LoginCommand extends Command {
 	private String userName;
 	private String password;
 
@@ -26,7 +26,7 @@ public class LogonCommand extends Command {
 		this.password = password;
 	}
 
-	public LogonCommand(){
+	public LoginCommand(){
 		this.setType("gr.eap.RLGameEcoServer.comm.LogonCommand");
 	}
 	

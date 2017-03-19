@@ -18,7 +18,7 @@ import org.java_websocket.server.WebSocketServer;
 
 import gr.eap.RLGameEcoServer.comm.Command;
 import gr.eap.RLGameEcoServer.comm.JsonCommObjectSerializer;
-import gr.eap.RLGameEcoServer.comm.LogonCommand;
+import gr.eap.RLGameEcoServer.comm.LoginCommand;
 import gr.eap.RLGameEcoServer.comm.Response;
 import gr.eap.RLGameEcoServer.db.MySQLHelper;
 
@@ -99,7 +99,7 @@ public class Server extends WebSocketServer {
 			return;
 		}
 
-		LogonCommand lg = new LogonCommand();
+		LoginCommand lg = new LoginCommand();
 		lg.setGameId(new UUID(0, 1));
 		lg.setId(1);
 		lg.setPassword("pass");
