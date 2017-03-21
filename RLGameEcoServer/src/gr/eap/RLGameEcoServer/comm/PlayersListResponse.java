@@ -6,7 +6,7 @@ import gr.eap.RLGameEcoServer.Player;
 import gr.eap.RLGameEcoServer.PlayersRegister;
 
 public class PlayersListResponse extends Response {
-	private ArrayList<Player> playersList = PlayersRegister.getInstance().getPlayersList();
+	private ArrayList<Player> playersList = PlayersRegister.getInstance().getPlayers();
 
 	public PlayersListResponse() {
 		this.setType("gr.eap.RLGameEcoServer.comm.PlayersListResponse");
