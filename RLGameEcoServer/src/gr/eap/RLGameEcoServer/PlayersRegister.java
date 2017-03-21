@@ -1,8 +1,6 @@
 package gr.eap.RLGameEcoServer;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.java_websocket.WebSocket;
 
@@ -11,10 +9,10 @@ import gr.eap.RLGameEcoServer.comm.PlayersListResponse;
 
 public class PlayersRegister {
 	private static PlayersRegister __me;
-	private Map<Player, WebSocket> players;
+	private ArrayList<Player> players;
 
 	private PlayersRegister() {
-		players = new HashMap<Player, WebSocket>();
+		players = new ArrayList<Player>();
 	}
 
 	public static PlayersRegister getInstance() {
@@ -23,13 +21,13 @@ public class PlayersRegister {
 		return __me;
 	}
 
-	public Map<Player, WebSocket> getPlayers() {
+	public ArrayList<Player> getPlayers() {
 		return players;
 	}
 	
-	public ArrayList<Player> getPlayersList(){
-		return new ArrayList<Player>(players.keySet());
-	}
+//	public ArrayList<Player> getPlayersList(){
+//		return new ArrayList<Player>(players.keySet());
+//	}
 
 	public Player registerPlayer(String userName, String password, WebSocket socket) {
 		Player newPlayer = Player.getPlayer(userName, password);
@@ -37,12 +35,16 @@ public class PlayersRegister {
 		if (newPlayer != null) {
 			//Add player to the connected players register along with his websocket hashcode
 			//If a player was disconnected we add her with the new socketHash, so that she can continue playing
-			if (players.containsKey(newPlayer)){
+			newPlayer.setConnection(socket);
+			if (players.contains(newPlayer)){
 				//TODO Send disconnect message
-				players.get(newPlayer).close();
-				//players.remove(newPlayer);
+				int i = players.indexOf(newPlayer);
+				players.get(i).getConnection().close();
+				players.get(i).setConnection(socket);
 			}
-			players.put(newPlayer, socket);
+			else{
+				players.add(newPlayer);
+			}
 			sendPlayersList();
 		}
 
@@ -51,8 +53,8 @@ public class PlayersRegister {
 	
 	private void sendPlayersList(){
 		PlayersListResponse r = new PlayersListResponse();
-		players.forEach((k,v) -> {
-			r.setSocket(v);
+		players.forEach(p-> {
+			r.setSocket(p.getConnection());
 			r.send();
 		});
 	}
