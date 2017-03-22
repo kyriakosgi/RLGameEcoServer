@@ -2,13 +2,14 @@ package gr.eap.RLGameEcoServer.comm;
 
 import java.util.ArrayList;
 
+import gr.eap.RLGameEcoServer.ConnectionState;
 import gr.eap.RLGameEcoServer.GameState;
 
 public abstract class Response extends CommunicationsObject {
 	private int commandID;
 	private ArrayList<String> availableCommands;
 	private GameState gameState;
-	private String connectionState;
+	private ConnectionState connectionState;
 
 	public int getCommandID() {
 		return commandID;
@@ -35,11 +36,11 @@ public abstract class Response extends CommunicationsObject {
 	}
 
 
-	public String getConnectionState() {
+	public ConnectionState getConnectionState() {
 		return connectionState;
 	}
 
-	public void setConnectionState(String connectionState) {
+	public void setConnectionState(ConnectionState connectionState) {
 		this.connectionState = connectionState;
 	}
 }
