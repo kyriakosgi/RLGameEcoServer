@@ -1,6 +1,7 @@
 package gr.eap.RLGameEcoServer.comm;
 
 
+import gr.eap.RLGameEcoServer.ConnectionState;
 import gr.eap.RLGameEcoServer.Player;
 import gr.eap.RLGameEcoServer.PlayersRegister;
 
@@ -38,12 +39,12 @@ public class LoginCommand extends Command {
 		if (newPlayer != null) {
 			r1.setUserId(newPlayer.getId());
 			r1.setMessage("Login successfull");
-			r1.setConnectionState("Logged In");
+			r1.setConnectionState(ConnectionState.LOGGED_IN);
 		}
 		else
 		{
 			r1.setMessage("Login failed");
-			r1.setConnectionState("Connected");
+			r1.setConnectionState(ConnectionState.CONNECTED);
 		}
 		r1.send();
 	}
