@@ -13,6 +13,7 @@ public abstract class Player extends Participant {
 	private String userName;
 	private String password;
 	private WebSocket connection;
+	private ConnectionState connectionState;
 	private int score;
 
 	public String getUserName() {
@@ -37,6 +38,14 @@ public abstract class Player extends Participant {
 
 	public void setConnection(WebSocket connection) {
 		this.connection = connection;
+	}
+
+	public ConnectionState getConnectionState() {
+		return connectionState;
+	}
+
+	public void setConnectionState(ConnectionState connectionState) {
+		this.connectionState = connectionState;
 	}
 
 	public int getScore() {
