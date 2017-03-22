@@ -13,6 +13,7 @@ public abstract class Player extends Participant {
 	private String userName;
 	private String password;
 	private WebSocket connection;
+	private int score;
 
 	public String getUserName() {
 		return userName;
@@ -38,13 +39,21 @@ public abstract class Player extends Participant {
 		this.connection = connection;
 	}
 
+	public int getScore() {
+		return score;
+	}
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
 	public static Player getPlayer(int id) {
-		//Gets the player 
+		// Gets the player
 		ArrayList<parameterValue<?>> params = new ArrayList<MySQLHelper.parameterValue<?>>();
 		params.add(new MySQLHelper.parameterValue<Integer>(id));
 		return getPlayer("players.ID = ?", params);
 	}
-	
+
 	public static Player getPlayer(String userName, String password) {
 		ArrayList<parameterValue<?>> params = new ArrayList<MySQLHelper.parameterValue<?>>();
 		params.add(new MySQLHelper.parameterValue<String>(userName));
@@ -58,10 +67,10 @@ public abstract class Player extends Participant {
 		try {
 			String sqlString = "SELECT" + "	players.ID player_ID," + "	players.Name player_Name,"
 					+ "	players.Username player_Username," + "	players.Password player_Password,"
-					+ "	players.Is_Human player_Is_Human," + "	avatar.ID avatar_ID," + "	avatar.Name avatar_name,"
-					+ "	avatar.Username avatar_Username," + "	avatar.Password avatar_Password" + " FROM"
-					+ "	players left outer JOIN" + "	players avatar ON" + "		players.ID = avatar.Owner_Player_ID"
-					+ " WHERE " + sqlCondition;
+					+ "	players.Is_Human player_Is_Human," + "players.Score player_Score," + "	avatar.ID avatar_ID,"
+					+ "	avatar.Name avatar_name," + "	avatar.Username avatar_Username,"
+					+ "	avatar.Password avatar_Password" + " FROM" + "	players left outer JOIN"
+					+ "	players avatar ON" + "		players.ID = avatar.Owner_Player_ID" + " WHERE " + sqlCondition;
 			ResultSet rs = MySQLHelper.getInstance().query(sqlString, params);
 			if (rs != null && rs.next()) {
 				boolean isHuman = rs.getBoolean("player_Is_Human");
@@ -73,31 +82,34 @@ public abstract class Player extends Participant {
 				newPlayer.setName(rs.getString("player_Name"));
 				newPlayer.setUserName(rs.getString("player_Username"));
 				newPlayer.setPassword(rs.getString("player_Password"));
+				newPlayer.setScore(rs.getInt("player_Score"));
 				if (isHuman && rs.getObject("avatar_ID") != null) {
 					Avatar newPlayerAvatar = new Avatar();
 					newPlayerAvatar.setId(rs.getInt("avatar_ID"));
 					newPlayerAvatar.setName(rs.getString("avatar_Name"));
 					newPlayerAvatar.setUserName(rs.getString("avatar_Username"));
 					newPlayerAvatar.setPassword(rs.getString("avatar_Password"));
-					((Member)newPlayer).setAvatar(newPlayerAvatar);
+					((Member) newPlayer).setAvatar(newPlayerAvatar);
 				}
-				
+
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 		}
 		return newPlayer;
 	}
-	
-	//The player's unique id is enough. It will be used for the Players Register
+
+	// The player's unique id is enough. It will be used for the Players
+	// Register
 	@Override
-	public int hashCode(){
+	public int hashCode() {
 		return super.getId();
 	}
-	
-	//Equal IDs should be enough for equal objects
+
+	// Equal IDs should be enough for equal objects
 	@Override
-	public boolean equals(Object object){
-		return (((Player)object).getId() == super.getId());
+	public boolean equals(Object object) {
+		return (((Player) object).getId() == super.getId());
 	}
+
 }
