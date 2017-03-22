@@ -77,7 +77,7 @@ public class Server extends WebSocketServer {
 		MessageResponse r = new MessageResponse();
 		r.setSocket(arg0);
 		r.setMessage("Connection Successful");
-		r.setConnectionState("Connected");
+		r.setConnectionState(ConnectionState.CONNECTED);
 		r.send();
 	}
 
