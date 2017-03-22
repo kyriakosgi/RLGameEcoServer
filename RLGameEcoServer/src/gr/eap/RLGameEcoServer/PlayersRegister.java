@@ -36,11 +36,13 @@ public class PlayersRegister {
 			//Add player to the connected players register along with his websocket hashcode
 			//If a player was disconnected we add her with the new socketHash, so that she can continue playing
 			newPlayer.setConnection(socket);
+			newPlayer.setConnectionState(ConnectionState.LOGGED_IN);
 			if (players.contains(newPlayer)){
 				//TODO Send disconnect message
 				int i = players.indexOf(newPlayer);
 				players.get(i).getConnection().close();
 				players.get(i).setConnection(socket);
+				//if logged in player is already registered, we leave his connection state intact so that he can continue playing a game that he was participating
 			}
 			else{
 				players.add(newPlayer);
