@@ -1,13 +1,13 @@
 package gr.eap.RLGameEcoServer.comm;
 
 public class MessageResponse extends Response {
-	private String message;
+	private Message message;
 
-	public String getMessage() {
+	public Message getMessage() {
 		return message;
 	}
 
-	public void setMessage(String message) {
+	public void setMessage(Message message) {
 		this.message = message;
 	}
 
