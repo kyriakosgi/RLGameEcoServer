@@ -1,14 +1,12 @@
 package gr.eap.RLGameEcoServer.comm;
 
-import java.util.ArrayList;
 
 import gr.eap.RLGameEcoServer.ConnectionState;
-import gr.eap.RLGameEcoServer.GameState;
 
 public abstract class Response extends CommunicationsObject {
 	private int commandID;
-	private ArrayList<String> availableCommands;
-	private GameState gameState;
+//	private ArrayList<String> availableCommands;
+//	private GameState gameState;
 	private ConnectionState connectionState;
 
 	public int getCommandID() {
@@ -19,21 +17,24 @@ public abstract class Response extends CommunicationsObject {
 		this.commandID = commandID;
 	}
 
-	public ArrayList<String> getAvailableCommands() {
-		return availableCommands;
-	}
+// getAvailableCommands() - not yet implemented
+//	public ArrayList<String> getAvailableCommands() {
+//		return availableCommands;
+//	}
+//
+//	public void setAvailableCommands(ArrayList<String> availableCommands) {
+//		this.availableCommands = availableCommands;
+//	}
 
-	public void setAvailableCommands(ArrayList<String> availableCommands) {
-		this.availableCommands = availableCommands;
-	}
 
-	public GameState getGameState() {
-		return gameState;
-	}
-
-	public void setGameState(GameState gameState) {
-		this.gameState = gameState;
-	}
+//TODO Create a GameStateResponse class
+//	public GameState getGameState() {
+//		return gameState;
+//	}
+//
+//	public void setGameState(GameState gameState) {
+//		this.gameState = gameState;
+//	}
 
 
 	public ConnectionState getConnectionState() {
