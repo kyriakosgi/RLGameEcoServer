@@ -11,12 +11,13 @@ import gr.eap.RLGameEcoServer.comm.PlayersListResponse;
 
 public class PlayersRegister {
 	private static PlayersRegister __me;
-	private Map<Integer, Player> players;
+	private Map<Integer, Player> players; //We will be using a hashmap for the players whith their id as key
 
 	private PlayersRegister() {
 		players = new HashMap<Integer, Player>();
 	}
 
+	//Singleton design pattern
 	public static PlayersRegister getInstance() {
 		if (__me == null)
 			__me = new PlayersRegister();
@@ -29,6 +30,12 @@ public class PlayersRegister {
 	
 	public Player getPlayerById(int id){
 		return players.get(id);
+	}
+	
+	public ArrayList<Player> getPlayersById(ArrayList<Integer> ids){
+		ArrayList<Player> returnList = new ArrayList<Player>();
+		players.forEach((k,v) -> {if (ids.contains(k)) returnList.add(v);});
+		return returnList;
 	}
 	
 	public ArrayList<Player> getPlayersList(){
