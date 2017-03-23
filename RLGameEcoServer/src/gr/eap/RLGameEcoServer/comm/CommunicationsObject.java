@@ -1,12 +1,10 @@
 package gr.eap.RLGameEcoServer.comm;
 
-import java.util.UUID;
-
 import org.java_websocket.WebSocket;
 
 public abstract class CommunicationsObject {
 	private int userId;
-	private UUID gameId;
+//	private UUID gameId;
 	private String type;
 	private transient WebSocket socket;
 	
@@ -16,12 +14,12 @@ public abstract class CommunicationsObject {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	public UUID getGameId() {
-		return gameId;
-	}
-	public void setGameId(UUID gameId) {
-		this.gameId = gameId;
-	}
+//	public UUID getGameId() {
+//		return gameId;
+//	}
+//	public void setGameId(UUID gameId) {
+//		this.gameId = gameId;
+//	}
 	public String getType() {
 		return type;
 	}

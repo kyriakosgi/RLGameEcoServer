@@ -8,7 +8,6 @@ import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 import java.util.Collections;
 import java.util.Properties;
-import java.util.UUID;
 
 import org.java_websocket.WebSocket;
 import org.java_websocket.drafts.Draft;
@@ -99,7 +98,6 @@ public class Server extends WebSocketServer {
 		}
 
 		LoginCommand lg = new LoginCommand();
-		lg.setGameId(new UUID(0, 1));
 		lg.setId(1);
 		lg.setPassword("pass");
 		lg.setUserId(2);
