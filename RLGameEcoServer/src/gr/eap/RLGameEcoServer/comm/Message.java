@@ -3,8 +3,8 @@ package gr.eap.RLGameEcoServer.comm;
 public class Message {
 	public enum Type{SYSTEM_INFO, SYSTEM_WARNING, SYSTEM_ERROR, USER_BROADCAST, USER_PERSONAL, USER_GAME, USER_TEAM}
 	
-	public String text;
-	public Type type;
+	private String text;
+	private Type type;
 	public String getText() {
 		return text;
 	}
