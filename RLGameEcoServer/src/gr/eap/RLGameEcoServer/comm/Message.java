@@ -18,5 +18,12 @@ public class Message {
 		this.type = type;
 	}
 	
+	public Message(){
+		
+	}
 	
+	public Message(String text, Type type){
+		this.text = text;
+		this.type = type;
+	}
 }
