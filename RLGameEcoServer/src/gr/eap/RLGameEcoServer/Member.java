@@ -1,7 +1,7 @@
 package gr.eap.RLGameEcoServer;
 
 public class Member extends Player {
-	private Avatar avatar;
+	private transient Avatar avatar;
 
 	public Avatar getAvatar() {
 		return avatar;
