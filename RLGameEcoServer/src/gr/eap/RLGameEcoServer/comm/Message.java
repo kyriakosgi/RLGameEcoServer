@@ -1,7 +1,7 @@
 package gr.eap.RLGameEcoServer.comm;
 
 public class Message {
-	public enum Type{SYSTEM_INFO, SYSTEM_WARNING, SYSTEM_ERROR, USER_BROADCAST, USER_PERSONAL, USER_GAME, USER_TEAM}
+	public enum Type{SYSTEM_INFO, SYSTEM_WARNING, SYSTEM_ALERT, USER_BROADCAST, USER_PERSONAL, USER_GAME, USER_TEAM}
 	
 	private String text;
 	private Type type;
