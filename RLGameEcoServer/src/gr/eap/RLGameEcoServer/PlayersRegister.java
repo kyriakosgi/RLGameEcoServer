@@ -34,7 +34,9 @@ public class PlayersRegister {
 	
 	public ArrayList<Player> getPlayersById(ArrayList<Integer> ids){
 		ArrayList<Player> returnList = new ArrayList<Player>();
-		players.forEach((k,v) -> {if (ids.contains(k)) returnList.add(v);});
+		// when ids is empty we should return all connected players
+		Boolean returnAll = ids.isEmpty();
+		players.forEach((k,v) -> {if (returnAll || ids.contains(k)) returnList.add(v);});
 		return returnList;
 	}
 	
