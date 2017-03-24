@@ -44,7 +44,7 @@ public class LoginCommand extends Command {
 		}
 		else
 		{
-			r1.setMessage(new Message("Login failed", Type.SYSTEM_ERROR));
+			r1.setMessage(new Message("Login failed", Type.SYSTEM_ALERT));
 			r1.setConnectionState(ConnectionState.CONNECTED);
 		}
 		r1.send();
