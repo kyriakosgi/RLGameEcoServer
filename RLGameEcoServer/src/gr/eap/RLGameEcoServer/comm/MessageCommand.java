@@ -2,6 +2,7 @@ package gr.eap.RLGameEcoServer.comm;
 
 import java.util.ArrayList;
 
+import gr.eap.RLGameEcoServer.Message;
 import gr.eap.RLGameEcoServer.Player;
 import gr.eap.RLGameEcoServer.PlayersRegister;
 

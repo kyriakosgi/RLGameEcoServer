@@ -1,5 +1,7 @@
 package gr.eap.RLGameEcoServer.comm;
 
+import gr.eap.RLGameEcoServer.Message;
+
 public class MessageResponse extends Response {
 	private Message message;
 

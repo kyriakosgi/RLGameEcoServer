@@ -1,4 +1,4 @@
-package gr.eap.RLGameEcoServer.comm;
+package gr.eap.RLGameEcoServer;
 
 public class Message {
 	public enum Type{SYSTEM_INFO, SYSTEM_WARNING, SYSTEM_ALERT, USER_BROADCAST, USER_PERSONAL, USER_GAME, USER_TEAM}

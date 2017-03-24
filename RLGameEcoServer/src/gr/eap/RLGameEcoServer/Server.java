@@ -15,11 +15,10 @@ import org.java_websocket.drafts.Draft_17;
 import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
+import gr.eap.RLGameEcoServer.Message.Type;
 import gr.eap.RLGameEcoServer.comm.Command;
 import gr.eap.RLGameEcoServer.comm.JsonCommObjectSerializer;
 import gr.eap.RLGameEcoServer.comm.LoginCommand;
-import gr.eap.RLGameEcoServer.comm.Message;
-import gr.eap.RLGameEcoServer.comm.Message.Type;
 import gr.eap.RLGameEcoServer.comm.MessageResponse;
 import gr.eap.RLGameEcoServer.db.MySQLHelper;
 
