@@ -3,19 +3,20 @@ package gr.eap.RLGameEcoServer.comm;
 import java.util.ArrayList;
 
 import gr.eap.RLGameEcoServer.Message;
+import gr.eap.RLGameEcoServer.Message.Type;
 import gr.eap.RLGameEcoServer.Player;
 import gr.eap.RLGameEcoServer.PlayersRegister;
 
 public class MessageCommand extends Command {
-	private Message message;
+	private String messageText;
 	private ArrayList<Integer> recipientsIds = new ArrayList<Integer>();
 
-	public Message getMessage() {
-		return message;
+	public String getMessageText() {
+		return messageText;
 	}
 
-	public void setMessage(Message message) {
-		this.message = message;
+	public void setMessageText(String messageText) {
+		this.messageText = messageText;
 	}
 
 	public ArrayList<Integer> getRecipientsIds() {
@@ -28,20 +29,29 @@ public class MessageCommand extends Command {
 
 	@Override
 	public void execute() {
-		// We will send a MessageResponse to every Player that is a recipient
-		if (!(recipientsIds.isEmpty() || message == null || message.getText() == null || message.getText().isEmpty())) {
+		// We will send a MessageResponse to every Player that is a recipient and a copy to the sender, or to everyone if recipientIds is empty
+		if (!(messageText == null ||  messageText.isEmpty())) {
 
-			MessageResponse response = new MessageResponse();
-			response.setCommandID(getId());
-			response.setMessage(message);
+			Message message = new Message();
+			Message.Type messageType;
+			if (recipientsIds.isEmpty())
+				messageType = Type.USER_BROADCAST;
+			else
+				messageType = Type.USER_PERSONAL;
+			
+			message.setSender(PlayersRegister.getInstance().getPlayerById(getUserId()));
+			message.setText(messageText);
+			message.setType(messageType);
+			
 			ArrayList<Player> recipients = PlayersRegister.getInstance().getPlayersById(recipientsIds);
+			if (!recipientsIds.isEmpty()) recipients.add(message.getSender()); //echo the message to the sender as well
 
 			for (Player p : recipients) {
-				response.setConnectionState(p.getConnectionState());
-				response.setSocket(p.getConnection());
-				response.setUserId(p.getId());
-				response.send();
+				message.setRecipient(p);
+				message.send();
 			}
+			
+			
 		}
 
 	}
