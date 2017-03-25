@@ -19,7 +19,6 @@ import gr.eap.RLGameEcoServer.Message.Type;
 import gr.eap.RLGameEcoServer.comm.Command;
 import gr.eap.RLGameEcoServer.comm.JsonCommObjectSerializer;
 import gr.eap.RLGameEcoServer.comm.LoginCommand;
-import gr.eap.RLGameEcoServer.comm.MessageResponse;
 import gr.eap.RLGameEcoServer.db.MySQLHelper;
 
 public class Server extends WebSocketServer {
@@ -74,11 +73,11 @@ public class Server extends WebSocketServer {
 	public void onOpen(WebSocket arg0, ClientHandshake arg1) {
 		System.out.println("open");
 		System.out.println(arg0.hashCode());
-		MessageResponse r = new MessageResponse();
-		r.setSocket(arg0);
-		r.setMessage(new Message("Connection Successful", Type.SYSTEM_INFO));
-		r.setConnectionState(ConnectionState.CONNECTED);
-		r.send();
+		Message message = new Message();
+		message.setSocket(arg0);
+		message.setText("Connection Successful");
+		message.setType(Type.SYSTEM_INFO);
+		message.send();
 	}
 
 	public static void main(String[] args) {
