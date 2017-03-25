@@ -61,7 +61,7 @@ public class Message {
 
 	public void send(int commandId) {
 		MessageResponse response = new MessageResponse();
-		response.setCommandID(commandId);
+		if (commandId>0) response.setCommandID(commandId);
 		response.setMessage(this);
 		response.setConnectionState(recipient.getConnectionState());
 		response.setSocket(recipient.getConnection());
