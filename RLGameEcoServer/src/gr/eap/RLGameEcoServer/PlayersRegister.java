@@ -32,6 +32,19 @@ public class PlayersRegister {
 		return players.get(id);
 	}
 	
+	public Player getPlayerBySocket(WebSocket socket){
+		Player returnPlayer = null;
+		if (socket != null){
+			for (Map.Entry<Integer, Player> entry : players.entrySet()){
+				if (entry.getValue().getConnection().equals(socket)){
+					returnPlayer = entry.getValue();
+					break;
+				}
+			}
+		}
+		return returnPlayer;
+	}
+	
 	public ArrayList<Player> getPlayersById(ArrayList<Integer> ids){
 		ArrayList<Player> returnList = new ArrayList<Player>();
 		// when ids is empty we should return all connected players
@@ -67,6 +80,11 @@ public class PlayersRegister {
 		}
 
 		return newPlayer;
+	}
+	
+	public void deregisterPlayer(WebSocket socket){
+		Player p = getPlayerBySocket(socket);
+		if (p != null) players.remove(p.getId()); 
 	}
 	
 	private void sendPlayersList(){
