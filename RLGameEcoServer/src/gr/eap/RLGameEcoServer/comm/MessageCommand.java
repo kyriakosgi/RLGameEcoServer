@@ -24,7 +24,14 @@ public class MessageCommand extends Command {
 	}
 
 	public void setRecipientsIds(ArrayList<Integer> recipientsIds) {
-		this.recipientsIds = recipientsIds;
+		if (recipientsIds == null)
+		{
+			this.recipientsIds = new ArrayList<Integer>();
+		}
+		else
+		{
+			this.recipientsIds = recipientsIds;
+		}
 	}
 
 	@Override
