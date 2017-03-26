@@ -33,8 +33,9 @@ public class Server extends WebSocketServer {
 
 	@Override
 	public void onClose(WebSocket arg0, int arg1, String arg2, boolean arg3) {
-		// TODO Auto-generated method stub
 		System.out.println("closed " + arg2);
+		// When a connection closes we have to remove the associated player from register
+		PlayersRegister.getInstance().deregisterPlayer(arg0);
 
 	}
 
