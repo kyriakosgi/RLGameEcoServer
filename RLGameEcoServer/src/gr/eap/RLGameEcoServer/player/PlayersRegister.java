@@ -8,6 +8,7 @@ import org.java_websocket.WebSocket;
 
 import gr.eap.RLGameEcoServer.comm.ConnectionState;
 import gr.eap.RLGameEcoServer.comm.PlayersListResponse;
+import gr.eap.RLGameEcoServer.game.GamesRegister;
 
 
 public class PlayersRegister {
@@ -78,6 +79,7 @@ public class PlayersRegister {
 				players.put((Integer)newPlayer.getId(), newPlayer);
 			}
 			sendPlayersList();
+			GamesRegister.getInstance().sendGamesList();
 		}
 
 		return newPlayer;
@@ -87,6 +89,7 @@ public class PlayersRegister {
 		Player p = getPlayerBySocket(socket);
 		if (p != null) players.remove(p.getId()); 
 		sendPlayersList();
+		//TODO if player is in a game, change game status to INTERRUPTED and send games list
 	}
 	
 	private void sendPlayersList(){
