@@ -10,6 +10,8 @@ public class CommObjectClassCreator {
 			return Response.class;
 		else if (commObjectType.equals("gr.eap.RLGameEcoServer.comm.PlayersListResponse"))
 			return PlayersListResponse.class;
+		else if (commObjectType.equals("gr.eap.RLGameEcoServer.comm.GamesListResponse"))
+			return GamesListResponse.class;
 		else
 			return null;
 	}
