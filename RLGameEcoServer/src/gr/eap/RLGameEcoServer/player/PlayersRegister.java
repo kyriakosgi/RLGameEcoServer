@@ -6,7 +6,7 @@ import java.util.Map;
 
 import org.java_websocket.WebSocket;
 
-import gr.eap.RLGameEcoServer.ConnectionState;
+import gr.eap.RLGameEcoServer.comm.ConnectionState;
 import gr.eap.RLGameEcoServer.comm.PlayersListResponse;
 
 

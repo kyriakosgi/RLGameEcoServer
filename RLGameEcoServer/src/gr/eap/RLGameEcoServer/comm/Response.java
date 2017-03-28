@@ -1,8 +1,5 @@
 package gr.eap.RLGameEcoServer.comm;
 
-
-import gr.eap.RLGameEcoServer.ConnectionState;
-
 public abstract class Response extends CommunicationsObject {
 	private int commandID;
 //	private ArrayList<String> availableCommands;

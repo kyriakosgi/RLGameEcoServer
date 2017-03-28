@@ -2,6 +2,7 @@ package gr.eap.RLGameEcoServer;
 
 import org.java_websocket.WebSocket;
 
+import gr.eap.RLGameEcoServer.comm.ConnectionState;
 import gr.eap.RLGameEcoServer.comm.MessageResponse;
 import gr.eap.RLGameEcoServer.player.Player;
 
