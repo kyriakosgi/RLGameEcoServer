@@ -1,5 +1,6 @@
 package gr.eap.RLGameEcoServer.game;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -35,6 +36,10 @@ public class GamesRegister {
 		newGame.addPlayer1(p1);
 		newGame.getState().setStatus(GameStatus.WAITING_SECOND_PLAYER);
 		games.put(newGame.getUid(), newGame);
+	}
+	
+	public ArrayList<Game> getGamesList(){
+		return new ArrayList<Game>(games.values());
 	}
 	
 }
