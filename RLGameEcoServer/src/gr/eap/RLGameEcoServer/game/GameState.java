@@ -7,7 +7,7 @@ public class GameState {
 	
 	private Participant nextToPlay;
 
-	private int status;
+	private Status status;
 	
 	public int[] getBoard() {
 		return board;
@@ -21,10 +21,10 @@ public class GameState {
 	public void setNextToPlay(Participant nextToPlay) {
 		this.nextToPlay = nextToPlay;
 	}
-	public int getStatus() {
+	public Status getStatus() {
 		return status;
 	}
-	public void setStatus(int status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 	
