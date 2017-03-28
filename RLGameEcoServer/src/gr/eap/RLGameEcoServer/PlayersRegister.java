@@ -85,6 +85,7 @@ public class PlayersRegister {
 	public void deregisterPlayer(WebSocket socket){
 		Player p = getPlayerBySocket(socket);
 		if (p != null) players.remove(p.getId()); 
+		sendPlayersList();
 	}
 	
 	private void sendPlayersList(){
