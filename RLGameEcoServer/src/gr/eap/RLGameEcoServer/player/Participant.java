@@ -1,47 +1,91 @@
 package gr.eap.RLGameEcoServer.player;
 
-public abstract class Participant {
-//TODO we may need to add a reference to the Game class
+import java.util.ArrayList;
+import java.util.List;
+
+public class Participant {
+	// TODO we may need to add a reference to the Game class
 	public enum Role {
-		NONE,
-		PLAYER1,
-		PLAYER2,
-		OBSERVER
+		NONE, PLAYER1, PLAYER2, OBSERVER
 	}
-	private int id;
-	private String name;
+
+	private String name = "";
 	private Role role;
-	public int getId() {
-		return id;
+	private ArrayList<Player> players;
+
+	public Participant() {
 	}
-	public void setId(int id) {
-		this.id = id;
+
+	public Participant(Player player) {
+		addPlayer(player);
 	}
+
+	public Participant(List<Player> players) {
+		if (players.size() > 0) {
+			players.addAll(players);
+			for (Player p : players) {
+				name += ", " + p.getName();
+			}
+			name = name.substring(2);
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public ArrayList<Player> getPlayers() {
+		return (ArrayList<Player>) (players.clone());
+	}
+
+	public void addPlayer(Player player) {
+		if (!players.contains(player))
+			players.add(player);
+		if (name.equals("")) {
+			name += player.getName();
+		} else {
+			name += ", " + player.getName();
+		}
+	}
+
+	public void removePlayer(Player player) {
+		players.remove(player);
+		if (name.contains(player.getName() + ", ")){
+			name = name.replace(player.getName() + ", ", "");
+		}
+		else
+		{
+			name = name.replace(player.getName(), "");
+		}
+	}
+
+	//The name property is read-only. It is updated every time we add or remove players and not calculated on demand so that the class can be correctly serialized
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
-		this.name = name;
-	}
+
 	public Role getRole() {
 		return role;
 	}
+
 	public void setRole(Role role) {
 		this.role = role;
 	}
 
-	// The player's unique id is enough. It will be used for the Players
-	// Register
-	@Override
-	public int hashCode() {
-		return getId();
-	}
-
-	// Equal IDs should be enough for equal objects
 	@Override
 	public boolean equals(Object object) {
-		return (((Player) object).getId() == getId());
-	}
+		// Every player in the compared participant's players should exists in
+		// this participant's players and vice versa
+		ArrayList<Player> playersToCompare = ((Participant) object).getPlayers();
+		for (Player p : players) {
+			if (!playersToCompare.contains(p)) {
+				return false;
+			}
+		}
+		for (Player p : playersToCompare) {
+			if (!players.contains(p)) {
+				return false;
+			}
+		}
 
+		return true;
+	}
 
 }

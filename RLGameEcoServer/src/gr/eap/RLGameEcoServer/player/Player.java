@@ -10,13 +10,27 @@ import gr.eap.RLGameEcoServer.ConnectionState;
 import gr.eap.RLGameEcoServer.db.MySQLHelper;
 import gr.eap.RLGameEcoServer.db.MySQLHelper.parameterValue;
 
-public abstract class Player extends Participant {
+public abstract class Player {
 	private String userName;
 	private String password;
 	private transient WebSocket connection;
 	private ConnectionState connectionState;
 	private int score;
+	private int id;
+	private String name;
 
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public String getUserName() {
 		return userName;
 	}
@@ -109,5 +123,17 @@ public abstract class Player extends Participant {
 		return newPlayer;
 	}
 
+	// The player's unique id is enough. It will be used for the Players
+	// Register
+	@Override
+	public int hashCode() {
+		return getId();
+	}
+
+	// Equal IDs should be enough for equal objects
+	@Override
+	public boolean equals(Object object) {
+		return (((Player) object).getId() == getId());
+	}
 
 }
