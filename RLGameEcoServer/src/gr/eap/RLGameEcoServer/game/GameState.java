@@ -1,13 +1,13 @@
 package gr.eap.RLGameEcoServer.game;
 
-import gr.eap.RLGameEcoServer.Participant;
+import gr.eap.RLGameEcoServer.player.Participant;
 
 public class GameState {
 	private int[] board;
 	
 	private Participant nextToPlay;
 
-	private Status status;
+	private GameStatus status;
 	
 	public int[] getBoard() {
 		return board;
@@ -21,10 +21,10 @@ public class GameState {
 	public void setNextToPlay(Participant nextToPlay) {
 		this.nextToPlay = nextToPlay;
 	}
-	public Status getStatus() {
+	public GameStatus getStatus() {
 		return status;
 	}
-	public void setStatus(Status status) {
+	public void setStatus(GameStatus status) {
 		this.status = status;
 	}
 	
