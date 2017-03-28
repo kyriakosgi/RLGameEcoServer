@@ -1,8 +1,10 @@
-package gr.eap.RLGameEcoServer;
+package gr.eap.RLGameEcoServer.game;
 
 import java.time.Duration;
 import java.util.Date;
 import java.util.UUID;
+
+import gr.eap.RLGameEcoServer.Participant;
 
 public class Game {
 	private UUID uid;

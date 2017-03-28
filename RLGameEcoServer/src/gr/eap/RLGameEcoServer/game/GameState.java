@@ -1,4 +1,6 @@
-package gr.eap.RLGameEcoServer;
+package gr.eap.RLGameEcoServer.game;
+
+import gr.eap.RLGameEcoServer.Participant;
 
 public class GameState {
 	private int[] board;
