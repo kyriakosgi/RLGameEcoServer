@@ -1,4 +1,4 @@
-package gr.eap.RLGameEcoServer;
+package gr.eap.RLGameEcoServer.player;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import org.java_websocket.WebSocket;
 
+import gr.eap.RLGameEcoServer.ConnectionState;
 import gr.eap.RLGameEcoServer.db.MySQLHelper;
 import gr.eap.RLGameEcoServer.db.MySQLHelper.parameterValue;
 

@@ -1,4 +1,4 @@
-package gr.eap.RLGameEcoServer;
+package gr.eap.RLGameEcoServer.player;
 
 public abstract class Participant {
 //TODO we may need to add a reference to the Game class

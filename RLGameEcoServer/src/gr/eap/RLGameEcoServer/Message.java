@@ -3,6 +3,7 @@ package gr.eap.RLGameEcoServer;
 import org.java_websocket.WebSocket;
 
 import gr.eap.RLGameEcoServer.comm.MessageResponse;
+import gr.eap.RLGameEcoServer.player.Player;
 
 public class Message {
 	public enum Type {

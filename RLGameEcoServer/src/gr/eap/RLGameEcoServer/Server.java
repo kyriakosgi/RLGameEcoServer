@@ -20,6 +20,7 @@ import gr.eap.RLGameEcoServer.comm.Command;
 import gr.eap.RLGameEcoServer.comm.JsonCommObjectSerializer;
 import gr.eap.RLGameEcoServer.comm.LoginCommand;
 import gr.eap.RLGameEcoServer.db.MySQLHelper;
+import gr.eap.RLGameEcoServer.player.PlayersRegister;
 
 public class Server extends WebSocketServer {
 

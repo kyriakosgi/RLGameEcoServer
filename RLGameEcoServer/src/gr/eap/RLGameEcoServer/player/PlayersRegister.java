@@ -1,4 +1,4 @@
-package gr.eap.RLGameEcoServer;
+package gr.eap.RLGameEcoServer.player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.java_websocket.WebSocket;
 
+import gr.eap.RLGameEcoServer.ConnectionState;
 import gr.eap.RLGameEcoServer.comm.PlayersListResponse;
 
 

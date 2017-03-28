@@ -2,8 +2,8 @@
 <class-diagram version="1.1.14" icons="true" automaticImage="PNG" always-add-relationships="false" 
   generalizations="true" realizations="true" associations="true" dependencies="false" nesting-relationships="true" 
   router="FAN">  
-  <class id="1" language="java" name="gr.eap.RLGameEcoServer.Player" project="RLGameEcoServer" 
-    file="/RLGameEcoServer/src/gr/eap/RLGameEcoServer/Player.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="1" language="java" name="gr.eap.RLGameEcoServer.player.Player" project="RLGameEcoServer" 
+    file="/RLGameEcoServer/src/gr/eap/RLGameEcoServer/player/Player.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="973" y="719"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -11,8 +11,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="gr.eap.RLGameEcoServer.PlayersRegister" project="RLGameEcoServer" 
-    file="/RLGameEcoServer/src/gr/eap/RLGameEcoServer/PlayersRegister.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="2" language="java" name="gr.eap.RLGameEcoServer.player.PlayersRegister" project="RLGameEcoServer" 
+    file="/RLGameEcoServer/src/gr/eap/RLGameEcoServer/player/PlayersRegister.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1379" y="757"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -29,8 +29,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="4" language="java" name="gr.eap.RLGameEcoServer.Participant" project="RLGameEcoServer" 
-    file="/RLGameEcoServer/src/gr/eap/RLGameEcoServer/Participant.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="4" language="java" name="gr.eap.RLGameEcoServer.player.Participant" project="RLGameEcoServer" 
+    file="/RLGameEcoServer/src/gr/eap/RLGameEcoServer/player/Participant.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="651" y="769"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -47,8 +47,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="gr.eap.RLGameEcoServer.Avatar" project="RLGameEcoServer" 
-    file="/RLGameEcoServer/src/gr/eap/RLGameEcoServer/Avatar.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="6" language="java" name="gr.eap.RLGameEcoServer.player.Avatar" project="RLGameEcoServer" 
+    file="/RLGameEcoServer/src/gr/eap/RLGameEcoServer/player/Avatar.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1362" y="521"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -56,8 +56,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="gr.eap.RLGameEcoServer.Member" project="RLGameEcoServer" 
-    file="/RLGameEcoServer/src/gr/eap/RLGameEcoServer/Member.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="7" language="java" name="gr.eap.RLGameEcoServer.player.Member" project="RLGameEcoServer" 
+    file="/RLGameEcoServer/src/gr/eap/RLGameEcoServer/player/Member.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1152" y="421"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      

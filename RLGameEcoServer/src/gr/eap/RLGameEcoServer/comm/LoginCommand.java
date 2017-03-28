@@ -2,9 +2,9 @@ package gr.eap.RLGameEcoServer.comm;
 
 
 import gr.eap.RLGameEcoServer.Message;
-import gr.eap.RLGameEcoServer.Player;
-import gr.eap.RLGameEcoServer.PlayersRegister;
 import gr.eap.RLGameEcoServer.Message.Type;
+import gr.eap.RLGameEcoServer.player.Player;
+import gr.eap.RLGameEcoServer.player.PlayersRegister;
 
 public class LoginCommand extends Command {
 	private String userName = null;

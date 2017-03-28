@@ -2,8 +2,8 @@ package gr.eap.RLGameEcoServer.comm;
 
 import java.util.ArrayList;
 
-import gr.eap.RLGameEcoServer.Player;
-import gr.eap.RLGameEcoServer.PlayersRegister;
+import gr.eap.RLGameEcoServer.player.Player;
+import gr.eap.RLGameEcoServer.player.PlayersRegister;
 
 public class PlayersListResponse extends Response {
 	private ArrayList<Player> playersList = PlayersRegister.getInstance().getPlayersList();
