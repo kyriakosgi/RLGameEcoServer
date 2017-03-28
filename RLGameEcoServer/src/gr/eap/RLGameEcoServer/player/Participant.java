@@ -29,4 +29,19 @@ public abstract class Participant {
 	public void setRole(Role role) {
 		this.role = role;
 	}
+
+	// The player's unique id is enough. It will be used for the Players
+	// Register
+	@Override
+	public int hashCode() {
+		return getId();
+	}
+
+	// Equal IDs should be enough for equal objects
+	@Override
+	public boolean equals(Object object) {
+		return (((Player) object).getId() == getId());
+	}
+
+
 }
