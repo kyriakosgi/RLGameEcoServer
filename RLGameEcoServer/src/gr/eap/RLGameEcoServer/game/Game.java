@@ -13,8 +13,20 @@ public class Game {
 	private Duration duration;
 	private GameState state;
 	private ArrayList<Participant> participants;
+	private int boardSize;
+	private int baseSize;
+	private int numberOfPawns;
 	
 	
+	public int getBoardSize() {
+		return boardSize;
+	}
+	public int getBaseSize() {
+		return baseSize;
+	}
+	public int getNumberOfPawns() {
+		return numberOfPawns;
+	}
 	public ArrayList<Participant> getParticipants() {
 		return participants;
 	}
@@ -40,8 +52,13 @@ public class Game {
 		this.state = state;
 	}
 	
-	public Game(){
+	public Game(int boardSize, int baseSize, int numberOfPawns){
 		uid = UUID.randomUUID();
+		this.boardSize = boardSize;
+		this.baseSize = baseSize;
+		this.numberOfPawns = numberOfPawns;
+		state = new GameState();
+		state.setBoard(new int[boardSize * boardSize]);
 	}
 	
 	public boolean addPlayer1(Participant player1){
