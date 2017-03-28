@@ -1,9 +1,7 @@
-package gr.eap.RLGameEcoServer;
+package gr.eap.RLGameEcoServer.comm;
 
 import org.java_websocket.WebSocket;
 
-import gr.eap.RLGameEcoServer.comm.ConnectionState;
-import gr.eap.RLGameEcoServer.comm.MessageResponse;
 import gr.eap.RLGameEcoServer.player.Player;
 
 public class Message {
