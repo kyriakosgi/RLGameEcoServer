@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+
 import gr.eap.RLGameEcoServer.player.Participant;
+import gr.eap.RLGameEcoServer.player.Player;
 
 public class GamesRegister {
 	private static GamesRegister __me;
@@ -26,9 +28,11 @@ public class GamesRegister {
 		return games;
 	}
 
-	public void createGame(Participant player1, int boardSize, int baseSize, int numberOfPawns){
+	public void createGame(Player player1, int boardSize, int baseSize, int numberOfPawns){
 		Game newGame = new Game(boardSize, baseSize, numberOfPawns);
-		newGame.addPlayer1(player1);
+		Participant p1 = new Participant(player1);
+		p1.setRole(Participant.Role.PLAYER1);
+		newGame.addPlayer1(p1);
 		newGame.getState().setStatus(GameStatus.WAITING_SECOND_PLAYER);
 		games.put(newGame.getUid(), newGame);
 	}
