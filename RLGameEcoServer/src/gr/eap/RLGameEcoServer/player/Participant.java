@@ -2,9 +2,15 @@ package gr.eap.RLGameEcoServer.player;
 
 public abstract class Participant {
 //TODO we may need to add a reference to the Game class
+	public enum Role {
+		NONE,
+		PLAYER1,
+		PLAYER2,
+		OBSERVER
+	}
 	private int id;
 	private String name;
-	private String role;
+	private Role role;
 	public int getId() {
 		return id;
 	}
@@ -17,10 +23,10 @@ public abstract class Participant {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getRole() {
+	public Role getRole() {
 		return role;
 	}
-	public void setRole(String role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
 }
