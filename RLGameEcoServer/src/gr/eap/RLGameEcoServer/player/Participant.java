@@ -11,7 +11,7 @@ public class Participant {
 
 	private String name = "";
 	private Role role;
-	private ArrayList<Player> players;
+	private ArrayList<Player> players = new ArrayList<Player>();
 
 	public Participant() {
 	}

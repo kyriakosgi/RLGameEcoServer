@@ -12,7 +12,7 @@ public class Game {
 	private Date startDateTime;
 	private Duration duration;
 	private GameState state;
-	private ArrayList<Participant> participants;
+	private ArrayList<Participant> participants = new ArrayList<Participant>();
 	private int boardSize;
 	private int baseSize;
 	private int numberOfPawns;
