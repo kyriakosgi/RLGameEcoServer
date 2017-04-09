@@ -85,7 +85,7 @@ public class Server extends WebSocketServer {
 	public static void main(String[] args) {
 		// Load application settings as Properties object
 		Properties settings = new Properties();
-		try (Reader reader = new FileReader("settings")) {
+		try (Reader reader = new FileReader(System.getProperty("user.dir") + System.getProperty("file.separator") + "settings")) {
 			settings.load(reader);
 		} catch (FileNotFoundException e) {
 			// TODO Log
