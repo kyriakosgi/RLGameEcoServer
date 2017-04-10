@@ -11,7 +11,7 @@ public class Game {
 	private UUID uid;
 	private Date startDateTime;
 	private Duration duration;
-	private GameState state;
+	private transient GameState state;
 	private transient ArrayList<Participant> participants = new ArrayList<Participant>();
 	private int boardSize;
 	private int baseSize;
