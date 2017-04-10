@@ -12,12 +12,22 @@ public class Game {
 	private Date startDateTime;
 	private Duration duration;
 	private GameState state;
-	private ArrayList<Participant> participants = new ArrayList<Participant>();
+	private transient ArrayList<Participant> participants = new ArrayList<Participant>();
 	private int boardSize;
 	private int baseSize;
 	private int numberOfPawns;
+
+	//player1 and player2 properties will be read-only and will get updated when needed, so that we can correctly serialize those properties
+	private Participant player1;
+	private Participant player2;
 	
 	
+	public Participant getPlayer1() {
+		return player1;
+	}
+	public Participant getPlayer2() {
+		return player2;
+	}
 	public int getBoardSize() {
 		return boardSize;
 	}
@@ -72,6 +82,7 @@ public class Game {
 		if (returnValue){
 			player1.setRole(Participant.Role.PLAYER1);
 			participants.add(player1);
+			this.player1 = player1;
 		}
 		return returnValue;
 	}
