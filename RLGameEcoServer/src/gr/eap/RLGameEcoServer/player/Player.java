@@ -12,7 +12,7 @@ import gr.eap.RLGameEcoServer.db.MySQLHelper.parameterValue;
 
 public abstract class Player {
 	private String userName;
-	private String password;
+	private transient String password;
 	private transient WebSocket connection;
 	private ConnectionState connectionState;
 	private int score;
