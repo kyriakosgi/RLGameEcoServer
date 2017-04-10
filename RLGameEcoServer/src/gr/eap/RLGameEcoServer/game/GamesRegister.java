@@ -37,7 +37,7 @@ public class GamesRegister {
 		Participant p1 = new Participant(player1);
 		p1.setRole(Participant.Role.PLAYER1);
 		newGame.addPlayer1(p1);
-		newGame.getState().setStatus(GameStatus.WAITING_SECOND_PLAYER);
+		newGame.setStatus(GameStatus.WAITING_SECOND_PLAYER);
 		games.put(newGame.getUid(), newGame);
 	}
 

@@ -16,6 +16,7 @@ public class Game {
 	private int boardSize;
 	private int baseSize;
 	private int numberOfPawns;
+	private GameStatus status;
 
 	//player1 and player2 properties will be read-only and will get updated when needed, so that we can correctly serialize those properties
 	private Participant player1;
@@ -60,6 +61,12 @@ public class Game {
 	}
 	public void setState(GameState state) {
 		this.state = state;
+	}
+	public GameStatus getStatus() {
+		return status;
+	}
+	public void setStatus(GameStatus status) {
+		this.status = status;
 	}
 	
 	public Game(int boardSize, int baseSize, int numberOfPawns){
