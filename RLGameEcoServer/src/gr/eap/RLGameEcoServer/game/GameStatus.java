@@ -7,7 +7,7 @@ public enum GameStatus {
 	INTERRUPTED ("Interrupted"), 
 	FINISHED ("Finished");
 	
-	String description;
+	private String description;
 	
 	private GameStatus(String description){
 		this.description=description;
