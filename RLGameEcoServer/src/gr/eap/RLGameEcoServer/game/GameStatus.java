@@ -5,10 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public enum GameStatus {
 	
 	@SerializedName("Waiting for player to join")
-	WAITING_SECOND_PLAYER ("Waiting for player to join"),
-	
-	@SerializedName("Waiting for player to accept invitation")
-	WAITING_INVITATION_ACCEPTANCE ("Waiting for player to accept invitation"), 
+	WAITING_FOR_PLAYERS ("Waiting for player to join"),
 	
 	@SerializedName("In progress")
 	IN_PROGRESS ("In progress"), 

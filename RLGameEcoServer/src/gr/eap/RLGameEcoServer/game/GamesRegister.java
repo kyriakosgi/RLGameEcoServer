@@ -40,7 +40,7 @@ public class GamesRegister {
 	public void createGame(Player player1, int boardSize, int baseSize, int numberOfPawns) {
 		Game newGame = new Game(boardSize, baseSize, numberOfPawns);
 		newGame.addPlayer(player1, Participant.Role.PLAYER1);
-		newGame.setStatus(GameStatus.WAITING_SECOND_PLAYER);
+		newGame.setStatus(GameStatus.WAITING_FOR_PLAYERS);
 		games.put(newGame.getUid(), newGame);
 	}
 
