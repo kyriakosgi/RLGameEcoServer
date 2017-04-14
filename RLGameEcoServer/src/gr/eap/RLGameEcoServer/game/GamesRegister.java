@@ -5,8 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+
 import gr.eap.RLGameEcoServer.comm.ConnectionState;
 import gr.eap.RLGameEcoServer.comm.GamesListResponse;
+import gr.eap.RLGameEcoServer.player.Participant;
 import gr.eap.RLGameEcoServer.player.Player;
 import gr.eap.RLGameEcoServer.player.PlayersRegister;
 
@@ -37,7 +39,7 @@ public class GamesRegister {
 	
 	public void createGame(Player player1, int boardSize, int baseSize, int numberOfPawns) {
 		Game newGame = new Game(boardSize, baseSize, numberOfPawns);
-		newGame.addPlayer1(player1);
+		newGame.addPlayer(player1, Participant.Role.PLAYER1);
 		newGame.setStatus(GameStatus.WAITING_SECOND_PLAYER);
 		games.put(newGame.getUid(), newGame);
 	}
