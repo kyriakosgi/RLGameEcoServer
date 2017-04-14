@@ -25,11 +25,11 @@ public class Participant {
 		return player2Leader;
 	}
 
-	protected void setPlayer1Leader(Player player1Leader) {
+	public void setPlayer1Leader(Player player1Leader) {
 		this.player1Leader = player1Leader;
 	}
 
-	protected void setPlayer2Leader(Player player2Leader) {
+	public void setPlayer2Leader(Player player2Leader) {
 		this.player2Leader = player2Leader;
 	}
 
