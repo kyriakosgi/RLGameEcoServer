@@ -133,6 +133,9 @@ public class Game {
 			}
 			//Finally add the player to the new or existing participant
 			participant.addPlayer(player);
+			
+			//Refresh games list for all clients
+			GamesRegister.getInstance().sendGamesList();
 		}
 
 		return returnValue;
