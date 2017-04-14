@@ -12,6 +12,26 @@ public class Participant {
 	private String name = "";
 	private Role role;
 	private ArrayList<Player> players = new ArrayList<Player>();
+	private Player player1Leader;
+	private Player player2Leader;
+	
+	
+
+	public Player getPlayer1Leader() {
+		return player1Leader;
+	}
+
+	public Player getPlayer2Leader() {
+		return player2Leader;
+	}
+
+	protected void setPlayer1Leader(Player player1Leader) {
+		this.player1Leader = player1Leader;
+	}
+
+	protected void setPlayer2Leader(Player player2Leader) {
+		this.player2Leader = player2Leader;
+	}
 
 	public Participant() {
 	}
