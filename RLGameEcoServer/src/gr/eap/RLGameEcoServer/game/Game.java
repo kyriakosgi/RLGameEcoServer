@@ -93,15 +93,8 @@ public class Game {
 		state.setBoard(new int[boardSize * boardSize]);
 	}
 
-	public boolean addPlayer1(Player player1) {
-		return addPlayer(player1, Participant.Role.PLAYER1);
-	}
 
-	public boolean addPlayer2(Player player2) {
-		return addPlayer(player2, Participant.Role.PLAYER2);
-	}
-
-	private boolean addPlayer(Player player, Participant.Role role) {
+	public boolean addPlayer(Player player, Participant.Role role) {
 		boolean returnValue = true;
 
 		// Find if player is already participating in the game
