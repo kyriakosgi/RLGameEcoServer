@@ -31,6 +31,10 @@ public class GamesRegister {
 		return games;
 	}
 
+	public Game getGameByUid(UUID gameUid){
+		return games.get(gameUid);
+	}
+	
 	public void createGame(Player player1, int boardSize, int baseSize, int numberOfPawns) {
 		Game newGame = new Game(boardSize, baseSize, numberOfPawns);
 		newGame.addPlayer1(player1);
