@@ -12,25 +12,16 @@ public class Participant {
 	private String name = "";
 	private Role role;
 	private ArrayList<Player> players = new ArrayList<Player>();
-	private Player player1Leader;
-	private Player player2Leader;
+	private Player teamLeader;
 	
 	
 
-	public Player getPlayer1Leader() {
-		return player1Leader;
+	public Player getTeamLeader() {
+		return teamLeader;
 	}
 
-	public Player getPlayer2Leader() {
-		return player2Leader;
-	}
-
-	public void setPlayer1Leader(Player player1Leader) {
-		this.player1Leader = player1Leader;
-	}
-
-	public void setPlayer2Leader(Player player2Leader) {
-		this.player2Leader = player2Leader;
+	public void setTeamLeader(Player teamLeader) {
+		this.teamLeader = teamLeader;
 	}
 
 	public Participant() {
@@ -56,6 +47,9 @@ public class Participant {
 	}
 
 	public void addPlayer(Player player) {
+		if (players.isEmpty()){
+			teamLeader = player;
+		}
 		if (!players.contains(player))
 			players.add(player);
 		if (name.equals("")) {
