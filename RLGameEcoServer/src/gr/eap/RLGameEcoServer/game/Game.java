@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
+import gr.eap.RLGameEcoServer.comm.ConnectionState;
 import gr.eap.RLGameEcoServer.player.Participant;
 import gr.eap.RLGameEcoServer.player.Player;
 
@@ -18,11 +19,32 @@ public class Game {
 	private int baseSize;
 	private int numberOfPawns;
 	private GameStatus status;
-
+	private boolean player1Ready;
+	private boolean player2Ready;
+	
 	// player1 and player2 properties will be read-only and will get updated
 	// when needed, so that we can correctly serialize those properties
 	private Participant player1;
 	private Participant player2;
+
+	
+	boolean isPlayer1Ready() {
+		return player1Ready;
+	}
+
+	void setPlayer1Ready(boolean player1Ready) {
+		this.player1Ready = player1Ready;
+		checkForGameStart();
+	}
+
+	boolean isPlayer2Ready() {
+		return player2Ready;
+	}
+
+	void setPlayer2Ready(boolean player2Ready) {
+		this.player2Ready = player2Ready;
+		checkForGameStart();
+	}
 
 	public Participant getPlayer1() {
 		return player1;
@@ -151,7 +173,44 @@ public class Game {
 
 
 	}
+	
+	private boolean checkForGameStart(){
+		if (
+				getStatus().equals(GameStatus.WAITING_FOR_PLAYERS) &&
+				!(player1.getPlayers().isEmpty()) &&
+				!(player2.getPlayers().isEmpty()) &&
+				isPlayer1Ready() &&
+				isPlayer2Ready()
+			) {
+			startGame();
+			return true;
+		}
+		else {
+			return false;
+		}
+		
+		
+	}
 
+	private void startGame(){
+		//Set the start date and time as the current date and time
+		setStartDateTime(new Date());
+		
+		//Set the game and players status
+		setStatus(GameStatus.IN_PROGRESS);
+		for (Participant participant : participants){
+			for(Player player : participant.getPlayers()){
+				player.setConnectionState(ConnectionState.IN_GAME);
+			}
+		}
+		
+		//Refresh the games list on all clients
+		GamesRegister.getInstance().sendGamesList();
+		
+		//Send game state to all participants
+		shareState();
+		
+	}
 	public void shareState() {
 		// TODO Not yet implemented
 	}
