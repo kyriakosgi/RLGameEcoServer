@@ -23,20 +23,18 @@ public class MessageCommand extends Command {
 	}
 
 	public void setRecipientsIds(ArrayList<Integer> recipientsIds) {
-		if (recipientsIds == null)
-		{
+		if (recipientsIds == null) {
 			this.recipientsIds = new ArrayList<Integer>();
-		}
-		else
-		{
+		} else {
 			this.recipientsIds = recipientsIds;
 		}
 	}
 
 	@Override
 	public void execute() {
-		// We will send a MessageResponse to every Player that is a recipient and a copy to the sender, or to everyone if recipientIds is empty
-		if (!(messageText == null ||  messageText.isEmpty())) {
+		// We will send a MessageResponse to every Player that is a recipient
+		// and a copy to the sender, or to everyone if recipientIds is empty
+		if (!(messageText == null || messageText.isEmpty())) {
 
 			Message message = new Message();
 			Message.Type messageType;
@@ -44,20 +42,19 @@ public class MessageCommand extends Command {
 				messageType = Type.USER_BROADCAST;
 			else
 				messageType = Type.USER_PERSONAL;
-			
+
 			message.setSender(PlayersRegister.getInstance().getPlayerById(getUserId()));
 			message.setText(messageText);
 			message.setType(messageType);
-			
-			ArrayList<Player> recipients = PlayersRegister.getInstance().getPlayersById(recipientsIds);
-			if (!recipientsIds.isEmpty()) recipients.add(message.getSender()); //echo the message to the sender as well
 
-			for (Player p : recipients) {
-				message.setRecipient(p);
-				message.send();
-			}
-			
-			
+			ArrayList<Player> recipients = PlayersRegister.getInstance().getPlayersById(recipientsIds);
+			if (!recipientsIds.isEmpty())
+				recipients.add(message.getSender()); // echo the message to the
+														// sender as well
+
+			message.setRecipients(recipients);
+			message.send();
+
 		}
 
 	}
