@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.UUID;
 
 import gr.eap.RLGameEcoServer.comm.ConnectionState;
+import gr.eap.RLGameEcoServer.comm.Message;
+import gr.eap.RLGameEcoServer.comm.Message.Type;
 import gr.eap.RLGameEcoServer.player.Participant;
 import gr.eap.RLGameEcoServer.player.Player;
 
@@ -204,7 +206,16 @@ public class Game {
 			}
 		}
 		
-		//Refresh the games list on all clients
+		//Send a message to all participants so that the client knows that they are now in game
+		Message message = new Message();
+		message.setText("Game starting ...");
+		message.setType(Type.SYSTEM_INFO);
+		for (Participant participant : participants){
+			message.getRecipients().addAll(participant.getPlayers());
+		}
+		message.send();
+		
+		//Refresh the games list on all clients (it will not affect the game players as the are in game)
 		GamesRegister.getInstance().sendGamesList();
 		
 		//Send game state to all participants
