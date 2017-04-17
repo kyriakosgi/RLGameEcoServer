@@ -28,20 +28,20 @@ public class Game {
 	private Participant player2;
 
 	
-	boolean isPlayer1Ready() {
+	public boolean isPlayer1Ready() {
 		return player1Ready;
 	}
 
-	void setPlayer1Ready(boolean player1Ready) {
+	public void setPlayer1Ready(boolean player1Ready) {
 		this.player1Ready = player1Ready;
 		checkForGameStart();
 	}
 
-	boolean isPlayer2Ready() {
+	public boolean isPlayer2Ready() {
 		return player2Ready;
 	}
 
-	void setPlayer2Ready(boolean player2Ready) {
+	public void setPlayer2Ready(boolean player2Ready) {
 		this.player2Ready = player2Ready;
 		checkForGameStart();
 	}
