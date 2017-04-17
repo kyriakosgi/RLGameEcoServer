@@ -40,7 +40,7 @@ public class LoginCommand extends Command {
 		r1.setCommandID(super.getId());
 		r1.setSocket(getSocket());
 		if (newPlayer != null) {
-			message.setRecipient(newPlayer);
+			message.getRecipients().add(newPlayer);
 			message.setText("Login successfull");
 			message.setType(Type.SYSTEM_INFO);
 		}
