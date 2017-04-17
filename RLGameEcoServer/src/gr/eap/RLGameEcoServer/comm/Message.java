@@ -1,5 +1,8 @@
 package gr.eap.RLGameEcoServer.comm;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.java_websocket.WebSocket;
 
 import gr.eap.RLGameEcoServer.player.Player;
@@ -12,7 +15,7 @@ public class Message {
 	private String text = null;
 	private Type type = null;
 	private Player sender = null;
-	private Player recipient = null;
+	private List<Player> recipients = new ArrayList<Player>();
 	private transient WebSocket socket = null;
 
 
@@ -46,13 +49,14 @@ public class Message {
 	}
 
 
-	public Player getRecipient() {
-		return recipient;
+	public List<Player> getRecipients() {
+		return recipients;
 	}
 
 
-	public void setRecipient(Player recipient) {
-		this.recipient = recipient;
+
+	public void setRecipients(List<Player> recipients) {
+		this.recipients = recipients;
 	}
 
 
@@ -75,14 +79,14 @@ public class Message {
 		this.text = text;
 		this.type = type;
 		this.sender = sender;
-		this.recipient = recipient;
+		this.recipients.add(recipient);
 	}
 
 	//Message sent by the system to a player
 	public Message(String text, Type type, Player recipient) {
 		this.text = text;
 		this.type = type;
-		this.recipient = recipient;
+		this.recipients.add(recipient);
 	}
 	
 	//Message sent by the system to a connection (non logged in client). A player cannot send such message.
@@ -98,22 +102,25 @@ public class Message {
 	}
 
 	public void send(int commandId) {
-		if (text != null && !text.isEmpty() && type != null && (recipient != null || socket != null)) {
+		if (text != null && !text.isEmpty() && type != null && (!recipients.isEmpty() || socket != null)) {
 			
 			MessageResponse response = new MessageResponse();
 			if (commandId>0) response.setCommandID(commandId);
 			response.setMessage(this);
-			if (recipient != null){
-				response.setConnectionState(recipient.getConnectionState());
-				response.setSocket(recipient.getConnection());
-				response.setUserId(recipient.getId());
+			if (!recipients.isEmpty()){
+				for (Player recipient : recipients){
+					response.setConnectionState(recipient.getConnectionState());
+					response.setSocket(recipient.getConnection());
+					response.setUserId(recipient.getId());
+					response.send();
+				}
 			}
 			else
 			{
 				response.setConnectionState(ConnectionState.CONNECTED); // if there is no recipient, means that the system sends message to a connected client
 				response.setSocket(socket);
+				response.send();
 			}
-			response.send();
 		}
 
 	}
