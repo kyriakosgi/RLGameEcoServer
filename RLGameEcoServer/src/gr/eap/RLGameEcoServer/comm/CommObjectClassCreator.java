@@ -10,6 +10,8 @@ public class CommObjectClassCreator {
 			return CreateGameCommand.class;
 		else if (commObjectType.equals("gr.eap.RLGameEcoServer.comm.JoinGameCommand"))
 			return JoinGameCommand.class;
+		else if (commObjectType.equals("gr.eap.RLGameEcoServer.comm.ConfirmStartGameCommand"))
+			return ConfirmStartGameCommand.class;
 		else if (commObjectType.equals("gr.eap.RLGameEcoServer.comm.MessageResponse"))
 			return Response.class;
 		else if (commObjectType.equals("gr.eap.RLGameEcoServer.comm.PlayersListResponse"))
