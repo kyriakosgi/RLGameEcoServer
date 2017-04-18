@@ -23,20 +23,28 @@ public class Game {
 	private GameStatus status;
 	private boolean player1Ready;
 	private boolean player2Ready;
-	
+
 	// player1 and player2 properties will be read-only and will get updated
 	// when needed, so that we can correctly serialize those properties
 	private Participant player1;
 	private Participant player2;
 
-	
 	public boolean isPlayer1Ready() {
 		return player1Ready;
 	}
 
 	public void setPlayer1Ready(boolean player1Ready) {
-		this.player1Ready = player1Ready;
-		checkForGameStart();
+		// Check if the property value changes so that we know that we have to
+		// send the games list to the clients
+		if (this.player1Ready != player1Ready) {
+			this.player1Ready = player1Ready;
+			// If this change starts the game then the game starting procedure
+			// will send the games list to the clients so we don't have to do it
+			// here as well
+			if (!checkForGameStart())
+				GamesRegister.getInstance().sendGamesList();
+			;
+		}
 	}
 
 	public boolean isPlayer2Ready() {
@@ -44,8 +52,17 @@ public class Game {
 	}
 
 	public void setPlayer2Ready(boolean player2Ready) {
-		this.player2Ready = player2Ready;
-		checkForGameStart();
+		// Check if the property value changes so that we know that we have to
+		// send the games list to the clients
+		if (this.player2Ready != player2Ready) {
+			this.player2Ready = player2Ready;
+			// If this change starts the game then the game starting procedure
+			// will send the games list to the clients so we don't have to do it
+			// here as well
+			if (!checkForGameStart())
+				GamesRegister.getInstance().sendGamesList();
+			;
+		}
 	}
 
 	public Participant getPlayer1() {
@@ -117,7 +134,6 @@ public class Game {
 		state.setBoard(new int[boardSize * boardSize]);
 	}
 
-
 	public boolean addPlayer(Player player, Participant.Role role) {
 		boolean returnValue = true;
 
@@ -128,9 +144,9 @@ public class Game {
 				break;
 			}
 		}
-		
+
 		if (returnValue) {
-			//Find if there is already a participant with the desired role
+			// Find if there is already a participant with the desired role
 			Participant participant = null;
 			for (Participant p : participants) {
 				if (p.getRole().equals(role)) {
@@ -139,7 +155,8 @@ public class Game {
 				}
 			}
 
-			// if there is no participant with the desired role, so we'll have to create one
+			// if there is no participant with the desired role, so we'll have
+			// to create one
 			if (participant == null) {
 				participant = new Participant();
 				participant.setRole(role);
@@ -155,10 +172,10 @@ public class Game {
 				}
 				participants.add(participant);
 			}
-			//Finally add the player to the new or existing participant
+			// Finally add the player to the new or existing participant
 			participant.addPlayer(player);
-			
-			//Refresh games list for all clients
+
+			// Refresh games list for all clients
 			GamesRegister.getInstance().sendGamesList();
 		}
 
@@ -173,55 +190,50 @@ public class Game {
 		// Refresh games list on all clients
 		GamesRegister.getInstance().sendGamesList();
 
-
 	}
-	
-	private boolean checkForGameStart(){
-		if (
-				getStatus().equals(GameStatus.WAITING_FOR_PLAYERS) &&
-				!(player1.getPlayers().isEmpty()) &&
-				!(player2.getPlayers().isEmpty()) &&
-				isPlayer1Ready() &&
-				isPlayer2Ready()
-			) {
+
+	private boolean checkForGameStart() {
+		if (getStatus().equals(GameStatus.WAITING_FOR_PLAYERS) && !(player1.getPlayers().isEmpty())
+				&& !(player2.getPlayers().isEmpty()) && isPlayer1Ready() && isPlayer2Ready()) {
 			startGame();
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
-		
-		
+
 	}
 
-	private void startGame(){
-		//Set the start date and time as the current date and time
+	private void startGame() {
+		// Set the start date and time as the current date and time
 		setStartDateTime(new Date());
-		
-		//Set the game and players status
+
+		// Set the game and players status
 		setStatus(GameStatus.IN_PROGRESS);
-		for (Participant participant : participants){
-			for(Player player : participant.getPlayers()){
+		for (Participant participant : participants) {
+			for (Player player : participant.getPlayers()) {
 				player.setConnectionState(ConnectionState.IN_GAME);
 			}
 		}
-		
-		//Send a message to all participants so that the client knows that they are now in game
+
+		// Send a message to all participants so that the client knows that they
+		// are now in game
 		Message message = new Message();
 		message.setText("Game starting ...");
 		message.setType(Type.SYSTEM_INFO);
-		for (Participant participant : participants){
+		for (Participant participant : participants) {
 			message.getRecipients().addAll(participant.getPlayers());
 		}
 		message.send();
-		
-		//Refresh the games list on all clients (it will not affect the game players as the are in game)
+
+		// Refresh the games list on all clients (it will not affect the game
+		// players as the are in game)
 		GamesRegister.getInstance().sendGamesList();
-		
-		//Send game state to all participants
+
+		// Send game state to all participants
 		shareState();
-		
+
 	}
+
 	public void shareState() {
 		// TODO Not yet implemented
 	}
