@@ -21,8 +21,8 @@ public class Game {
 	private int baseSize;
 	private int numberOfPawns;
 	private GameStatus status;
-	private boolean player1Ready;
-	private boolean player2Ready;
+	private boolean player1Ready = false;
+	private boolean player2Ready = false;
 
 	// player1 and player2 properties will be read-only and will get updated
 	// when needed, so that we can correctly serialize those properties
