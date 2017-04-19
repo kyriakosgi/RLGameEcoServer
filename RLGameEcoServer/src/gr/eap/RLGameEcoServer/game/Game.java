@@ -9,6 +9,7 @@ import gr.eap.RLGameEcoServer.comm.ConnectionState;
 import gr.eap.RLGameEcoServer.comm.Message;
 import gr.eap.RLGameEcoServer.comm.Message.Type;
 import gr.eap.RLGameEcoServer.player.Participant;
+import gr.eap.RLGameEcoServer.player.Participant.Role;
 import gr.eap.RLGameEcoServer.player.Player;
 
 public class Game {
@@ -66,10 +67,20 @@ public class Game {
 	}
 
 	public Participant getPlayer1() {
+		if (player1 == null){
+			player1= new Participant();
+			player1.setRole(Role.PLAYER1);
+			participants.add(player1);
+		}
 		return player1;
 	}
 
 	public Participant getPlayer2() {
+		if (player2 == null){
+			player2= new Participant();
+			player2.setRole(Role.PLAYER2);
+			participants.add(player2);
+		}
 		return player2;
 	}
 
@@ -193,8 +204,8 @@ public class Game {
 	}
 
 	private boolean checkForGameStart() {
-		if (getStatus().equals(GameStatus.WAITING_FOR_PLAYERS) && !(player1.getPlayers().isEmpty())
-				&& !(player2.getPlayers().isEmpty()) && isPlayer1Ready() && isPlayer2Ready()) {
+		if (getStatus().equals(GameStatus.WAITING_FOR_PLAYERS) && !(getPlayer1().getPlayers().isEmpty())
+				&& !(getPlayer2().getPlayers().isEmpty()) && isPlayer1Ready() && isPlayer2Ready()) {
 			startGame();
 			return true;
 		} else {
