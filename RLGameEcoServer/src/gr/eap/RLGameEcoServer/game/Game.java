@@ -194,14 +194,6 @@ public class Game {
 
 	}
 
-	public void join(Player player, Participant.Role role) {
-		// Set the player
-		addPlayer(player, role);
-
-		// Refresh games list on all clients
-		GamesRegister.getInstance().sendGamesList();
-
-	}
 
 	private boolean checkForGameStart() {
 		if (getStatus().equals(GameStatus.WAITING_FOR_PLAYERS) && !(getPlayer1().getPlayers().isEmpty())
