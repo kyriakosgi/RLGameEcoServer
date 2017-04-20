@@ -6,7 +6,7 @@ import java.util.List;
 public class Participant {
 	// TODO we may need to add a reference to the Game class
 	public enum Role {
-		NONE, PLAYER1, PLAYER2, OBSERVER
+		NONE, PLAYER1, PLAYER2, SPECTATOR
 	}
 
 	private String name = "";

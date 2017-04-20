@@ -91,7 +91,7 @@ public class Game {
 		//Create a new Participant so that the method never returns null
 		if (spectator == null){
 			spectator= new Participant();
-			spectator.setRole(Role.OBSERVER);
+			spectator.setRole(Role.SPECTATOR);
 			participants.add(spectator);
 		}
 		return spectator;
