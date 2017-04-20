@@ -29,6 +29,7 @@ public class Game {
 	// when needed, so that we can correctly serialize those properties
 	private Participant player1;
 	private Participant player2;
+	private Participant spectator;
 
 	public boolean isPlayer1Ready() {
 		return player1Ready;
@@ -67,6 +68,7 @@ public class Game {
 	}
 
 	public Participant getPlayer1() {
+		//Create a new Participant so that the method never returns null
 		if (player1 == null){
 			player1= new Participant();
 			player1.setRole(Role.PLAYER1);
@@ -76,12 +78,23 @@ public class Game {
 	}
 
 	public Participant getPlayer2() {
+		//Create a new Participant so that the method never returns null
 		if (player2 == null){
 			player2= new Participant();
 			player2.setRole(Role.PLAYER2);
 			participants.add(player2);
 		}
 		return player2;
+	}
+
+	public Participant getSpectator() {
+		//Create a new Participant so that the method never returns null
+		if (spectator == null){
+			spectator= new Participant();
+			spectator.setRole(Role.OBSERVER);
+			participants.add(spectator);
+		}
+		return spectator;
 	}
 
 	public int getBoardSize() {
