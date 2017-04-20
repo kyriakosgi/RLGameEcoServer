@@ -154,6 +154,7 @@ public class Game {
 		this.boardSize = boardSize;
 		this.baseSize = baseSize;
 		this.numberOfPawns = numberOfPawns;
+		this.setStatus(GameStatus.WAITING_FOR_PLAYERS);
 		state = new GameState();
 		state.setBoard(new int[boardSize * boardSize]);
 	}
