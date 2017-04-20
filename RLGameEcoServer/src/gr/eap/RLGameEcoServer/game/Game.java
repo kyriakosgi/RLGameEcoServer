@@ -161,14 +161,20 @@ public class Game {
 	public boolean addPlayer(Player player, Participant.Role role) {
 		boolean returnValue = true;
 
+		//Only a spectator can join the game after it has started
+		if (!(getStatus().equals(GameStatus.WAITING_FOR_PLAYERS)) && !(role.equals(Participant.Role.SPECTATOR)))
+			returnValue = false;
+		
 		// Find if player is already participating in the game
-		for (Participant participant : participants) {
-			if (participant.getPlayers().contains(player)) {
-				returnValue = false;
-				break;
+		if (returnValue) {
+			for (Participant participant : participants) {
+				if (participant.getPlayers().contains(player)) {
+					returnValue = false;
+					break;
+				}
 			}
 		}
-
+		
 		if (returnValue) {
 			// Find if there is already a participant with the desired role
 			Participant participant = null;
@@ -191,6 +197,9 @@ public class Game {
 				case PLAYER2:
 					this.player2 = participant;
 					break;
+				case SPECTATOR:
+					this.spectator = participant;
+					break;
 				default:
 					break;
 				}
@@ -199,6 +208,11 @@ public class Game {
 			// Finally add the player to the new or existing participant
 			participant.addPlayer(player);
 
+			//If a player is added to a game in progress (should only be a spectator) we have to update her connection state
+			if (getStatus().equals(GameStatus.IN_PROGRESS)){
+				player.setConnectionState(ConnectionState.IN_GAME);
+			}
+			
 			// Refresh games list for all clients
 			GamesRegister.getInstance().sendGamesList();
 		}
