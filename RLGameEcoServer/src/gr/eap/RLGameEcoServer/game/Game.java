@@ -265,6 +265,40 @@ public class Game {
 
 	}
 
+	public boolean removePlayer(Player player){
+		boolean returnValue = false;
+		Participant participant = null;
+		
+		// Find if player is already participating in the game and determine his role
+			for (Participant p : participants) {
+				if (p.getPlayers().contains(player)) {
+					returnValue = true;
+					participant = p;
+					p.removePlayer(player);
+					
+					//Send message to player so that he gets his new connection state
+					Message message = new Message();
+					message.setType(Type.SYSTEM_INFO);
+					message.getRecipients().add(player);
+					message.send();
+					
+					//refresh games list so that the player wont show as participant
+					if (p.getRole().equals(Role.PLAYER1) || p.getRole().equals(Role.PLAYER2)){
+						GamesRegister.getInstance().sendGamesList();
+					}
+					break;
+				}
+			}
+
+		if (returnValue){
+			// End the game when there are no players in the player role
+			if (getStatus().equals(GameStatus.IN_PROGRESS) && (participant.getRole().equals(Role.PLAYER1) || participant.getRole().equals(Role.PLAYER2)) && participant.getPlayers().isEmpty()){
+				endGame();
+			}
+		}
+		return returnValue;
+	}
+	
 	public void shareState() {
 		// TODO Not yet implemented
 	}
