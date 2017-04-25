@@ -278,7 +278,7 @@ public class Game {
 					
 					//Send message to player so that he gets his new connection state
 					Message message = new Message();
-					message.setType(Type.SYSTEM_INFO);
+					message.setType(Type.SYSTEM_INTERNAL);
 					message.getRecipients().add(player);
 					message.send();
 					
@@ -289,9 +289,9 @@ public class Game {
 							endGame();
 						}
 
-						//refresh games list so that the player wont show as participant
-						GamesRegister.getInstance().sendGamesList();
 					}
+					//refresh games list so that the player wont show as participant
+					GamesRegister.getInstance().sendGamesList();
 					break;
 				}
 			}
