@@ -9,7 +9,7 @@ import gr.eap.RLGameEcoServer.player.Player;
 
 public class Message {
 	public enum Type {
-		SYSTEM_INFO, SYSTEM_WARNING, SYSTEM_ALERT, USER_BROADCAST, USER_PERSONAL, USER_GAME, USER_TEAM
+		SYSTEM_INFO, SYSTEM_WARNING, SYSTEM_ALERT, SYSTEM_INTERNAL, USER_BROADCAST, USER_PERSONAL, USER_GAME, USER_TEAM
 	}
 
 	private String text = null;
@@ -102,7 +102,7 @@ public class Message {
 	}
 
 	public void send(int commandId) {
-		if (text != null && !text.isEmpty() && type != null && (!recipients.isEmpty() || socket != null)) {
+		if ((type.equals(Type.SYSTEM_INTERNAL) || text != null && !text.isEmpty()) && type != null && (!recipients.isEmpty() || socket != null)) {
 			
 			MessageResponse response = new MessageResponse();
 			if (commandId>0) response.setCommandID(commandId);
