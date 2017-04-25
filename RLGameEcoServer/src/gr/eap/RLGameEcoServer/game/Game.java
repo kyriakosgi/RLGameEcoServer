@@ -282,8 +282,14 @@ public class Game {
 					message.getRecipients().add(player);
 					message.send();
 					
-					//refresh games list so that the player wont show as participant
+					//things to do when the player is not a spectator
 					if (p.getRole().equals(Role.PLAYER1) || p.getRole().equals(Role.PLAYER2)){
+						//if the player being removed was a team leader then the game is over
+						if (p.getTeamLeader() == null){
+							endGame();
+						}
+
+						//refresh games list so that the player wont show as participant
 						GamesRegister.getInstance().sendGamesList();
 					}
 					break;

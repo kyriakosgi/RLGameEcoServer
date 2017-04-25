@@ -60,6 +60,11 @@ public class Participant {
 	}
 
 	public void removePlayer(Player player) {
+		//if the player that is being removed is a team leader, clear the teamLeader reference
+		if (getTeamLeader().equals(player)){
+			setTeamLeader(null);
+		}
+		
 		players.remove(player);
 		if (name.contains(player.getName() + ", ")){
 			name = name.replace(player.getName() + ", ", "");
