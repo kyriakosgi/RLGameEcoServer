@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
 
+import org.rlgame.gameplay.GameState;
+
 import gr.eap.RLGameEcoServer.comm.ConnectionState;
 import gr.eap.RLGameEcoServer.comm.Message;
 import gr.eap.RLGameEcoServer.comm.Message.Type;
@@ -156,7 +158,7 @@ public class Game {
 		this.numberOfPawns = numberOfPawns;
 		this.setStatus(GameStatus.WAITING_FOR_PLAYERS);
 		state = new GameState();
-		state.setBoard(new int[boardSize * boardSize]);
+		//state.setBoard(new int[boardSize * boardSize]);
 	}
 
 	public boolean addPlayer(Player player, Participant.Role role) {
