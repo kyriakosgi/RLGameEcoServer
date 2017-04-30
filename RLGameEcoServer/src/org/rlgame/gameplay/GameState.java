@@ -7,30 +7,40 @@ import org.rlgame.gameplay.Settings;
 
 public class GameState  {
 
+	private int numberOfPawns;
+	private int boardSize;
+	private int baseSize;
+	
 	private Square[][] gameBoard;	
 	private Pawn[] whitePawns;
 	private Pawn[] blackPawns;
 	
-	private Pawn[] cloneWhite = new Pawn[Settings.NUMOFPAWNS];
-	private Pawn[] cloneBlack = new Pawn[Settings.NUMOFPAWNS];
+	private Pawn[] cloneWhite = new Pawn[numberOfPawns];
+	private Pawn[] cloneBlack = new Pawn[numberOfPawns];
 	private Square[][] cloneGameBoard;
 	
 	// Added by Dockos for saving the coordinates of deleted pawns
 	private String positionOfDeletedPawns = "";
 	private double[] networkInput;
 
-	public GameState() {
+	public GameState(int boardSize, int baseSize, int numberOfPawns) {
+		this.numberOfPawns=numberOfPawns;
+		this.boardSize = boardSize;
+		this.baseSize = baseSize;
 		//initialize gameBoard Squares array
 		initGameBoard();
 		
-		whitePawns = new Pawn[Settings.NUMOFPAWNS];
-		blackPawns = new Pawn[Settings.NUMOFPAWNS];
+		whitePawns = new Pawn[numberOfPawns];
+		blackPawns = new Pawn[numberOfPawns];
 	}
 	
 	
 //	
 
-	public GameState(Pawn[] wh_Pawns, Pawn[] bl_Pawns) {
+	public GameState(int boardSize, int baseSize, Pawn[] wh_Pawns, Pawn[] bl_Pawns) {
+		numberOfPawns=wh_Pawns.length;
+		this.boardSize = boardSize;
+		this.baseSize = baseSize;
 		init(wh_Pawns, bl_Pawns);
 	}
 
@@ -41,10 +51,10 @@ public class GameState  {
 	}	
 
 	private void initGameBoard() {
-		gameBoard = new Square[Settings.DIMBOARD][Settings.DIMBOARD];
-		for (int i = 0; i < Settings.DIMBOARD; i++) {
-			for (int j = 0; j < Settings.DIMBOARD; j++) {
-				gameBoard[i][j] = new Square(i, j, Settings.DIMBOARD, Settings.DIMBASE);
+		gameBoard = new Square[boardSize][boardSize];
+		for (int i = 0; i < boardSize; i++) {
+			for (int j = 0; j < boardSize; j++) {
+				gameBoard[i][j] = new Square(i, j, boardSize, baseSize);
 			}
 		}
 	}
@@ -54,7 +64,7 @@ public class GameState  {
 			initGameBoard();
 		}
 		
-		for(int i=0; i< Settings.NUMOFPAWNS; i++) {
+		for(int i=0; i< numberOfPawns; i++) {
 			if (!whitePawns[i].isAlive()){
 	            gameBoard[whitePawns[i].position.getXCoord()][whitePawns[i].position.getYCoord()].setFree();
 	        }
@@ -76,7 +86,7 @@ public class GameState  {
 	// check how many white pawns are still alive
 	public int getWhiteRemaining(Pawn[] helpPawns) {
 		int whiteRemaining = 0;
-		for (int i = 0; i < Settings.NUMOFPAWNS; i++) {
+		for (int i = 0; i < numberOfPawns; i++) {
 			if (helpPawns[i].isAlive())
 				whiteRemaining++;
 		}
@@ -86,7 +96,7 @@ public class GameState  {
 	// check how many black pawns are still alive
 	public int getBlackRemaining(Pawn[] helpPawns) {
 		int blackRemaining = 0;
-		for (int i = 0; i < Settings.NUMOFPAWNS; i++) {
+		for (int i = 0; i < numberOfPawns; i++) {
 			if (helpPawns[i].isAlive())
 				blackRemaining++;
 		}
@@ -100,7 +110,7 @@ public class GameState  {
 		
 		//Blank moves - 0,0 target aren't added to the moves vector
 		//
-		for (int i = 0; i < Settings.NUMOFPAWNS; i++) {
+		for (int i = 0; i < numberOfPawns; i++) {
 			for (int j = 0; j < Settings.MAX_NUM_PAWN_MOVES; j++) {
 				if ((moves[i][j].getXCoord() + moves[i][j].getYCoord()) != 0) {
 					toRet.add(this.getMoveTargetGameState(turn, i, moves[i][j]));
@@ -112,7 +122,7 @@ public class GameState  {
 	}
 	
 	private Square[][] getAllMovesForPlayer(int turn, Square[][] outSquare) {
-		Square[][] helpSquare = new Square[Settings.NUMOFPAWNS][1];
+		Square[][] helpSquare = new Square[numberOfPawns][1];
 
 		Square [] blankMoves = new Square[Settings.MAX_NUM_PAWN_MOVES];
 		
@@ -123,7 +133,7 @@ public class GameState  {
 		boolean baseFound = false;
 		//addition if more than one pawns in in base there is no need to communicate 
 		//more than one base located pawn possible moves
-		for (int i = 0; i < Settings.NUMOFPAWNS; i++) {
+		for (int i = 0; i < numberOfPawns; i++) {
 			if (turn == Settings.WHITE_PLAYER) {
 				if (baseFound && whitePawns[i].isPawnInOwnBase()) {
 					helpSquare[i] = blankMoves;
@@ -165,7 +175,7 @@ public class GameState  {
 		if ((whiteLeft == 0) || (blackLeft == 0))
 			answer = true;
 		else {
-			for (int i = 0; i < Settings.NUMOFPAWNS; i++) {
+			for (int i = 0; i < numberOfPawns; i++) {
 				if (wPawns[i].isPawnInEnemyBase()) {
 					answer = true;
 				}
@@ -187,19 +197,19 @@ public class GameState  {
 	public ObservationCandidateMove getMoveTargetGameState(int turn, int pioni, Square tetr) {
 		int[] deadWhite;
 		int[] deadBlack;
-		deadWhite = new int[Settings.NUMOFPAWNS];
-		deadBlack = new int[Settings.NUMOFPAWNS];
+		deadWhite = new int[numberOfPawns];
+		deadBlack = new int[numberOfPawns];
 		
 
-		for (int i = 0; i < Settings.NUMOFPAWNS; i++) {
+		for (int i = 0; i < numberOfPawns; i++) {
 			deadWhite[i] = 0;
 			deadBlack[i] = 0;
 		}
 		
 		// clone the board
-		cloneGameBoard = new Square[Settings.DIMBOARD][Settings.DIMBOARD];
+		cloneGameBoard = new Square[boardSize][boardSize];
 		// clone the pawns
-		for (int i = 0; i < Settings.NUMOFPAWNS; i++) {
+		for (int i = 0; i < numberOfPawns; i++) {
 			if (whitePawns[i].position.isInWhiteBase() && whitePawns[i].isAlive()) {
 				cloneWhite[i] = new Pawn(i, true);
 			} else {
@@ -215,8 +225,8 @@ public class GameState  {
 			}
 		}
 		
-		for (int i = 0; i < Settings.DIMBOARD; i++) {
-			for (int j = 0; j < Settings.DIMBOARD; j++) {
+		for (int i = 0; i < boardSize; i++) {
+			for (int j = 0; j < boardSize; j++) {
 				cloneGameBoard[i][j] = new Square(gameBoard[i][j].getXCoord(), gameBoard[i][j].getYCoord(), gameBoard[i][j].isFree());
 			}
 		}
@@ -229,7 +239,7 @@ public class GameState  {
 		}
 
 		// check for dead
-		for (int i = 0; i < Settings.NUMOFPAWNS; i++) {
+		for (int i = 0; i < numberOfPawns; i++) {
 			if ((cloneBlack[i].isAlive()) && (cloneBlack[i].isBlackPawnMovable(cloneGameBoard) == false)) {
 				deadBlack[i] = 1;
 				// kill dead pawns
@@ -244,7 +254,7 @@ public class GameState  {
 		
 		//new object is returned to check
 		
-		GameState temp = new GameState(cloneWhite, cloneBlack);
+		GameState temp = new GameState(boardSize, baseSize, cloneWhite, cloneBlack);
 		temp.pawnsToBinaryArray(cloneWhite, cloneBlack);
 
 		ObservationCandidateMove moveItem = new ObservationCandidateMove();
@@ -260,15 +270,15 @@ public class GameState  {
 	public void refreshGameState() {
 		int[] deadWhite;
 		int[] deadBlack;
-		deadWhite = new int[Settings.NUMOFPAWNS];
-		deadBlack = new int[Settings.NUMOFPAWNS];
+		deadWhite = new int[numberOfPawns];
+		deadBlack = new int[numberOfPawns];
 
-		for (int i = 0; i < Settings.NUMOFPAWNS; i++) {
+		for (int i = 0; i < numberOfPawns; i++) {
 			deadWhite[i] = 0;
 			deadBlack[i] = 0;
 		}
 		
-		for (int i = 0; i < Settings.NUMOFPAWNS; i++) {
+		for (int i = 0; i < numberOfPawns; i++) {
 			if ((blackPawns[i].isAlive()) && (blackPawns[i].isBlackPawnMovable(gameBoard) == false)) {
 				deadBlack[i] = 1;
 
@@ -299,7 +309,7 @@ public class GameState  {
 
 	// check if player can win after opponent's last move
 	public boolean canWin(int turn, Square[][] helpSquare) {
-		for (int i = 0; i < Settings.NUMOFPAWNS; i++) {
+		for (int i = 0; i < numberOfPawns; i++) {
 			for (int j = 0; j < Settings.MAX_NUM_PAWN_MOVES; j++) {
 				if (turn == Settings.WHITE_PLAYER) {
 					if (helpSquare[i][j].isInBlackBase()) {
@@ -318,7 +328,7 @@ public class GameState  {
 	// check if player can win after opponent's last move
 	public boolean canWin(int turn) {
 		Square[][] helpSquare = this.getAllMovesForPlayer(turn, this.getGameBoard());
-		for (int i = 0; i < Settings.NUMOFPAWNS; i++) {
+		for (int i = 0; i < numberOfPawns; i++) {
 			for (int j = 0; j < Settings.MAX_NUM_PAWN_MOVES; j++) {
 				if (turn == Settings.WHITE_PLAYER) {
 					if (helpSquare[i][j].isInBlackBase()) {
@@ -337,7 +347,7 @@ public class GameState  {
 	
 	public boolean nextToFinal(Pawn[] wPawns, Pawn[] bPawns) {
 		boolean answer = false;
-		for (int i = 0; i < Settings.NUMOFPAWNS; i++) {
+		for (int i = 0; i < numberOfPawns; i++) {
 			if (wPawns[i].isPawnInEnemyBase()) {
 				answer = true;
 			}
@@ -363,13 +373,13 @@ public class GameState  {
 //		} else if (blackLeft == 0) {
 //			toRet = "mavros" + "|";
 //		} else {
-//			for (int i = 0; i < Settings.NUMOFPAWNS; i++) {
+//			for (int i = 0; i < numberOfPawns; i++) {
 //				if (this.whitePawns[i].isPawnInEnemyBase()) {
 //					toRet = "aspros" + "|";
-//					i = Settings.NUMOFPAWNS;
+//					i = numberOfPawns;
 //				} else if (this.blackPawns[i].isPawnInEnemyBase()) {
 //					toRet = "mavros" + "|";
-//					i = Settings.NUMOFPAWNS;
+//					i = numberOfPawns;
 //				}
 //			}
 //		}
@@ -377,7 +387,7 @@ public class GameState  {
 		toRet += "" + whiteLeft + "|" + blackLeft + "|";
 		
 		//Count the base pawns
-		for (int i = 0; i < Settings.NUMOFPAWNS; i++) {
+		for (int i = 0; i < numberOfPawns; i++) {
 			if (this.whitePawns[i].isAlive() && this.whitePawns[i].isPawnInOwnBase()) {
 				whiteBase++;
 			} 
@@ -448,15 +458,15 @@ public class GameState  {
 		//BIAS will be filled in the Neural network method
 		//inputNode[AIConstants.NEURAL_INPUT_SIZE] = BIAS;
 		
-		int shortcut = 2 * Settings.DIMBOARD * Settings.DIMBOARD - 4 * Settings.DIMBASE * Settings.DIMBASE;
-		for (int i = 0; i < Settings.NUMOFPAWNS; i++) {
+		int shortcut = 2 * boardSize * boardSize - 4 * baseSize * baseSize;
+		for (int i = 0; i < numberOfPawns; i++) {
 			if ((white[i].isAlive()) && (!white[i].isPawnInEnemyBase()) && (!white[i].isPawnInOwnBase())) {
-				if (white[i].getPosition().getXCoord() < Settings.DIMBASE) {
-					pos = white[i].getPosition().getXCoord() * Settings.DIMBOARD + white[i].getPosition().getYCoord() - (white[i].getPosition().getXCoord() + 1) * Settings.DIMBASE;
-				} else if ((white[i].getPosition().getXCoord() >= Settings.DIMBASE) && (white[i].getPosition().getXCoord() < Settings.DIMBOARD - Settings.DIMBASE)) {
-					pos = white[i].getPosition().getXCoord() * Settings.DIMBOARD + white[i].getPosition().getYCoord() - Settings.DIMBASE * Settings.DIMBASE;
-				} else if (white[i].getPosition().getXCoord() >= Settings.DIMBOARD - Settings.DIMBASE) {
-					pos = white[i].getPosition().getXCoord() * Settings.DIMBOARD + white[i].getPosition().getYCoord() - (white[i].getPosition().getXCoord() - Settings.DIMBOARD + 2 * Settings.DIMBASE) * Settings.DIMBASE;
+				if (white[i].getPosition().getXCoord() < baseSize) {
+					pos = white[i].getPosition().getXCoord() * boardSize + white[i].getPosition().getYCoord() - (white[i].getPosition().getXCoord() + 1) * baseSize;
+				} else if ((white[i].getPosition().getXCoord() >= baseSize) && (white[i].getPosition().getXCoord() < boardSize - baseSize)) {
+					pos = white[i].getPosition().getXCoord() * boardSize + white[i].getPosition().getYCoord() - baseSize * baseSize;
+				} else if (white[i].getPosition().getXCoord() >= boardSize - baseSize) {
+					pos = white[i].getPosition().getXCoord() * boardSize + white[i].getPosition().getYCoord() - (white[i].getPosition().getXCoord() - boardSize + 2 * baseSize) * baseSize;
 				}	
 				inputNode[2 * pos] = 1;
 			}
@@ -469,12 +479,12 @@ public class GameState  {
 			}
 			
 			if ((black[i].isAlive()) && (!black[i].isPawnInEnemyBase()) && (!black[i].isPawnInOwnBase())) {
-				if (black[i].getPosition().getXCoord() < Settings.DIMBASE) {
-					pos = black[i].getPosition().getXCoord() * Settings.DIMBOARD + black[i].getPosition().getYCoord() - (black[i].getPosition().getXCoord() + 1) * Settings.DIMBASE;
-				} else if ((black[i].getPosition().getXCoord() >= Settings.DIMBASE) && (black[i].getPosition().getXCoord() < Settings.DIMBOARD - Settings.DIMBASE)) {
-					pos = black[i].getPosition().getXCoord() * Settings.DIMBOARD + black[i].getPosition().getYCoord() - Settings.DIMBASE * Settings.DIMBASE;
-				} else if (black[i].getPosition().getXCoord() >= Settings.DIMBOARD - Settings.DIMBASE) {
-					pos = black[i].getPosition().getXCoord() * Settings.DIMBOARD + black[i].getPosition().getYCoord() - (black[i].getPosition().getXCoord() - Settings.DIMBOARD + 2 * Settings.DIMBASE) * Settings.DIMBASE;
+				if (black[i].getPosition().getXCoord() < baseSize) {
+					pos = black[i].getPosition().getXCoord() * boardSize + black[i].getPosition().getYCoord() - (black[i].getPosition().getXCoord() + 1) * baseSize;
+				} else if ((black[i].getPosition().getXCoord() >= baseSize) && (black[i].getPosition().getXCoord() < boardSize - baseSize)) {
+					pos = black[i].getPosition().getXCoord() * boardSize + black[i].getPosition().getYCoord() - baseSize * baseSize;
+				} else if (black[i].getPosition().getXCoord() >= boardSize - baseSize) {
+					pos = black[i].getPosition().getXCoord() * boardSize + black[i].getPosition().getYCoord() - (black[i].getPosition().getXCoord() - boardSize + 2 * baseSize) * baseSize;
 				}	
 				inputNode[2 * pos + 1] = 1;
 			}
@@ -490,21 +500,21 @@ public class GameState  {
 		// triggers the appropriate percentage
 		
 		//bug correction int type casting was converting small decimal to 0 and then the multiplication was taking place
-		if (aspros <= (int) (.25 * Settings.NUMOFPAWNS) ) {
+		if (aspros <= (int) (.25 * numberOfPawns) ) {
 			inputNode[shortcut] = 1;
-		} else if (aspros <= (int) (0.5 * Settings.NUMOFPAWNS)) {
+		} else if (aspros <= (int) (0.5 * numberOfPawns)) {
 			inputNode[shortcut + 1] = 1;
-		} else if (aspros <= (int) (0.75 * Settings.NUMOFPAWNS)) {
+		} else if (aspros <= (int) (0.75 * numberOfPawns)) {
 			inputNode[shortcut + 2] = 1;
 		} else {
 			inputNode[shortcut + 3] = 1;
 		}
 		
-		if (mavros <= (int) (.25 * Settings.NUMOFPAWNS)) {
+		if (mavros <= (int) (.25 * numberOfPawns)) {
 			inputNode[shortcut + 4] = 1;
-		} else if (mavros <= (int) (0.5 * Settings.NUMOFPAWNS)) {
+		} else if (mavros <= (int) (0.5 * numberOfPawns)) {
 			inputNode[shortcut + 5] = 1;
-		} else if (mavros <= (int) (0.75 * Settings.NUMOFPAWNS)) {
+		} else if (mavros <= (int) (0.75 * numberOfPawns)) {
 			inputNode[shortcut + 6] = 1;
 		} else {
 			inputNode[shortcut + 7] = 1;
@@ -545,7 +555,7 @@ public class GameState  {
 			return  100;
 		} 
 		// an xasei kapoio pioni
-		double portion = 1.0 / Settings.NUMOFPAWNS;
+		double portion = 1.0 / numberOfPawns;
 		// gia tis ypoloipew periptoseiw epistrefoume to reward os eksis:
 		// briskoyme ti diafora tvn pionion ton dyo antipalon (mporei na exasan
 		// kapoia piona)
@@ -566,10 +576,10 @@ public class GameState  {
 	
 	
 	public GameState deepCopy() {
-		GameState toRet = new GameState();
+		GameState toRet = new GameState(boardSize, baseSize, numberOfPawns);
 
 		
-		for (int i = 0; i < Settings.NUMOFPAWNS; i++) {
+		for (int i = 0; i < numberOfPawns; i++) {
 			
 			if (this.whitePawns[i].position.isInWhiteBase() && this.whitePawns[i].isAlive()) {
 				toRet.whitePawns[i] = new Pawn(i, true);
@@ -587,8 +597,8 @@ public class GameState  {
 			
 		}
 
-		for (int i = 0; i < Settings.DIMBOARD; i++) {
-			for (int j = 0; j < Settings.DIMBOARD; j++) {
+		for (int i = 0; i < boardSize; i++) {
+			for (int j = 0; j < boardSize; j++) {
 				toRet.gameBoard[i][j] = new Square(gameBoard[i][j].getXCoord(), gameBoard[i][j].getYCoord(), gameBoard[i][j].isFree());
 			}
 		}
@@ -606,8 +616,8 @@ public class GameState  {
 	
 	public void printGameBoard() {
 		System.out.println(" ");
-		for (int i = 0; i < Settings.DIMBOARD; i++) {
-			for (int j = 0; j < Settings.DIMBOARD; j++) {
+		for (int i = 0; i < boardSize; i++) {
+			for (int j = 0; j < boardSize; j++) {
 				
 				System.out.print(gameBoard[i][j].getPrintInfo());
 				
@@ -618,7 +628,7 @@ public class GameState  {
 
 	public void printPawns(int turn) {
 		System.out.println(" ");
-		for (int i = 0; i < Settings.NUMOFPAWNS; i++) {
+		for (int i = 0; i < numberOfPawns; i++) {
 			if (turn == Settings.WHITE_PLAYER) {
 				if ((whitePawns[i].position.getXCoord() + whitePawns[i].position.getYCoord()) > 0 ) {
 					System.out.println("Pawn " + i + " : " + whitePawns[i].position.getXCoord() + "-" + whitePawns[i].position.getYCoord());
