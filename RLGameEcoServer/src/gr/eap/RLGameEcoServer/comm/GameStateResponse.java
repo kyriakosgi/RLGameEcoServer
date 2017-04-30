@@ -11,10 +11,8 @@ public class GameStateResponse extends Response {
 	
 	public GameStateResponse(GameState state) {
 		this.state = state;
-	}
-
-	public GameStateResponse() {
 		this.setType("gr.eap.RLGameEcoServer.comm.GameStateResponse");
 	}
+
 
 }

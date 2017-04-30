@@ -3,11 +3,14 @@ package gr.eap.RLGameEcoServer.game;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import org.rlgame.gameplay.GameState;
+import org.rlgame.gameplay.Pawn;
 
 import gr.eap.RLGameEcoServer.comm.ConnectionState;
+import gr.eap.RLGameEcoServer.comm.GameStateResponse;
 import gr.eap.RLGameEcoServer.comm.Message;
 import gr.eap.RLGameEcoServer.comm.Message.Type;
 import gr.eap.RLGameEcoServer.player.Participant;
@@ -157,7 +160,14 @@ public class Game {
 		this.baseSize = baseSize;
 		this.numberOfPawns = numberOfPawns;
 		this.setStatus(GameStatus.WAITING_FOR_PLAYERS);
-		state = new GameState();
+		Pawn [] whitePawn = new Pawn[numberOfPawns];
+		Pawn [] blackPawn = new Pawn[numberOfPawns];
+
+		for (int i = 0; i < numberOfPawns; i++) {
+			whitePawn[i] = new Pawn(i, true);
+			blackPawn[i] = new Pawn(i, false);
+		}
+		state = new GameState(boardSize, baseSize, whitePawn, blackPawn);
 		//state.setBoard(new int[boardSize * boardSize]);
 	}
 
@@ -236,18 +246,29 @@ public class Game {
 
 	}
 
+	private List<Player> getPlayers(){
+		ArrayList<Player> players = new ArrayList<Player>();
+		for (Participant participant : participants) {
+			for (Player player : participant.getPlayers()) {
+				players.add(player); 
+			}
+		}
+		
+		
+		
+		return players;
+	}
+	
 	private void startGame() {
 		// Set the start date and time as the current date and time
 		setStartDateTime(new Date());
 
 		// Set the game and players status
 		setStatus(GameStatus.IN_PROGRESS);
-		for (Participant participant : participants) {
-			for (Player player : participant.getPlayers()) {
-				player.setConnectionState(ConnectionState.IN_GAME);
-			}
+		for (Player player : getPlayers()){
+			player.setConnectionState(ConnectionState.IN_GAME);
 		}
-
+		
 		// Send a message to all participants so that the client knows that they
 		// are now in game
 		Message message = new Message();
@@ -308,7 +329,14 @@ public class Game {
 	}
 	
 	public void shareState() {
-		// TODO Not yet implemented
+		GameStateResponse r = new GameStateResponse(state);
+		for (Player player : getPlayers()){
+			r.setSocket(player.getConnection());
+			r.setConnectionState(player.getConnectionState());
+			r.setUserId(player.getId());
+			r.send();
+			
+		}
 	}
 
 	public void endGame() {
