@@ -112,6 +112,7 @@ public class Message {
 					response.setConnectionState(recipient.getConnectionState());
 					response.setSocket(recipient.getConnection());
 					response.setUserId(recipient.getId());
+					response.setConnectionState(recipient.getConnectionState());
 					response.send();
 				}
 			}
