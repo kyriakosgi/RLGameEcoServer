@@ -35,10 +35,6 @@ public class LoginCommand extends Command {
 
 		Message message = new Message();
 		
-		
-		MessageResponse r1 = new MessageResponse();
-		r1.setCommandID(super.getId());
-		r1.setSocket(getSocket());
 		if (newPlayer != null) {
 			message.getRecipients().add(newPlayer);
 			message.setText("Login successfull");
