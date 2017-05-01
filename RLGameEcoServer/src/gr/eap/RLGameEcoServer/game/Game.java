@@ -246,7 +246,7 @@ public class Game {
 
 	}
 
-	private List<Player> getPlayers(){
+	public List<Player> getPlayers(){
 		ArrayList<Player> players = new ArrayList<Player>();
 		for (Participant participant : participants) {
 			for (Player player : participant.getPlayers()) {
