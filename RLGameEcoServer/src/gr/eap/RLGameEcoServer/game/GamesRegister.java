@@ -59,5 +59,12 @@ public class GamesRegister {
 			}
 		});
 	}
+	
+	public Game searchGameByPlayer(Player player){
+		for (Game game : getGamesList()){
+			if (game.getPlayers().contains(player)) return game;
+		}
+		return null;
+	}
 
 }
