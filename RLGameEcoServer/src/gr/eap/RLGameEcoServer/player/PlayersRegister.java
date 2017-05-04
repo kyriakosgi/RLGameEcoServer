@@ -8,6 +8,7 @@ import org.java_websocket.WebSocket;
 
 import gr.eap.RLGameEcoServer.comm.ConnectionState;
 import gr.eap.RLGameEcoServer.comm.PlayersListResponse;
+import gr.eap.RLGameEcoServer.game.Game;
 import gr.eap.RLGameEcoServer.game.GamesRegister;
 
 
@@ -61,28 +62,36 @@ public class PlayersRegister {
 
 	public Player registerPlayer(String userName, String password, WebSocket socket) {
 		Player newPlayer = Player.getPlayer(userName, password);
-
+		Player existingPlayer = null;
 		if (newPlayer != null) {
 			//Add player to the connected players register along with his websocket hashcode
 			//If a player was disconnected we add her with the new socketHash, so that she can continue playing
-			newPlayer.setConnection(socket);
-			newPlayer.setConnectionState(ConnectionState.LOGGED_IN);
-			Player existingPlayer = players.get((Integer)newPlayer.getId());
 			
+			existingPlayer = players.get((Integer)newPlayer.getId());
 			if (existingPlayer != null){
 				//TODO Send disconnect message
 				existingPlayer.getConnection().close();
 				existingPlayer.setConnection(socket);
 				//if logged in player is already registered, we leave his connection state intact so that he can continue playing a game that he was participating
+				//if player is in game, system has to send her the game state
+				if (existingPlayer.getConnectionState().equals(ConnectionState.IN_GAME)){
+					Game game = GamesRegister.getInstance().searchGameByPlayer(existingPlayer);
+					if (game != null){
+						game.shareState();
+					}
+				}
 			}
 			else{
+				newPlayer.setConnection(socket);
+				newPlayer.setConnectionState(ConnectionState.LOGGED_IN);
 				players.put((Integer)newPlayer.getId(), newPlayer);
 			}
 			sendPlayersList();
 			GamesRegister.getInstance().sendGamesList();
 		}
 
-		return newPlayer;
+		if (existingPlayer != null) return existingPlayer;
+		else return newPlayer;
 	}
 	
 	public void deregisterPlayer(WebSocket socket){
