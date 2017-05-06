@@ -10,17 +10,18 @@ public class Pawn {
 	private int baseSize;
 	private int maxNumberOfPawnMoves;
 
-	// initiates the squares that make the white base	
-	private Square whiteBase = new Square(0, 0, boardSize, baseSize); 
-	
-	// initiates the squares that make the black base
-	private Square blackBase = new Square(boardSize - 1, boardSize - 1, boardSize, baseSize); 
+	private Square whiteBase = null; 
+	private Square blackBase = null; 
 						
 
 	public Pawn(int boardSize, int baseSize) {
 		this.boardSize = boardSize;
 		this.baseSize = baseSize;
 		this.maxNumberOfPawnMoves = baseSize * 2;
+		// initiates the squares that make the white base	
+		whiteBase = new Square(0, 0, boardSize, baseSize); 
+		// initiates the squares that make the black base
+		blackBase = new Square(boardSize - 1, boardSize - 1, boardSize, baseSize); 
 		alive = true;
 		position = whiteBase;
 	}
@@ -29,6 +30,10 @@ public class Pawn {
 		this.boardSize = boardSize;
 		this.baseSize = baseSize;
 		this.maxNumberOfPawnMoves = baseSize * 2;
+		// initiates the squares that make the white base	
+		whiteBase = new Square(0, 0, boardSize, baseSize); 
+		// initiates the squares that make the black base
+		blackBase = new Square(boardSize - 1, boardSize - 1, boardSize, baseSize); 
 		id = noumero;
 		white = (whiteColor == true) ? true : false;
 		position = (whiteColor == true) ? whiteBase : blackBase;

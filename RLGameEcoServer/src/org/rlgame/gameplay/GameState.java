@@ -17,8 +17,8 @@ public class GameState  {
 	private Pawn[] whitePawns;
 	private Pawn[] blackPawns;
 	
-	private Pawn[] cloneWhite = new Pawn[numberOfPawns];
-	private Pawn[] cloneBlack = new Pawn[numberOfPawns];
+	private Pawn[] cloneWhite = null;
+	private Pawn[] cloneBlack = null;
 	private Square[][] cloneGameBoard;
 	
 	// Added by Dockos for saving the coordinates of deleted pawns
@@ -31,6 +31,9 @@ public class GameState  {
 		this.baseSize = baseSize;
 		this.maxNumberOfPawnMoves = baseSize * 2;
 		this.neuralInputSize = 2 * (boardSize * boardSize - 2 * baseSize * baseSize + 5);
+		cloneWhite = new Pawn[numberOfPawns];
+		cloneBlack = new Pawn[numberOfPawns];
+		
 		//initialize gameBoard Squares array
 		initGameBoard();
 		
@@ -46,6 +49,8 @@ public class GameState  {
 		this.boardSize = boardSize;
 		this.baseSize = baseSize;
 		this.maxNumberOfPawnMoves = baseSize * 2;
+		cloneWhite = new Pawn[numberOfPawns];
+		cloneBlack = new Pawn[numberOfPawns];
 		init(wh_Pawns, bl_Pawns);
 	}
 
