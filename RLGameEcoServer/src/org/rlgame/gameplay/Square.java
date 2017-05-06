@@ -1,6 +1,5 @@
 package org.rlgame.gameplay;
 
-import org.rlgame.gameplay.Settings;
 
 public class Square {
     private int xCoord;
@@ -9,18 +8,24 @@ public class Square {
 	private boolean isFree; // no pawn is on that square
 	private boolean isInWBase;
 	private boolean isInBBase;
+	private int boardSize;
+	private int baseSize;
 
 	public Square() {
 		
 	}
 	
-	public Square(int x, int y, boolean empty) {
+	public Square(int x, int y, boolean empty, int boardSize, int baseSize) {
+		this.boardSize = boardSize;
+		this.baseSize = baseSize;
 		xCoord = x;
 		yCoord = y;
 		isFree = empty;
 	}
 
 	public Square(int x, int y, int dimBoard, int dimBase) {
+		this.boardSize = dimBoard;
+		this.baseSize = dimBase;
 		xCoord = x;
 		yCoord = y;
 		isFree = true;
@@ -41,11 +46,11 @@ public class Square {
 	}
 
 	public boolean isInWhiteBase() {
-		return ((xCoord < Settings.DIMBASE) && (yCoord < Settings.DIMBASE));
+		return ((xCoord < baseSize) && (yCoord < baseSize));
 	}
 
 	public boolean isInBlackBase() {
-		return ((xCoord > Settings.DIMBOARD - Settings.DIMBASE - 1) && (yCoord > Settings.DIMBOARD - Settings.DIMBASE - 1));
+		return ((xCoord > boardSize - baseSize - 1) && (yCoord > boardSize - baseSize - 1));
 	}
 
 	public void setXCoord(int x) {
@@ -69,7 +74,7 @@ public class Square {
 	// tag is a number I map each square with. I use it for describing the move
 	// when human players are involved
 	public int square2Tag() {
-		return xCoord * Settings.DIMBOARD + yCoord + 1;
+		return xCoord * boardSize + yCoord + 1;
 	}
 
 	public Square tag2Square(int tg) {
@@ -78,8 +83,8 @@ public class Square {
 //		tagSq.xCoord = (int) tag / DIMBOARD;
 //		tagSq.yCoord = (int) tag - DIMBOARD * (tagSq.xCoord);
 
-		tagSq.xCoord = (int) (tag / Settings.DIMBOARD);
-		tagSq.yCoord = (int) (tag - Settings.DIMBOARD * (tagSq.xCoord));
+		tagSq.xCoord = (int) (tag / boardSize);
+		tagSq.yCoord = (int) (tag - boardSize * (tagSq.xCoord));
 		
 		return tagSq;
 	}

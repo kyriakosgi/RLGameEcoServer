@@ -164,8 +164,8 @@ public class Game {
 		Pawn [] blackPawn = new Pawn[numberOfPawns];
 
 		for (int i = 0; i < numberOfPawns; i++) {
-			whitePawn[i] = new Pawn(i, true);
-			blackPawn[i] = new Pawn(i, false);
+			whitePawn[i] = new Pawn(i, true, boardSize, baseSize);
+			blackPawn[i] = new Pawn(i, false, boardSize, baseSize);
 		}
 		state = new GameState(boardSize, baseSize, whitePawn, blackPawn);
 		//state.setBoard(new int[boardSize * boardSize]);

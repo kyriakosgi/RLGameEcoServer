@@ -10,6 +10,8 @@ public class GameState  {
 	private int numberOfPawns;
 	private int boardSize;
 	private int baseSize;
+	private int maxNumberOfPawnMoves;
+	private int neuralInputSize;
 	
 	private Square[][] gameBoard;	
 	private Pawn[] whitePawns;
@@ -27,6 +29,8 @@ public class GameState  {
 		this.numberOfPawns=numberOfPawns;
 		this.boardSize = boardSize;
 		this.baseSize = baseSize;
+		this.maxNumberOfPawnMoves = baseSize * 2;
+		this.neuralInputSize = 2 * (boardSize * boardSize - 2 * baseSize * baseSize + 5);
 		//initialize gameBoard Squares array
 		initGameBoard();
 		
@@ -41,6 +45,7 @@ public class GameState  {
 		numberOfPawns=wh_Pawns.length;
 		this.boardSize = boardSize;
 		this.baseSize = baseSize;
+		this.maxNumberOfPawnMoves = baseSize * 2;
 		init(wh_Pawns, bl_Pawns);
 	}
 
@@ -111,7 +116,7 @@ public class GameState  {
 		//Blank moves - 0,0 target aren't added to the moves vector
 		//
 		for (int i = 0; i < numberOfPawns; i++) {
-			for (int j = 0; j < Settings.MAX_NUM_PAWN_MOVES; j++) {
+			for (int j = 0; j < maxNumberOfPawnMoves; j++) {
 				if ((moves[i][j].getXCoord() + moves[i][j].getYCoord()) != 0) {
 					toRet.add(this.getMoveTargetGameState(turn, i, moves[i][j]));
 				}
@@ -124,10 +129,10 @@ public class GameState  {
 	private Square[][] getAllMovesForPlayer(int turn, Square[][] outSquare) {
 		Square[][] helpSquare = new Square[numberOfPawns][1];
 
-		Square [] blankMoves = new Square[Settings.MAX_NUM_PAWN_MOVES];
+		Square [] blankMoves = new Square[maxNumberOfPawnMoves];
 		
 		
-		for (int i = 0; i < Settings.MAX_NUM_PAWN_MOVES; i++) {
+		for (int i = 0; i < maxNumberOfPawnMoves; i++) {
 			blankMoves[i] = new Square();
 		}
 		boolean baseFound = false;
@@ -211,23 +216,23 @@ public class GameState  {
 		// clone the pawns
 		for (int i = 0; i < numberOfPawns; i++) {
 			if (whitePawns[i].position.isInWhiteBase() && whitePawns[i].isAlive()) {
-				cloneWhite[i] = new Pawn(i, true);
+				cloneWhite[i] = new Pawn(i, true, boardSize, baseSize);
 			} else {
-				Square whitePawnPosition = new Square(whitePawns[i].position.getXCoord(), whitePawns[i].position.getYCoord(), whitePawns[i].position.isFree());  
+				Square whitePawnPosition = new Square(whitePawns[i].position.getXCoord(), whitePawns[i].position.getYCoord(), whitePawns[i].position.isFree(), boardSize, baseSize);  
 				cloneWhite[i] = new Pawn(i, true, whitePawnPosition, whitePawns[i].isAlive());
 			}
 
 			if (blackPawns[i].position.isInBlackBase() && blackPawns[i].isAlive()) {
-				cloneBlack[i] = new Pawn(i, false);
+				cloneBlack[i] = new Pawn(i, false, boardSize, baseSize);
 			} else {
-				Square blackPawnPosition = new Square(blackPawns[i].position.getXCoord(), blackPawns[i].position.getYCoord(), blackPawns[i].position.isFree());  
+				Square blackPawnPosition = new Square(blackPawns[i].position.getXCoord(), blackPawns[i].position.getYCoord(), blackPawns[i].position.isFree(), boardSize, baseSize);  
 				cloneBlack[i] = new Pawn(i, false, blackPawnPosition, blackPawns[i].isAlive());
 			}
 		}
 		
 		for (int i = 0; i < boardSize; i++) {
 			for (int j = 0; j < boardSize; j++) {
-				cloneGameBoard[i][j] = new Square(gameBoard[i][j].getXCoord(), gameBoard[i][j].getYCoord(), gameBoard[i][j].isFree());
+				cloneGameBoard[i][j] = new Square(gameBoard[i][j].getXCoord(), gameBoard[i][j].getYCoord(), gameBoard[i][j].isFree(), boardSize, baseSize);
 			}
 		}
 
@@ -310,7 +315,7 @@ public class GameState  {
 	// check if player can win after opponent's last move
 	public boolean canWin(int turn, Square[][] helpSquare) {
 		for (int i = 0; i < numberOfPawns; i++) {
-			for (int j = 0; j < Settings.MAX_NUM_PAWN_MOVES; j++) {
+			for (int j = 0; j < maxNumberOfPawnMoves; j++) {
 				if (turn == Settings.WHITE_PLAYER) {
 					if (helpSquare[i][j].isInBlackBase()) {
 						return true;
@@ -329,7 +334,7 @@ public class GameState  {
 	public boolean canWin(int turn) {
 		Square[][] helpSquare = this.getAllMovesForPlayer(turn, this.getGameBoard());
 		for (int i = 0; i < numberOfPawns; i++) {
-			for (int j = 0; j < Settings.MAX_NUM_PAWN_MOVES; j++) {
+			for (int j = 0; j < maxNumberOfPawnMoves; j++) {
 				if (turn == Settings.WHITE_PLAYER) {
 					if (helpSquare[i][j].isInBlackBase()) {
 						return true;
@@ -453,7 +458,7 @@ public class GameState  {
 		int pos = 0;
 		int aspros = 0;
 		int mavros = 0;
-		double [] inputNode = new double[Settings.NEURAL_INPUT_SIZE + 1]; 
+		double [] inputNode = new double[neuralInputSize + 1]; 
 
 		//BIAS will be filled in the Neural network method
 		//inputNode[AIConstants.NEURAL_INPUT_SIZE] = BIAS;
@@ -582,16 +587,16 @@ public class GameState  {
 		for (int i = 0; i < numberOfPawns; i++) {
 			
 			if (this.whitePawns[i].position.isInWhiteBase() && this.whitePawns[i].isAlive()) {
-				toRet.whitePawns[i] = new Pawn(i, true);
+				toRet.whitePawns[i] = new Pawn(i, true, boardSize, baseSize);
 			} else {
-				Square whitePawnPosition = new Square(this.whitePawns[i].position.getXCoord(), this.whitePawns[i].position.getYCoord(), this.whitePawns[i].position.isFree());  
+				Square whitePawnPosition = new Square(this.whitePawns[i].position.getXCoord(), this.whitePawns[i].position.getYCoord(), this.whitePawns[i].position.isFree(), boardSize, baseSize);  
 				toRet.whitePawns[i] = new Pawn(i, true, whitePawnPosition, this.whitePawns[i].isAlive());
 			}
 			
 			if (this.blackPawns[i].position.isInBlackBase() && this.blackPawns[i].isAlive()) {
-				toRet.blackPawns[i] = new Pawn(i, false);
+				toRet.blackPawns[i] = new Pawn(i, false, boardSize, baseSize);
 			} else {
-				Square blackPawnPosition = new Square(this.blackPawns[i].position.getXCoord(), this.blackPawns[i].position.getYCoord(), this.blackPawns[i].position.isFree());  
+				Square blackPawnPosition = new Square(this.blackPawns[i].position.getXCoord(), this.blackPawns[i].position.getYCoord(), this.blackPawns[i].position.isFree(), boardSize, baseSize);  
 				toRet.blackPawns[i] = new Pawn(i, false, blackPawnPosition, this.blackPawns[i].isAlive());
 			}
 			
@@ -599,7 +604,7 @@ public class GameState  {
 
 		for (int i = 0; i < boardSize; i++) {
 			for (int j = 0; j < boardSize; j++) {
-				toRet.gameBoard[i][j] = new Square(gameBoard[i][j].getXCoord(), gameBoard[i][j].getYCoord(), gameBoard[i][j].isFree());
+				toRet.gameBoard[i][j] = new Square(gameBoard[i][j].getXCoord(), gameBoard[i][j].getYCoord(), gameBoard[i][j].isFree(), boardSize, baseSize);
 			}
 		}
 		

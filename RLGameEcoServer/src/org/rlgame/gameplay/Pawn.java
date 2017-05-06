@@ -1,26 +1,34 @@
 package org.rlgame.gameplay;
 
-import org.rlgame.gameplay.Settings;
 
 public class Pawn {
 	private int id; // pawn id
 	private boolean white; // belongs to white??
 	private boolean alive; // is alive??
 	public Square position; // the square where this pawn resides
+	private int boardSize;
+	private int baseSize;
+	private int maxNumberOfPawnMoves;
 
 	// initiates the squares that make the white base	
-	private Square whiteBase = new Square(0, 0, Settings.DIMBOARD, Settings.DIMBASE); 
+	private Square whiteBase = new Square(0, 0, boardSize, baseSize); 
 	
 	// initiates the squares that make the black base
-	private Square blackBase = new Square(Settings.DIMBOARD - 1, Settings.DIMBOARD - 1, Settings.DIMBOARD, Settings.DIMBASE); 
+	private Square blackBase = new Square(boardSize - 1, boardSize - 1, boardSize, baseSize); 
 						
 
-	public Pawn() {
+	public Pawn(int boardSize, int baseSize) {
+		this.boardSize = boardSize;
+		this.baseSize = baseSize;
+		this.maxNumberOfPawnMoves = baseSize * 2;
 		alive = true;
 		position = whiteBase;
 	}
 
-	public Pawn(int noumero, boolean whiteColor) {
+	public Pawn(int noumero, boolean whiteColor, int boardSize, int baseSize) {
+		this.boardSize = boardSize;
+		this.baseSize = baseSize;
+		this.maxNumberOfPawnMoves = baseSize * 2;
 		id = noumero;
 		white = (whiteColor == true) ? true : false;
 		position = (whiteColor == true) ? whiteBase : blackBase;
@@ -77,49 +85,49 @@ public class Pawn {
 
 	// finds all possible moves a pawn can make, without checking legality
 	public Square[] getAllMovesForWhitePawn(Square[][] outSquare) {
-		Square helpSquare[] = new Square[Settings.MAX_NUM_PAWN_MOVES];
+		Square helpSquare[] = new Square[maxNumberOfPawnMoves];
 
-		for (int i = 0; i < Settings.MAX_NUM_PAWN_MOVES; i++) {
+		for (int i = 0; i < maxNumberOfPawnMoves; i++) {
 			helpSquare[i] = new Square();
 		}
 		
 		if (this.isAlive()) {
 			if (this.isPawnInOwnBase()) {
-				for (int i = 0; i < Settings.DIMBASE; i++) {
-					helpSquare[i] = outSquare[Settings.DIMBASE][i];
+				for (int i = 0; i < baseSize; i++) {
+					helpSquare[i] = outSquare[baseSize][i];
 				}
-				for (int i = Settings.DIMBASE; i < 2 * Settings.DIMBASE; i++) {
-					helpSquare[i] = outSquare[i - Settings.DIMBASE][Settings.DIMBASE];
+				for (int i = baseSize; i < 2 * baseSize; i++) {
+					helpSquare[i] = outSquare[i - baseSize][baseSize];
 				}
 			} else if (position.getXCoord() == 0) {
 				helpSquare[0] = outSquare[1][position.getYCoord()];
 				helpSquare[1] = outSquare[0][position.getYCoord() - 1];
-				if (position.getYCoord() < Settings.DIMBOARD - 1) {
+				if (position.getYCoord() < boardSize - 1) {
 					helpSquare[2] = outSquare[0][position.getYCoord() + 1];
 				}
 			} else if (position.getYCoord() == 0) {
 				helpSquare[0] = outSquare[position.getXCoord()][1];
 				helpSquare[1] = outSquare[position.getXCoord() - 1][0];
-				if (position.getXCoord() < Settings.DIMBOARD - 1) {
+				if (position.getXCoord() < boardSize - 1) {
 					helpSquare[2] = outSquare[position.getXCoord() + 1][0];
 				}
-			} else if (position.getYCoord() == Settings.DIMBOARD - 1) {
-				helpSquare[0] = outSquare[position.getXCoord()][Settings.DIMBOARD - 2];
-				helpSquare[1] = outSquare[position.getXCoord() - 1][Settings.DIMBOARD - 1];
+			} else if (position.getYCoord() == boardSize - 1) {
+				helpSquare[0] = outSquare[position.getXCoord()][boardSize - 2];
+				helpSquare[1] = outSquare[position.getXCoord() - 1][boardSize - 1];
 
 				//Ngav Added to correct bug 
 				//null pointer exception when position.getXCoord() = 7
-				if (position.getXCoord() < Settings.DIMBOARD - 1) {
-					helpSquare[2] = outSquare[position.getXCoord() + 1][Settings.DIMBOARD - 1];
+				if (position.getXCoord() < boardSize - 1) {
+					helpSquare[2] = outSquare[position.getXCoord() + 1][boardSize - 1];
 				}
 	
-			} else if (position.getXCoord() == Settings.DIMBOARD - 1) {
-				helpSquare[0] = outSquare[Settings.DIMBOARD - 1][position.getYCoord() - 1];
-				helpSquare[1] = outSquare[Settings.DIMBOARD - 2][position.getYCoord()];
+			} else if (position.getXCoord() == boardSize - 1) {
+				helpSquare[0] = outSquare[boardSize - 1][position.getYCoord() - 1];
+				helpSquare[1] = outSquare[boardSize - 2][position.getYCoord()];
 
 				//to avoid null pointer exception, when position.getYCoord() = 7
- 				if (position.getYCoord() < Settings.DIMBOARD - 1) {
-					helpSquare[2] = outSquare[Settings.DIMBOARD - 1][position.getYCoord() + 1];
+ 				if (position.getYCoord() < boardSize - 1) {
+					helpSquare[2] = outSquare[boardSize - 1][position.getYCoord() + 1];
 				}
  				
 			} else {
@@ -135,44 +143,44 @@ public class Pawn {
 
 	// finds all possible moves a pawn can make, without checking legality
 	public Square[] getAllMovesForBlackPawn(Square[][] outSquare) {
-		Square helpSquare[] = new Square[2 * Settings.DIMBASE];
-		for (int i = 0; i < 2 * Settings.DIMBASE; i++) {
+		Square helpSquare[] = new Square[2 * baseSize];
+		for (int i = 0; i < 2 * baseSize; i++) {
 			helpSquare[i] = new Square();
 		}
 		if (this.isAlive()) {
 			if (this.isPawnInOwnBase()) {
-				for (int i = 0; i < Settings.DIMBASE; i++) {
-					helpSquare[i] = outSquare[Settings.DIMBOARD - 1 - Settings.DIMBASE][Settings.DIMBOARD
+				for (int i = 0; i < baseSize; i++) {
+					helpSquare[i] = outSquare[boardSize - 1 - baseSize][boardSize
 							- 1 - i];
 				}
-				for (int i = Settings.DIMBASE; i < 2 * Settings.DIMBASE; i++) {
-					helpSquare[i] = outSquare[Settings.DIMBOARD + Settings.DIMBASE - 1 - i][Settings.DIMBOARD
-							- 1 - Settings.DIMBASE];
+				for (int i = baseSize; i < 2 * baseSize; i++) {
+					helpSquare[i] = outSquare[boardSize + baseSize - 1 - i][boardSize
+							- 1 - baseSize];
 				}
 			} else if (position.getXCoord() == 0) {
 				helpSquare[0] = outSquare[1][position.getYCoord()];
 				helpSquare[1] = outSquare[0][position.getYCoord() - 1];
 				
-				if (position.getYCoord() < Settings.DIMBOARD - 1) {
+				if (position.getYCoord() < boardSize - 1) {
 					helpSquare[2] = outSquare[0][position.getYCoord() + 1];
 				}
 			} else if (position.getYCoord() == 0) {
 				helpSquare[0] = outSquare[position.getXCoord()][1];
 				helpSquare[1] = outSquare[position.getXCoord() - 1][0];
 				
-				if (position.getXCoord() < Settings.DIMBOARD - 1) {
+				if (position.getXCoord() < boardSize - 1) {
 					helpSquare[2] = outSquare[position.getXCoord() + 1][0];
 				}
-			} else if (position.getYCoord() == Settings.DIMBOARD - 1) {
-				helpSquare[0] = outSquare[position.getXCoord() + 1][Settings.DIMBOARD - 1];
-				helpSquare[1] = outSquare[position.getXCoord()][Settings.DIMBOARD - 2];
+			} else if (position.getYCoord() == boardSize - 1) {
+				helpSquare[0] = outSquare[position.getXCoord() + 1][boardSize - 1];
+				helpSquare[1] = outSquare[position.getXCoord()][boardSize - 2];
 				if (position.getXCoord() > 0) {
-					helpSquare[2] = outSquare[position.getXCoord() - 1][Settings.DIMBOARD - 1];
+					helpSquare[2] = outSquare[position.getXCoord() - 1][boardSize - 1];
 				}
-			} else if (position.getXCoord() == Settings.DIMBOARD - 1) {
-				helpSquare[0] = outSquare[Settings.DIMBOARD - 1][position.getYCoord() - 1];
-				helpSquare[1] = outSquare[Settings.DIMBOARD - 1][position.getYCoord() + 1];
-				helpSquare[2] = outSquare[Settings.DIMBOARD - 2][position.getYCoord()];
+			} else if (position.getXCoord() == boardSize - 1) {
+				helpSquare[0] = outSquare[boardSize - 1][position.getYCoord() - 1];
+				helpSquare[1] = outSquare[boardSize - 1][position.getYCoord() + 1];
+				helpSquare[2] = outSquare[boardSize - 2][position.getYCoord()];
 			} else {
 				helpSquare[0] = outSquare[position.getXCoord() + 1][position.getYCoord()];
 				helpSquare[1] = outSquare[position.getXCoord() - 1][position.getYCoord()];
@@ -188,16 +196,16 @@ public class Pawn {
 	public Square[] getLegitMovesForWhitePawn(Square[][] outSquare) {
 		int i = 0;
 		int j = 0;
-		Square legSquare[] = new Square[Settings.MAX_NUM_PAWN_MOVES];
-		Square[] helpSquare = new Square[Settings.MAX_NUM_PAWN_MOVES];
-		for (int ii = 0; ii < Settings.MAX_NUM_PAWN_MOVES; ii++) {
+		Square legSquare[] = new Square[maxNumberOfPawnMoves];
+		Square[] helpSquare = new Square[maxNumberOfPawnMoves];
+		for (int ii = 0; ii < maxNumberOfPawnMoves; ii++) {
 			helpSquare[ii] = new Square();
 			legSquare[ii] = new Square();
 		}
 		legSquare = this.getAllMovesForWhitePawn(outSquare);
-		while ((i < Settings.MAX_NUM_PAWN_MOVES) && ((legSquare[i].getXCoord() != 0) || (legSquare[i].getYCoord() != 0))) {
-			int distanse = Math.max(position.getXCoord() + 1 - Settings.DIMBASE, position.getYCoord() + 1 - Settings.DIMBASE);
-			int distanse2 = Math.max(legSquare[i].getXCoord() + 1 - Settings.DIMBASE, legSquare[i].getYCoord() + 1 - Settings.DIMBASE);
+		while ((i < maxNumberOfPawnMoves) && ((legSquare[i].getXCoord() != 0) || (legSquare[i].getYCoord() != 0))) {
+			int distanse = Math.max(position.getXCoord() + 1 - baseSize, position.getYCoord() + 1 - baseSize);
+			int distanse2 = Math.max(legSquare[i].getXCoord() + 1 - baseSize, legSquare[i].getYCoord() + 1 - baseSize);
 			if (legSquare[i].isFree() && (distanse2 >= distanse)) {
 				helpSquare[j++] = legSquare[i];
 			}
@@ -210,16 +218,16 @@ public class Pawn {
 	public Square[] getLegitMovesForBlackPawn(Square[][] outSquare) {
 		int i = 0;
 		int j = 0;
-		Square[] legSquare = new Square[Settings.MAX_NUM_PAWN_MOVES];
-		Square[] helpSquare = new Square[Settings.MAX_NUM_PAWN_MOVES];
-		for (int ii = 0; ii < Settings.MAX_NUM_PAWN_MOVES; ii++) {
+		Square[] legSquare = new Square[maxNumberOfPawnMoves];
+		Square[] helpSquare = new Square[maxNumberOfPawnMoves];
+		for (int ii = 0; ii < maxNumberOfPawnMoves; ii++) {
 			helpSquare[ii] = new Square();
 			legSquare[ii] = new Square();
 		}
 		legSquare = this.getAllMovesForBlackPawn(outSquare);
-		while ((i < Settings.MAX_NUM_PAWN_MOVES) && ((legSquare[i].getXCoord() != 0) || (legSquare[i].getYCoord() != 0))) {
-			int distanse = Math.max(Settings.DIMBOARD - Settings.DIMBASE - position.getXCoord(), Settings.DIMBOARD - Settings.DIMBASE - position.getYCoord());
-			int distanse2 = Math.max(Settings.DIMBOARD - Settings.DIMBASE - legSquare[i].getXCoord(), Settings.DIMBOARD - Settings.DIMBASE - legSquare[i].getYCoord());
+		while ((i < maxNumberOfPawnMoves) && ((legSquare[i].getXCoord() != 0) || (legSquare[i].getYCoord() != 0))) {
+			int distanse = Math.max(boardSize - baseSize - position.getXCoord(), boardSize - baseSize - position.getYCoord());
+			int distanse2 = Math.max(boardSize - baseSize - legSquare[i].getXCoord(), boardSize - baseSize - legSquare[i].getYCoord());
 			if (legSquare[i].isFree() && (distanse2 >= distanse)) {
 				helpSquare[j++] = legSquare[i];
 			}
@@ -230,7 +238,7 @@ public class Pawn {
 
 	// checking if a pawn can move, so that we can kill it
 	public boolean isWhitePawnMovable(Square[][] outSquare) {
-		Square[] helpSquare = new Square[2 * Settings.DIMBASE];
+		Square[] helpSquare = new Square[2 * baseSize];
 		helpSquare = this.getLegitMovesForWhitePawn(outSquare);
 		
 		boolean toRet = ((helpSquare[0].getXCoord() == 0) && (helpSquare[0].getYCoord() == 0)) ? false : true;
@@ -244,7 +252,7 @@ public class Pawn {
 		if ((this.isPawnInEnemyBase()))// &&(this.position.getXCoord()!=0)&&(this.position.getYCoord()!=0))
 			return true;
 		// //nikolini
-		Square[] helpSquare = new Square[2 * Settings.DIMBASE];
+		Square[] helpSquare = new Square[2 * baseSize];
 		helpSquare = this.getLegitMovesForBlackPawn(outSquare);
 		/*
 		 * System.out.println("-d-d-d-d-d-d-"); for (int
@@ -258,20 +266,20 @@ public class Pawn {
 	// transform a pawn to a unique number
 	public int pawn2Tag() {
 		if (this.isAlive()) {
-			return position.getXCoord() * Settings.DIMBOARD + position.getYCoord() + 1;
+			return position.getXCoord() * boardSize + position.getYCoord() + 1;
 		} else
-			return Settings.DIMBOARD * Settings.DIMBOARD + 1;
+			return boardSize * boardSize + 1;
 	}
 
 	// the inverse of the above procedure
 	public Pawn tag2Pawn(int tg) {
 		int tag = tg - 1;
-		Pawn tagPawn = new Pawn();
-		tagPawn.position.setXCoord((int) tag / Settings.DIMBOARD);
-		tagPawn.position.setYCoord((int) tag - Settings.DIMBOARD * tagPawn.position.getXCoord());
+		Pawn tagPawn = new Pawn(boardSize, baseSize);
+		tagPawn.position.setXCoord((int) tag / boardSize);
+		tagPawn.position.setYCoord((int) tag - boardSize * tagPawn.position.getXCoord());
 //TODO CHECK
-//		tagPawn.position.setXCoord((int) (tag / Settings.DIMBOARD));
-//		tagPawn.position.setYCoord((int) (tag - Settings.DIMBOARD * (tagPawn.position.getXCoord())));
+//		tagPawn.position.setXCoord((int) (tag / boardSize));
+//		tagPawn.position.setYCoord((int) (tag - boardSize * (tagPawn.position.getXCoord())));
 		
 		return tagPawn;
 	}

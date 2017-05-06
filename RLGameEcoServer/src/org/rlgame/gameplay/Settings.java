@@ -4,17 +4,17 @@ package org.rlgame.gameplay;
 public class Settings {
 
 	//Constants
-	public static final int DIMBOARD	= 8; 	// board size
+	//public static final int DIMBOARD	= 8; 	// board size
 //	public static final int DIMBOARD	= 6; 	// board size
 
-	public static final int DIMBASE		= 2; 	// base size - used in Neural Net
-	public static final int NUMOFPAWNS	= 10;	
-	public static final int MAX_NUM_PAWN_MOVES = DIMBASE * 2; //4 for dimbase 2 
+	//public static final int DIMBASE		= 2; 	// base size - used in Neural Net
+	//public static final int NUMOFPAWNS	= 10;	
+	//public static final int MAX_NUM_PAWN_MOVES = DIMBASE * 2; //4 for dimbase 2 
 	
 	
 	//RLGame 2 * NEURAL_INPUT_SIZE will be the actual input size
 //	public static final int NEURAL_HIDDEN_SIZE = DIMBOARD * DIMBOARD - 2 * DIMBASE * DIMBASE + 5;
-	public static final int NEURAL_INPUT_SIZE = 2 * (DIMBOARD * DIMBOARD - 2 * DIMBASE * DIMBASE + 5);
+//	public static final int NEURAL_INPUT_SIZE = 2 * (DIMBOARD * DIMBOARD - 2 * DIMBASE * DIMBASE + 5);
 	public static final int NEURAL_OUTPUT_SIZE = 1;
 
 	public static final int WHITE_PLAYER = 1;
@@ -71,8 +71,8 @@ public class Settings {
 	public static String blackWWeightsName  = "blWWeights";	
 
 	
-	public static int whiteNeuralHiddenSize = (DIMBOARD * DIMBOARD - 2 * DIMBASE * DIMBASE + 5);
-	public static int blackNeuralHiddenSize = (DIMBOARD * DIMBOARD - 2 * DIMBASE * DIMBASE + 5);	
+//	public static int whiteNeuralHiddenSize = (DIMBOARD * DIMBOARD - 2 * DIMBASE * DIMBASE + 5);
+//	public static int blackNeuralHiddenSize = (DIMBOARD * DIMBOARD - 2 * DIMBASE * DIMBASE + 5);	
 	
 	///Static Methods
 	public static String playerModeSet(int turn, int val) {
