@@ -27,24 +27,24 @@ public class Game {
 	private int baseSize;
 	private int numberOfPawns;
 	private GameStatus status;
-	private boolean player1Ready = false;
-	private boolean player2Ready = false;
+	private boolean whitePlayerReady = false;
+	private boolean blackPlayerReady = false;
 
-	// player1 and player2 properties will be read-only and will get updated
+	// whitePlayer and player2 properties will be read-only and will get updated
 	// when needed, so that we can correctly serialize those properties
-	private Participant player1;
-	private Participant player2;
+	private Participant whitePlayer;
+	private Participant blackPlayer;
 	private Participant spectator;
 
-	public boolean isPlayer1Ready() {
-		return player1Ready;
+	public boolean isWhitePlayerReady() {
+		return whitePlayerReady;
 	}
 
-	public void setPlayer1Ready(boolean player1Ready) {
+	public void setWhitePlayerReady(boolean whitePlayerReady) {
 		// Check if the property value changes so that we know that we have to
 		// send the games list to the clients
-		if (this.player1Ready != player1Ready) {
-			this.player1Ready = player1Ready;
+		if (this.whitePlayerReady != whitePlayerReady) {
+			this.whitePlayerReady = whitePlayerReady;
 			// If this change starts the game then the game starting procedure
 			// will send the games list to the clients so we don't have to do it
 			// here as well
@@ -54,15 +54,15 @@ public class Game {
 		}
 	}
 
-	public boolean isPlayer2Ready() {
-		return player2Ready;
+	public boolean isBlackPlayerReady() {
+		return blackPlayerReady;
 	}
 
-	public void setPlayer2Ready(boolean player2Ready) {
+	public void setBlackPlayerReady(boolean player2Ready) {
 		// Check if the property value changes so that we know that we have to
 		// send the games list to the clients
-		if (this.player2Ready != player2Ready) {
-			this.player2Ready = player2Ready;
+		if (this.blackPlayerReady != player2Ready) {
+			this.blackPlayerReady = player2Ready;
 			// If this change starts the game then the game starting procedure
 			// will send the games list to the clients so we don't have to do it
 			// here as well
@@ -74,22 +74,22 @@ public class Game {
 
 	public Participant getPlayer1() {
 		//Create a new Participant so that the method never returns null
-		if (player1 == null){
-			player1= new Participant();
-			player1.setRole(Role.PLAYER1);
-			participants.add(player1);
+		if (whitePlayer == null){
+			whitePlayer= new Participant();
+			whitePlayer.setRole(Role.WHITEPLAYER);
+			participants.add(whitePlayer);
 		}
-		return player1;
+		return whitePlayer;
 	}
 
 	public Participant getPlayer2() {
 		//Create a new Participant so that the method never returns null
-		if (player2 == null){
-			player2= new Participant();
-			player2.setRole(Role.PLAYER2);
-			participants.add(player2);
+		if (blackPlayer == null){
+			blackPlayer= new Participant();
+			blackPlayer.setRole(Role.BLACKPLAYER);
+			participants.add(blackPlayer);
 		}
-		return player2;
+		return blackPlayer;
 	}
 
 	public Participant getSpectator() {
@@ -204,11 +204,11 @@ public class Game {
 				participant = new Participant();
 				participant.setRole(role);
 				switch (role) {
-				case PLAYER1:
-					this.player1 = participant;
+				case WHITEPLAYER:
+					this.whitePlayer = participant;
 					break;
-				case PLAYER2:
-					this.player2 = participant;
+				case BLACKPLAYER:
+					this.blackPlayer = participant;
 					break;
 				case SPECTATOR:
 					this.spectator = participant;
@@ -237,7 +237,7 @@ public class Game {
 
 	private boolean checkForGameStart() {
 		if (getStatus().equals(GameStatus.WAITING_FOR_PLAYERS) && !(getPlayer1().getPlayers().isEmpty())
-				&& !(getPlayer2().getPlayers().isEmpty()) && isPlayer1Ready() && isPlayer2Ready()) {
+				&& !(getPlayer2().getPlayers().isEmpty()) && isWhitePlayerReady() && isBlackPlayerReady()) {
 			startGame();
 			return true;
 		} else {
@@ -306,7 +306,7 @@ public class Game {
 					message.send();
 					
 					//things to do when the player is not a spectator
-					if (p.getRole().equals(Role.PLAYER1) || p.getRole().equals(Role.PLAYER2)){
+					if (p.getRole().equals(Role.WHITEPLAYER) || p.getRole().equals(Role.BLACKPLAYER)){
 						//if the player being removed was a team leader then the game is over
 						if (p.getTeamLeader() == null){
 							endGame();
@@ -321,7 +321,7 @@ public class Game {
 
 		if (returnValue){
 			// End the game when there are no players in the player role
-			if (getStatus().equals(GameStatus.IN_PROGRESS) && (participant.getRole().equals(Role.PLAYER1) || participant.getRole().equals(Role.PLAYER2)) && participant.getPlayers().isEmpty()){
+			if (getStatus().equals(GameStatus.IN_PROGRESS) && (participant.getRole().equals(Role.WHITEPLAYER) || participant.getRole().equals(Role.BLACKPLAYER)) && participant.getPlayers().isEmpty()){
 				endGame();
 			}
 		}

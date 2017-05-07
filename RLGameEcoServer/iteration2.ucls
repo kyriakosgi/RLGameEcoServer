@@ -38,16 +38,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="gr.eap.RLGameEcoServer.game.GameState" project="RLGameEcoServer" 
-    file="/RLGameEcoServer/src/gr/eap/RLGameEcoServer/game/GameState.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="405" y="823"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="6" language="java" name="gr.eap.RLGameEcoServer.player.Avatar" project="RLGameEcoServer" 
+  <class id="5" language="java" name="gr.eap.RLGameEcoServer.player.Avatar" project="RLGameEcoServer" 
     file="/RLGameEcoServer/src/gr/eap/RLGameEcoServer/player/Avatar.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1362" y="521"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -56,7 +47,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="7" language="java" name="gr.eap.RLGameEcoServer.player.Member" project="RLGameEcoServer" 
+  <class id="6" language="java" name="gr.eap.RLGameEcoServer.player.Member" project="RLGameEcoServer" 
     file="/RLGameEcoServer/src/gr/eap/RLGameEcoServer/player/Member.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1152" y="421"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -65,7 +56,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="8" language="java" name="gr.eap.RLGameEcoServer.comm.CommObjectSerializer" project="RLGameEcoServer" 
+  <interface id="7" language="java" name="gr.eap.RLGameEcoServer.comm.CommObjectSerializer" project="RLGameEcoServer" 
     file="/RLGameEcoServer/src/gr/eap/RLGameEcoServer/comm/CommObjectSerializer.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="161" y="241"/>    
@@ -75,7 +66,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="9" language="java" name="gr.eap.RLGameEcoServer.comm.JsonCommObjectSerializer" project="RLGameEcoServer" 
+  <class id="8" language="java" name="gr.eap.RLGameEcoServer.comm.JsonCommObjectSerializer" project="RLGameEcoServer" 
     file="/RLGameEcoServer/src/gr/eap/RLGameEcoServer/comm/JsonCommObjectSerializer.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="149" y="100"/>    
@@ -85,7 +76,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="gr.eap.RLGameEcoServer.comm.Command" project="RLGameEcoServer" 
+  <class id="9" language="java" name="gr.eap.RLGameEcoServer.comm.Command" project="RLGameEcoServer" 
     file="/RLGameEcoServer/src/gr/eap/RLGameEcoServer/comm/Command.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="873" y="413"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -94,7 +85,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="gr.eap.RLGameEcoServer.comm.CommunicationsObject" project="RLGameEcoServer" 
+  <class id="10" language="java" name="gr.eap.RLGameEcoServer.comm.CommunicationsObject" project="RLGameEcoServer" 
     file="/RLGameEcoServer/src/gr/eap/RLGameEcoServer/comm/CommunicationsObject.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="735" y="129"/>    
@@ -104,7 +95,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="gr.eap.RLGameEcoServer.comm.CommandCreator" project="RLGameEcoServer" 
+  <class id="11" language="java" name="gr.eap.RLGameEcoServer.comm.CommandCreator" project="RLGameEcoServer" 
     file="/RLGameEcoServer/src/gr/eap/RLGameEcoServer/comm/CommandCreator.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="130" y="946"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -113,7 +104,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="gr.eap.RLGameEcoServer.comm.LoginCommand" project="RLGameEcoServer" 
+  <class id="12" language="java" name="gr.eap.RLGameEcoServer.comm.LoginCommand" project="RLGameEcoServer" 
     file="/RLGameEcoServer/src/gr/eap/RLGameEcoServer/comm/LoginCommand.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1046" y="144"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -122,7 +113,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="14" language="java" name="gr.eap.RLGameEcoServer.comm.CommObjectClassCreator" project="RLGameEcoServer" 
+  <class id="13" language="java" name="gr.eap.RLGameEcoServer.comm.CommObjectClassCreator" project="RLGameEcoServer" 
     file="/RLGameEcoServer/src/gr/eap/RLGameEcoServer/comm/CommObjectClassCreator.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="137" y="790"/>    
@@ -132,7 +123,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="15" language="java" name="gr.eap.RLGameEcoServer.comm.Response" project="RLGameEcoServer" 
+  <class id="14" language="java" name="gr.eap.RLGameEcoServer.comm.Response" project="RLGameEcoServer" 
     file="/RLGameEcoServer/src/gr/eap/RLGameEcoServer/comm/Response.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="616" y="449"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -141,7 +132,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="16" language="java" name="gr.eap.RLGameEcoServer.db.MySQLHelper.parameterValue" project="RLGameEcoServer" 
+  <class id="15" language="java" name="gr.eap.RLGameEcoServer.db.MySQLHelper.parameterValue" project="RLGameEcoServer" 
     file="/RLGameEcoServer/src/gr/eap/RLGameEcoServer/db/MySQLHelper.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="381" y="359"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -150,7 +141,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="17" language="java" name="gr.eap.RLGameEcoServer.db.MySQLHelper" project="RLGameEcoServer" 
+  <class id="16" language="java" name="gr.eap.RLGameEcoServer.db.MySQLHelper" project="RLGameEcoServer" 
     file="/RLGameEcoServer/src/gr/eap/RLGameEcoServer/db/MySQLHelper.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="459" y="147"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
@@ -159,110 +150,82 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="18">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="19" name="players">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="20" minimum="0" maximum="2147483647">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="21">    
-    <end type="SOURCE" refId="6"/>    
+  <generalization id="17">    
+    <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="1"/>  
   </generalization>  
-  <generalization id="22">    
-    <end type="SOURCE" refId="15"/>    
-    <end type="TARGET" refId="11"/>  
-  </generalization>  
-  <realization id="23">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="8"/>  
-  </realization>  
-  <generalization id="24">    
-    <end type="SOURCE" refId="13"/>    
-    <end type="TARGET" refId="10"/>  
-  </generalization>  
-  <association id="25">    
-    <end type="SOURCE" refId="7" navigable="false">      
-      <attribute id="26" name="avatar">        
+  <association id="18">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="19" name="avatar">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="27" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="6" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="28">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="29" name="__me">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="30" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="31">    
-    <end type="SOURCE" refId="5" navigable="false">      
-      <attribute id="32" name="nextToPlay">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="33" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <generalization id="34">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="11"/>  
-  </generalization>  
-  <nesting id="35">    
-    <end type="SOURCE" refId="17"/>    
-    <end type="TARGET" refId="16"/>  
-  </nesting>  
-  <association id="36">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="37" name="state">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="38" minimum="0" maximum="1">        
+      <multiplicity id="20" minimum="0" maximum="1">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="39">    
-    <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="40" name="__me">        
+  <generalization id="21">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="9"/>  
+  </generalization>  
+  <generalization id="22">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <realization id="23">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
+  <nesting id="24">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="15"/>  
+  </nesting>  
+  <association id="25">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="26" name="players">        
         <position height="0" width="0" x="0" y="0"/>      
       </attribute>      
-      <multiplicity id="41" minimum="0" maximum="1">        
+      <multiplicity id="27" minimum="0" maximum="2147483647">        
         <position height="0" width="0" x="0" y="0"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="17" navigable="true"/>    
+    <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <generalization id="42">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="1"/>  
+  <generalization id="28">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="10"/>  
   </generalization>  
-  <generalization id="43">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="4"/>  
+  <association id="29">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="30" name="__me">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="31" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="32">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="10"/>  
   </generalization>  
+  <association id="33">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="34" name="__me">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </attribute>      
+      <multiplicity id="35" minimum="0" maximum="1">        
+        <position height="0" width="0" x="0" y="0"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
