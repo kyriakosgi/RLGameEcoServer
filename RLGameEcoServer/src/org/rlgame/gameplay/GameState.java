@@ -12,6 +12,7 @@ public class GameState  {
 	private int baseSize;
 	private int maxNumberOfPawnMoves;
 	private int neuralInputSize;
+	private int turn;
 	
 	private Square[][] gameBoard;	
 	private Pawn[] whitePawns;
@@ -25,12 +26,23 @@ public class GameState  {
 	private String positionOfDeletedPawns = "";
 	private double[] networkInput;
 
+	public int getTurn() {
+		return turn;
+	}
+
+
+	public void setTurn(int turn) {
+		this.turn = turn;
+	}
+
+
 	public GameState(int boardSize, int baseSize, int numberOfPawns) {
 		this.numberOfPawns=numberOfPawns;
 		this.boardSize = boardSize;
 		this.baseSize = baseSize;
 		this.maxNumberOfPawnMoves = baseSize * 2;
 		this.neuralInputSize = 2 * (boardSize * boardSize - 2 * baseSize * baseSize + 5);
+		turn = Settings.FIRST_TURN;
 		cloneWhite = new Pawn[numberOfPawns];
 		cloneBlack = new Pawn[numberOfPawns];
 		
@@ -49,6 +61,8 @@ public class GameState  {
 		this.boardSize = boardSize;
 		this.baseSize = baseSize;
 		this.maxNumberOfPawnMoves = baseSize * 2;
+		this.neuralInputSize = 2 * (boardSize * boardSize - 2 * baseSize * baseSize + 5);
+		turn = Settings.FIRST_TURN;
 		cloneWhite = new Pawn[numberOfPawns];
 		cloneBlack = new Pawn[numberOfPawns];
 		init(wh_Pawns, bl_Pawns);
