@@ -101,6 +101,7 @@ public class Participant {
 	}
 
 	public Boolean addMove(Move move){
+		if (!(move.isLegit())) return false;
 		for (Move mv : pendingMoves){
 			if (!hasPlayer(mv.getPlayer()) || mv.getPlayer().equals(move.getPlayer())) return false;
 		}
