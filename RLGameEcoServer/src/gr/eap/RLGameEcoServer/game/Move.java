@@ -30,6 +30,10 @@ public class Move {
 		return toSquare;
 	}
 	
+	public Player getPlayer() {
+		return player;
+	}
+
 	public void perform(){
 		pawn.movePawn(fromSquare, toSquare);
 	}
