@@ -38,6 +38,10 @@ public class Move {
 		pawn.movePawn(fromSquare, toSquare);
 	}
 	
+	public Boolean isLegit(){
+		return getPawn().isMoveLegit(getToSquare());
+	}
+	
 	@Override
 	public int hashCode() {
 		int hash = 19;
