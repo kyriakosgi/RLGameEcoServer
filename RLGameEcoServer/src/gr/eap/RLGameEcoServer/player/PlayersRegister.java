@@ -68,6 +68,8 @@ public class PlayersRegister {
 			//If a player was disconnected we add her with the new socketHash, so that she can continue playing
 			
 			existingPlayer = players.get((Integer)newPlayer.getId());
+			
+			Game game = null;
 			if (existingPlayer != null){
 				//TODO Send disconnect message
 				existingPlayer.getConnection().close();
@@ -75,10 +77,8 @@ public class PlayersRegister {
 				//if logged in player is already registered, we leave his connection state intact so that he can continue playing a game that he was participating
 				//if player is in game, system has to send her the game state
 				if (existingPlayer.getConnectionState().equals(ConnectionState.IN_GAME)){
-					Game game = GamesRegister.getInstance().searchGameByPlayer(existingPlayer);
-					if (game != null){
-						game.shareState();
-					}
+					game = GamesRegister.getInstance().searchGameByPlayer(existingPlayer);
+					//we do not send the gamestate yet. We must first send the games list so the client has info on the game
 				}
 			}
 			else{
@@ -88,6 +88,11 @@ public class PlayersRegister {
 			}
 			sendPlayersList();
 			GamesRegister.getInstance().sendGamesList();
+			//We now send the state
+			if (game != null){
+				game.shareState();
+			}
+
 		}
 
 		if (existingPlayer != null) return existingPlayer;
