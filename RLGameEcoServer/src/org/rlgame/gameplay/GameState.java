@@ -451,6 +451,13 @@ public class GameState  {
 		
 	}
 	
+	public Pawn getPLayerPawnById(int turn, int pawnId){
+		for (Pawn p : getPlayerPawns(turn)){
+			if (p.getId() == pawnId) return p;
+		}
+		return null;
+	}
+	
 	public Pawn[] getWhitePawns() {
 		return whitePawns;
 	}
