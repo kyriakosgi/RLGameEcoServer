@@ -8,15 +8,15 @@ import gr.eap.RLGameEcoServer.player.Player;
 import gr.eap.RLGameEcoServer.player.PlayersRegister;
 
 public class LeaveGameCommand extends Command {
-	UUID gameUid;
+	private UUID gameUid;
 	
-	UUID getGameUid() {
+	private UUID getGameUid() {
 		return gameUid;
 	}
 
-	void setGameUid(UUID gameUid) {
-		this.gameUid = gameUid;
-	}
+//	private void setGameUid(UUID gameUid) {
+//		this.gameUid = gameUid;
+//	}
 	
 	public LeaveGameCommand(){
 		this.setType("gr.eap.RLGameEcoServer.comm.LeaveGameCommand");
