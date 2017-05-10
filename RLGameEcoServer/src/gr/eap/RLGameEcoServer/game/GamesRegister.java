@@ -49,14 +49,20 @@ public class GamesRegister {
 	}
 
 	public void sendGamesList() {
-		GamesListResponse r = new GamesListResponse();
 		PlayersRegister.getInstance().getPlayers().forEach((k, v) -> {
+			GamesListResponse r;
 			if (v.getConnectionState() != ConnectionState.IN_GAME) {
-				r.setSocket(v.getConnection());
-				r.setConnectionState(v.getConnectionState());
-				r.setUserId(k);
-				r.send();
+				r = new GamesListResponse();
 			}
+			else // in game players are sent their game only
+			{
+				ArrayList<Game> singleGameList = new ArrayList<Game>();
+				r = new GamesListResponse(singleGameList);
+			}
+			r.setSocket(v.getConnection());
+			r.setConnectionState(v.getConnectionState());
+			r.setUserId(k);
+			r.send();
 		});
 	}
 	
