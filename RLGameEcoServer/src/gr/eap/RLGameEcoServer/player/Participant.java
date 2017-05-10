@@ -1,7 +1,12 @@
 package gr.eap.RLGameEcoServer.player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+
+import gr.eap.RLGameEcoServer.game.Move;
 
 public class Participant {
 	// TODO we may need to add a reference to the Game class
@@ -13,9 +18,9 @@ public class Participant {
 	private Role role;
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private Player teamLeader;
+	private ArrayList<Move> pendingMoves = new ArrayList<Move>();
 	
 	
-
 	public Player getTeamLeader() {
 		return teamLeader;
 	}
@@ -75,6 +80,13 @@ public class Participant {
 		}
 	}
 
+	public Boolean hasPlayer(Player player){
+		for(Player pl : players){
+			if (pl.equals(player)) return true;
+		}
+		return false;
+	}
+	
 	//The name property is read-only. It is updated every time we add or remove players and not calculated on demand so that the class can be correctly serialized
 	public String getName() {
 		return name;
@@ -86,6 +98,49 @@ public class Participant {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public Boolean addMove(Move move){
+		for (Move mv : pendingMoves){
+			if (!hasPlayer(mv.getPlayer()) || mv.getPlayer().equals(move.getPlayer())) return false;
+		}
+		pendingMoves.add(move);
+		if (pendingMoves.size() == getPlayers().size()) performMove();
+		return true;
+	}
+	
+	
+	private void performMove() {
+		Map<Move, Integer> moveStats = new HashMap<Move, Integer>();
+		Move leaderMove = null;
+		for (Move mv : pendingMoves){
+			if (mv.getPlayer().equals(teamLeader)) leaderMove = mv;
+			if(moveStats.containsKey(mv)){
+				moveStats.put(mv, 1);
+			}
+			else {
+				moveStats.replace(mv, moveStats.get(mv) + 1);
+			}
+		}
+		int maxValue = 0;
+		for (Integer val : moveStats.values()){
+			if (val > maxValue) maxValue = val;
+		}
+		int count = 0;
+		for (Integer val : moveStats.values()){
+			if (val.equals(maxValue)) count++;
+		}
+		if (count == 1){
+			for (Entry<Move,Integer> e: moveStats.entrySet()){
+				if (e.getValue().equals(maxValue)){
+					e.getKey().perform();
+				}
+			}
+		}
+		else {
+			leaderMove.perform();
+		}
+		pendingMoves.clear();
 	}
 
 	@Override
