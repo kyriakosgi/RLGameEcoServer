@@ -97,6 +97,14 @@ public class Square {
 	}	
 	
 	@Override
+	public int hashCode() {
+		int hash = 11;
+		hash = 17 * hash + getXCoord();
+		hash = 17 * hash + getYCoord();
+		return hash;
+	}
+
+	@Override
 	public boolean equals(Object object) {
 		return (((Square) object).getXCoord() == getXCoord() && ((Square) object).getYCoord() == getYCoord());
 	}
