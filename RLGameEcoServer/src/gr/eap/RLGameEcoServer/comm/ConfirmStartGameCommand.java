@@ -27,9 +27,9 @@ public class ConfirmStartGameCommand extends Command {
 	public void execute() {
 		Player player = PlayersRegister.getInstance().getPlayerById(getUserId());
 		Game game = GamesRegister.getInstance().getGameByUid(getGameUid());
-		if (player.equals(game.getPlayer1().getTeamLeader())){
+		if (player.equals(game.getWhitePlayer().getTeamLeader())){
 			game.setWhitePlayerReady(true);
-		} else if (player.equals(game.getPlayer2().getTeamLeader())){
+		} else if (player.equals(game.getBlackPlayer().getTeamLeader())){
 			game.setBlackPlayerReady(true);
 		}
 		

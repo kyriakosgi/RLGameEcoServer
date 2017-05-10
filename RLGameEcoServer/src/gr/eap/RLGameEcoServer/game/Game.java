@@ -72,7 +72,7 @@ public class Game {
 		}
 	}
 
-	public Participant getPlayer1() {
+	public Participant getWhitePlayer() {
 		//Create a new Participant so that the method never returns null
 		if (whitePlayer == null){
 			whitePlayer= new Participant();
@@ -82,7 +82,7 @@ public class Game {
 		return whitePlayer;
 	}
 
-	public Participant getPlayer2() {
+	public Participant getBlackPlayer() {
 		//Create a new Participant so that the method never returns null
 		if (blackPlayer == null){
 			blackPlayer= new Participant();
@@ -236,8 +236,8 @@ public class Game {
 
 
 	private boolean checkForGameStart() {
-		if (getStatus().equals(GameStatus.WAITING_FOR_PLAYERS) && !(getPlayer1().getPlayers().isEmpty())
-				&& !(getPlayer2().getPlayers().isEmpty()) && isWhitePlayerReady() && isBlackPlayerReady()) {
+		if (getStatus().equals(GameStatus.WAITING_FOR_PLAYERS) && !(getWhitePlayer().getPlayers().isEmpty())
+				&& !(getBlackPlayer().getPlayers().isEmpty()) && isWhitePlayerReady() && isBlackPlayerReady()) {
 			startGame();
 			return true;
 		} else {
