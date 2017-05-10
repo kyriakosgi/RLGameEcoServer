@@ -35,6 +35,14 @@ public class GameState  {
 		this.turn = turn;
 	}
 
+	public int setNextTurn(){
+		if (getTurn() == Settings.BLACK_PLAYER)
+			setTurn(Settings.WHITE_PLAYER);
+		else
+			setTurn(Settings.BLACK_PLAYER);
+		
+		return getTurn();
+	}
 
 	public GameState(int boardSize, int baseSize, int numberOfPawns) {
 		this.numberOfPawns=numberOfPawns;
