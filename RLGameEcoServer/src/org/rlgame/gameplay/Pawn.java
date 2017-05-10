@@ -197,6 +197,22 @@ public class Pawn {
 		return helpSquare;
 	}
 
+	public Boolean isMoveLegit(Square toSquare){
+		int distance1, distance2;
+		if (white){
+			distance1 = Math.max(position.getXCoord() + 1 - baseSize, position.getYCoord() + 1 - baseSize);
+			distance2 = Math.max(toSquare.getXCoord() + 1 - baseSize, toSquare.getYCoord() + 1 - baseSize);
+		}
+		else{
+			distance1 = Math.max(boardSize - baseSize - position.getXCoord(), boardSize - baseSize - position.getYCoord());
+			distance2 = Math.max(boardSize - baseSize - toSquare.getXCoord(), boardSize - baseSize - toSquare.getYCoord());
+		}
+		if (toSquare.isFree() && (distance2 >= distance1))
+			return true;
+		else
+			return false;
+	}
+	
 	// finds all legal moves for a pawn
 	public Square[] getLegitMovesForWhitePawn(Square[][] outSquare) {
 		int i = 0;
