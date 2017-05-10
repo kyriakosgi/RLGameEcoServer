@@ -14,7 +14,7 @@ import gr.eap.RLGameEcoServer.player.Participant;
 import gr.eap.RLGameEcoServer.player.Player;
 import gr.eap.RLGameEcoServer.player.PlayersRegister;
 
-public class moveCommand extends Command {
+public class MoveCommand extends Command {
 
 	private int pawnId;
 	private int toXCoord;
