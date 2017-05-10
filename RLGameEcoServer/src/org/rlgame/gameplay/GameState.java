@@ -152,7 +152,7 @@ public class GameState  {
 		
 		
 		for (int i = 0; i < maxNumberOfPawnMoves; i++) {
-			blankMoves[i] = new Square();
+			blankMoves[i] = new Square(boardSize, baseSize);
 		}
 		boolean baseFound = false;
 		//addition if more than one pawns in in base there is no need to communicate 

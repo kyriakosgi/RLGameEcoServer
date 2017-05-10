@@ -11,7 +11,7 @@ public class Square {
 	private int boardSize;
 	private int baseSize;
 
-	public Square() {
+	public Square(int boardSize, int baseSize) {
 		
 	}
 	
@@ -79,7 +79,7 @@ public class Square {
 
 	public Square tag2Square(int tg) {
 		int tag = tg - 1;
-		Square tagSq = new Square();
+		Square tagSq = new Square(boardSize, baseSize);
 //		tagSq.xCoord = (int) tag / DIMBOARD;
 //		tagSq.yCoord = (int) tag - DIMBOARD * (tagSq.xCoord);
 

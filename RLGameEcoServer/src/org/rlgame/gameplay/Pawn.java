@@ -93,7 +93,7 @@ public class Pawn {
 		Square helpSquare[] = new Square[maxNumberOfPawnMoves];
 
 		for (int i = 0; i < maxNumberOfPawnMoves; i++) {
-			helpSquare[i] = new Square();
+			helpSquare[i] = new Square(boardSize, baseSize);
 		}
 		
 		if (this.isAlive()) {
@@ -150,7 +150,7 @@ public class Pawn {
 	public Square[] getAllMovesForBlackPawn(Square[][] outSquare) {
 		Square helpSquare[] = new Square[2 * baseSize];
 		for (int i = 0; i < 2 * baseSize; i++) {
-			helpSquare[i] = new Square();
+			helpSquare[i] = new Square(boardSize, baseSize);
 		}
 		if (this.isAlive()) {
 			if (this.isPawnInOwnBase()) {
@@ -204,8 +204,8 @@ public class Pawn {
 		Square legSquare[] = new Square[maxNumberOfPawnMoves];
 		Square[] helpSquare = new Square[maxNumberOfPawnMoves];
 		for (int ii = 0; ii < maxNumberOfPawnMoves; ii++) {
-			helpSquare[ii] = new Square();
-			legSquare[ii] = new Square();
+			helpSquare[ii] = new Square(boardSize, baseSize);
+			legSquare[ii] = new Square(boardSize, baseSize);
 		}
 		legSquare = this.getAllMovesForWhitePawn(outSquare);
 		while ((i < maxNumberOfPawnMoves) && ((legSquare[i].getXCoord() != 0) || (legSquare[i].getYCoord() != 0))) {
@@ -226,8 +226,8 @@ public class Pawn {
 		Square[] legSquare = new Square[maxNumberOfPawnMoves];
 		Square[] helpSquare = new Square[maxNumberOfPawnMoves];
 		for (int ii = 0; ii < maxNumberOfPawnMoves; ii++) {
-			helpSquare[ii] = new Square();
-			legSquare[ii] = new Square();
+			helpSquare[ii] = new Square(boardSize, baseSize);
+			legSquare[ii] = new Square(boardSize, baseSize);
 		}
 		legSquare = this.getAllMovesForBlackPawn(outSquare);
 		while ((i < maxNumberOfPawnMoves) && ((legSquare[i].getXCoord() != 0) || (legSquare[i].getYCoord() != 0))) {
