@@ -6,6 +6,7 @@ import org.rlgame.gameplay.Pawn;
 import org.rlgame.gameplay.Settings;
 import org.rlgame.gameplay.Square;
 
+import gr.eap.RLGameEcoServer.comm.Message.Type;
 import gr.eap.RLGameEcoServer.game.Game;
 import gr.eap.RLGameEcoServer.game.GamesRegister;
 import gr.eap.RLGameEcoServer.game.Move;
@@ -85,7 +86,13 @@ public class moveCommand extends Command {
 			Square toSquare = game.getState().getSquareByCoordinates(getToXCoord(), getToYCoord());
 			Pawn movePawn = game.getState().getPLayerPawnById(turn, getPawnId());
 			
-			participant.addMove(new Move(player, movePawn, toSquare));
+			if (!(participant.addMove(new Move(player, movePawn, toSquare)))){
+				Message message = new Message();
+				message.setText("Invalid move, try again");
+				message.setType(Type.SYSTEM_ALERT);
+				message.getRecipients().add(player);
+				message.send();
+			}
 		}
 		
 		
