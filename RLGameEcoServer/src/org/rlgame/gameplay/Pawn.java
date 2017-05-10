@@ -301,7 +301,7 @@ public class Pawn {
 
 	@Override
 	public int hashCode() {
-		return getId();
+		return 9 + 13 * getId();
 	}
 
 	// Equal IDs should be enough for equal objects
