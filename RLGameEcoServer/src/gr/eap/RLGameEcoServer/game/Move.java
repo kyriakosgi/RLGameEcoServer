@@ -37,7 +37,6 @@ public class Move {
 	@Override
 	public int hashCode() {
 		int hash = 19;
-		hash = 26 * hash + (player == null ? 0 : player.hashCode());
 		hash = 26 * hash + (pawn == null ? 0 : pawn.hashCode());
 		hash = 26 * hash + (fromSquare == null ? 0 : fromSquare.hashCode());
 		hash = 26 * hash + (toSquare == null ? 0 : toSquare.hashCode());
