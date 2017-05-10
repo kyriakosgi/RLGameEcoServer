@@ -329,7 +329,7 @@ public class Game {
 	}
 	
 	public void shareState() {
-		GameStateResponse r = new GameStateResponse(state);
+		GameStateResponse r = new GameStateResponse(state, getUid());
 		for (Player player : getPlayers()){
 			r.setSocket(player.getConnection());
 			r.setConnectionState(player.getConnectionState());
