@@ -299,6 +299,11 @@ public class Pawn {
 		return id;
 	}
 
-	
+	// Equal IDs should be enough for equal objects
+	@Override
+	public boolean equals(Object object) {
+		return (((Pawn) object).getId() == getId());
+	}
+
 	
 }

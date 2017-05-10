@@ -96,4 +96,9 @@ public class Square {
 		return this.isFree ? "0" : "1"; 
 	}	
 	
+	@Override
+	public boolean equals(Object object) {
+		return (((Square) object).getXCoord() == getXCoord() && ((Square) object).getYCoord() == getYCoord());
+	}
+
 }
