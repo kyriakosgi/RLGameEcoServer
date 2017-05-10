@@ -51,8 +51,8 @@ public class Pawn {
 
 	// move pawn from fromSquare to toSquare
 	public void movePawn(Square fromSquare, Square toSquare) {
-		position = toSquare;
 		fromSquare.setFree(); // set free the source square
+		position = toSquare;
 		
 		//ngav added on Apr 12
 		position.setUnFree();
