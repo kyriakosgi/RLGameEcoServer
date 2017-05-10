@@ -57,6 +57,8 @@ public class GamesRegister {
 			else // in game players are sent their game only
 			{
 				ArrayList<Game> singleGameList = new ArrayList<Game>();
+				Game playersGame = GamesRegister.getInstance().searchGameByPlayer(v);
+				if (playersGame != null) singleGameList.add(playersGame);
 				r = new GamesListResponse(singleGameList);
 			}
 			r.setSocket(v.getConnection());
