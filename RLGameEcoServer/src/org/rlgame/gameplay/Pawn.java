@@ -299,6 +299,11 @@ public class Pawn {
 		return id;
 	}
 
+	@Override
+	public int hashCode() {
+		return getId();
+	}
+
 	// Equal IDs should be enough for equal objects
 	@Override
 	public boolean equals(Object object) {
