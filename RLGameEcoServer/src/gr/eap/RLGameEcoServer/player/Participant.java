@@ -143,6 +143,7 @@ public class Participant {
 			leaderMove.perform();
 		}
 		GamesRegister.getInstance().searchGameByPlayer(teamLeader).getState().setNextTurn();
+		GamesRegister.getInstance().searchGameByPlayer(teamLeader).shareState();
 		pendingMoves.clear();
 	}
 
