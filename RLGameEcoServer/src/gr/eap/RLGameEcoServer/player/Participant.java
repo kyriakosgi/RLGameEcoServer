@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import gr.eap.RLGameEcoServer.game.GamesRegister;
 import gr.eap.RLGameEcoServer.game.Move;
 
 public class Participant {
@@ -141,6 +142,7 @@ public class Participant {
 		else {
 			leaderMove.perform();
 		}
+		GamesRegister.getInstance().searchGameByPlayer(teamLeader).getState().setNextTurn();
 		pendingMoves.clear();
 	}
 
