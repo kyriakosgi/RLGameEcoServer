@@ -5,9 +5,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import org.rlgame.gameplay.Settings;
 
 import gr.eap.RLGameEcoServer.comm.ConnectionState;
 import gr.eap.RLGameEcoServer.comm.GamesListResponse;
+import gr.eap.RLGameEcoServer.comm.Message;
+import gr.eap.RLGameEcoServer.comm.Message.Type;
 import gr.eap.RLGameEcoServer.player.Participant;
 import gr.eap.RLGameEcoServer.player.Player;
 import gr.eap.RLGameEcoServer.player.PlayersRegister;
@@ -45,7 +48,26 @@ public class GamesRegister {
 	}
 
 	public void endGame(Game game){
-		
+		for (Player player : game.getPlayers()){
+			player.setConnectionState(ConnectionState.LOGGED_IN);
+		}
+		games.remove(game);
+		Message message = new Message();
+		String msgText = "Game ended. Winner is ";
+		if (game.getState().getTurn() == Settings.WHITE_PLAYER)
+		{
+			msgText += "White Player!";
+		}
+		else
+		{
+			msgText += "Black Player!";
+		}
+		message.setText(msgText);
+		message.setType(Type.SYSTEM_INFO);
+		message.getRecipients().addAll(game.getPlayers());
+		message.send();
+
+
 	}
 	
 	public ArrayList<Game> getGamesList() {
