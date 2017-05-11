@@ -118,10 +118,10 @@ public class Participant {
 		for (Move mv : pendingMoves){
 			if (mv.getPlayer().equals(teamLeader)) leaderMove = mv;
 			if(moveStats.containsKey(mv)){
-				moveStats.put(mv, 1);
+				moveStats.replace(mv, moveStats.get(mv) + 1);
 			}
 			else {
-				moveStats.replace(mv, moveStats.get(mv) + 1);
+				moveStats.put(mv, 1);
 			}
 		}
 		int maxValue = 0;
