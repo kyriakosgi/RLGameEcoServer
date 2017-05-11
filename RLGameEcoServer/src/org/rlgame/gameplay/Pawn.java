@@ -211,7 +211,7 @@ public class Pawn {
 					else
 						return false; //toSquare is not adjacent to the base
 				}
-				else if (!(
+				else if ((
 							position.getXCoord() == toSquare.getXCoord() && Math.abs(position.getYCoord() - toSquare.getYCoord()) == 1
 							||
 							position.getYCoord() == toSquare.getYCoord() && Math.abs(position.getXCoord() - toSquare.getXCoord()) == 1
@@ -234,10 +234,10 @@ public class Pawn {
 					else
 						return false; //toSquare is not adjacent to the base
 				}
-				else if (!(
-							position.getXCoord() == toSquare.getXCoord() && Math.abs(position.getYCoord() - toSquare.getYCoord()) == 1
+				else if ((
+							(position.getXCoord() == toSquare.getXCoord() && (Math.abs(position.getYCoord() - toSquare.getYCoord()) == 1))
 							||
-							position.getYCoord() == toSquare.getYCoord() && Math.abs(position.getXCoord() - toSquare.getXCoord()) == 1
+							(position.getYCoord() == toSquare.getYCoord() && (Math.abs(position.getXCoord() - toSquare.getXCoord()) == 1))
 						))
 				{
 					distance1 = Math.max(boardSize - baseSize - position.getXCoord(), boardSize - baseSize - position.getYCoord());
