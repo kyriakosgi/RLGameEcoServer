@@ -29,13 +29,18 @@ public class Move {
 	}
 
 	public void perform(){
-		//Fing gameState
+		//Find gameState
 		Game game = GamesRegister.getInstance().searchGameByPlayer(getPlayer());
 		pawn.movePawn(pawn.getPosition(), toSquare);
 		//Refresh gameState
 		game.getState().refreshGameState();
+		
 		if (game.getState().isFinal()){
 			GamesRegister.getInstance().endGame(game);
+		}
+		else
+		{
+			game.getState().setNextTurn();
 		}
 	}
 	
