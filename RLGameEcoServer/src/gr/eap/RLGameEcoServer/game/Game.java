@@ -309,7 +309,7 @@ public class Game {
 					if (p.getRole().equals(Role.WHITEPLAYER) || p.getRole().equals(Role.BLACKPLAYER)){
 						//if the player being removed was a team leader then the game is over
 						if (p.getTeamLeader() == null){
-							endGame();
+							GamesRegister.getInstance().endGame(GamesRegister.getInstance().searchGameByPlayer(player));
 						}
 
 					}
@@ -322,7 +322,7 @@ public class Game {
 		if (returnValue){
 			// End the game when there are no players in the player role
 			if (getStatus().equals(GameStatus.IN_PROGRESS) && (participant.getRole().equals(Role.WHITEPLAYER) || participant.getRole().equals(Role.BLACKPLAYER)) && participant.getPlayers().isEmpty()){
-				endGame();
+				GamesRegister.getInstance().endGame(GamesRegister.getInstance().searchGameByPlayer(player));
 			}
 		}
 		return returnValue;
@@ -339,12 +339,5 @@ public class Game {
 		}
 	}
 
-	public void endGame() {
-		// TODO Not yet implemented
-	}
-
-	public void performMove(Participant player, int from, int to) {
-		// TODO Not yet implemented
-	}
 
 }

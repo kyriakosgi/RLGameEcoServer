@@ -44,6 +44,10 @@ public class GamesRegister {
 		games.put(newGame.getUid(), newGame);
 	}
 
+	public void endGame(Game game){
+		
+	}
+	
 	public ArrayList<Game> getGamesList() {
 		return new ArrayList<Game>(games.values());
 	}
