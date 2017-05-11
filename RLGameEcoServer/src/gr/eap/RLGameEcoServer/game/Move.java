@@ -1,5 +1,6 @@
 package gr.eap.RLGameEcoServer.game;
 
+import org.rlgame.gameplay.GameState;
 import org.rlgame.gameplay.Pawn;
 import org.rlgame.gameplay.Square;
 
@@ -30,7 +31,7 @@ public class Move {
 
 	public void perform(){
 		//Fing gameState
-		GameState gameState = null;
+		GameState gameState = GamesRegister.getInstance().searchGameByPlayer(getPlayer()).getState();
 		pawn.movePawn(pawn.getPosition(), toSquare);
 		//Refresh gameState
 		gameState.refreshGameState();
