@@ -29,8 +29,11 @@ public class Move {
 	}
 
 	public void perform(){
-		
+		//Fing gameState
+		GameState gameState = null;
 		pawn.movePawn(pawn.getPosition(), toSquare);
+		//Refresh gameState
+		gameState.refreshGameState();
 	}
 	
 	public Boolean isLegit(){
