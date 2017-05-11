@@ -1,6 +1,5 @@
 package gr.eap.RLGameEcoServer.game;
 
-import org.rlgame.gameplay.GameState;
 import org.rlgame.gameplay.Pawn;
 import org.rlgame.gameplay.Square;
 
@@ -31,10 +30,13 @@ public class Move {
 
 	public void perform(){
 		//Fing gameState
-		GameState gameState = GamesRegister.getInstance().searchGameByPlayer(getPlayer()).getState();
+		Game game = GamesRegister.getInstance().searchGameByPlayer(getPlayer());
 		pawn.movePawn(pawn.getPosition(), toSquare);
 		//Refresh gameState
-		gameState.refreshGameState();
+		game.getState().refreshGameState();
+		if (game.getState().isFinal()){
+			GamesRegister.getInstance().endGame(game);
+		}
 	}
 	
 	public Boolean isLegit(){
