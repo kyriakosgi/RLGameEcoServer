@@ -198,14 +198,60 @@ public class Pawn {
 	}
 
 	public Boolean isMoveLegit(Square toSquare){
+		//First of all the square that the pawn is moved to, should be within board limits
+		if (toSquare.getXCoord() < 0 || toSquare.getYCoord() < 0 || toSquare.getXCoord() >= boardSize || toSquare.getYCoord() >= boardSize) return false;
+
 		int distance1, distance2;
-		if (white){
-			distance1 = Math.max(position.getXCoord() + 1 - baseSize, position.getYCoord() + 1 - baseSize);
-			distance2 = Math.max(toSquare.getXCoord() + 1 - baseSize, toSquare.getYCoord() + 1 - baseSize);
+		if (this.isAlive()) {
+			if (white){
+				if (this.isPawnInOwnBase()) 
+				{
+					if (toSquare.getXCoord() == baseSize || toSquare.getYCoord() == baseSize)
+						return true; //toSquare is adjacent to the base
+					else
+						return false; //toSquare is not adjacent to the base
+				}
+				else if (!(
+							position.getXCoord() == toSquare.getXCoord() && Math.abs(position.getYCoord() - toSquare.getYCoord()) == 1
+							||
+							position.getYCoord() == toSquare.getYCoord() && Math.abs(position.getXCoord() - toSquare.getXCoord()) == 1
+						))
+				{
+					distance1 = Math.max(position.getXCoord() + 1 - baseSize, position.getYCoord() + 1 - baseSize);
+					distance2 = Math.max(toSquare.getXCoord() + 1 - baseSize, toSquare.getYCoord() + 1 - baseSize);
+				}
+				else
+				{
+					return false;
+				}
+			}
+			else 
+			{
+				if (this.isPawnInOwnBase()) 
+				{
+					if (toSquare.getXCoord() == boardSize - 1 - baseSize || toSquare.getYCoord() == boardSize - 1 - baseSize)
+						return true; //toSquare is adjacent to the base
+					else
+						return false; //toSquare is not adjacent to the base
+				}
+				else if (!(
+							position.getXCoord() == toSquare.getXCoord() && Math.abs(position.getYCoord() - toSquare.getYCoord()) == 1
+							||
+							position.getYCoord() == toSquare.getYCoord() && Math.abs(position.getXCoord() - toSquare.getXCoord()) == 1
+						))
+				{
+					distance1 = Math.max(boardSize - baseSize - position.getXCoord(), boardSize - baseSize - position.getYCoord());
+					distance2 = Math.max(boardSize - baseSize - toSquare.getXCoord(), boardSize - baseSize - toSquare.getYCoord());
+				}
+				else
+				{
+					return false;
+				}
+				
+			}
 		}
 		else{
-			distance1 = Math.max(boardSize - baseSize - position.getXCoord(), boardSize - baseSize - position.getYCoord());
-			distance2 = Math.max(boardSize - baseSize - toSquare.getXCoord(), boardSize - baseSize - toSquare.getYCoord());
+			return false;
 		}
 		if (toSquare.isFree() && (distance2 >= distance1))
 			return true;
