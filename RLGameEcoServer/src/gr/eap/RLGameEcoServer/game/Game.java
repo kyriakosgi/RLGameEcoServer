@@ -358,11 +358,13 @@ public class Game {
 		for (Player player : this.getPlayers()){
 			player.setConnectionState(ConnectionState.LOGGED_IN);
 		}
-		Message message = new Message();
-		message.setText(endMessage);
-		message.setType(Type.SYSTEM_INFO);
-		message.getRecipients().addAll(this.getPlayers());
-		message.send();
+		if (endMessage != null && !endMessage.isEmpty()){
+			Message message = new Message();
+			message.setText(endMessage);
+			message.setType(Type.SYSTEM_INFO);
+			message.getRecipients().addAll(this.getPlayers());
+			message.send();
+		}
 		
 		if (remove) GamesRegister.getInstance().removeGame(this);
 	}
