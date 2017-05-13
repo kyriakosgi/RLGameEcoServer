@@ -47,9 +47,8 @@ public class Participant {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	public ArrayList<Player> getPlayers() {
-		return (ArrayList<Player>) (players.clone());
+		return (ArrayList<Player>) (players);
 	}
 
 	public void addPlayer(Player player) {
