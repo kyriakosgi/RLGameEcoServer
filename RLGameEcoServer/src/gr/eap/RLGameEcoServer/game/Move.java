@@ -36,7 +36,7 @@ public class Move {
 		game.getState().refreshGameState();
 		
 		if (game.getState().isFinal()){
-			GamesRegister.getInstance().endGame(game);
+			GamesRegister.getInstance().removeGame(game);
 		}
 		else
 		{

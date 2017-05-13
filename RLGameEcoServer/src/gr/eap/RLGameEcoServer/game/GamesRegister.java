@@ -47,7 +47,7 @@ public class GamesRegister {
 		games.put(newGame.getUid(), newGame);
 	}
 
-	public void endGame(Game game){
+	public void removeGame(Game game){
 		for (Player player : game.getPlayers()){
 			player.setConnectionState(ConnectionState.LOGGED_IN);
 		}

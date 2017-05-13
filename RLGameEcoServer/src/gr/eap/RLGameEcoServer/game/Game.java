@@ -313,7 +313,7 @@ public class Game {
 					// if the player being removed was a team leader then the
 					// game is over
 					if (p.getTeamLeader() == null) {
-						GamesRegister.getInstance().endGame(game);
+						GamesRegister.getInstance().removeGame(game);
 					}
 
 				}
@@ -328,7 +328,7 @@ public class Game {
 			// End the game when there are no players in the player role
 			if (getStatus().equals(GameStatus.IN_PROGRESS) && (participant.getRole().equals(Role.WHITEPLAYER)
 					|| participant.getRole().equals(Role.BLACKPLAYER)) && participant.getPlayers().isEmpty()) {
-				GamesRegister.getInstance().endGame(GamesRegister.getInstance().searchGameByPlayer(player));
+				GamesRegister.getInstance().removeGame(GamesRegister.getInstance().searchGameByPlayer(player));
 			}
 		}
 		return returnValue;
