@@ -313,7 +313,12 @@ public class Game {
 					// if the player being removed was a team leader then the
 					// game is over
 					if (p.getTeamLeader() == null) {
-						GamesRegister.getInstance().removeGame(game);
+						String msg = " leader left the game.";
+						if (p.getRole().equals(Role.WHITEPLAYER)) 
+							msg = "White" + msg;
+						else
+							msg = "Black" + msg;
+						game.endGame(msg);
 					}
 
 				}
@@ -343,6 +348,19 @@ public class Game {
 			r.send();
 
 		}
+	}
+	
+	public void endGame(String endMessage){
+		for (Player player : this.getPlayers()){
+			player.setConnectionState(ConnectionState.LOGGED_IN);
+		}
+		Message message = new Message();
+		message.setText(endMessage);
+		message.setType(Type.SYSTEM_INFO);
+		message.getRecipients().addAll(this.getPlayers());
+		message.send();
+		
+
 	}
 
 	@Override

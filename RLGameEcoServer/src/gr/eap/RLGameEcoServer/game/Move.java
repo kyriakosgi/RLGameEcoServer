@@ -1,6 +1,7 @@
 package gr.eap.RLGameEcoServer.game;
 
 import org.rlgame.gameplay.Pawn;
+import org.rlgame.gameplay.Settings;
 import org.rlgame.gameplay.Square;
 
 import gr.eap.RLGameEcoServer.player.Player;
@@ -36,7 +37,17 @@ public class Move {
 		game.getState().refreshGameState();
 		
 		if (game.getState().isFinal()){
-			GamesRegister.getInstance().removeGame(game);
+			String msgText = "Game ended. ";
+			if (game.getState().getTurn() == Settings.WHITE_PLAYER)
+			{
+				msgText += "White Player";
+			}
+			else
+			{
+				msgText += "Black Player";
+			}
+			msgText += " wins!";
+			game.endGame(msgText);
 		}
 		else
 		{
