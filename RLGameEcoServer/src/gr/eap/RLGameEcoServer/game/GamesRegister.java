@@ -52,6 +52,7 @@ public class GamesRegister {
 			player.setConnectionState(ConnectionState.LOGGED_IN);
 		}
 		games.remove(game);
+		sendGamesList();
 		Message message = new Message();
 		String msgText = "Game ended. Winner is ";
 		if (game.getState().getTurn() == Settings.WHITE_PLAYER)
