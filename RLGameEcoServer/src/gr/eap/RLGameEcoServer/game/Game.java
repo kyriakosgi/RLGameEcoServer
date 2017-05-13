@@ -312,12 +312,19 @@ public class Game {
 					// if the player being removed was a team leader then the
 					// game is over
 					if (p.getTeamLeader() == null) {
-						String msg = " leader left the game.";
-						if (p.getRole().equals(Role.WHITEPLAYER)) 
-							msg = "White" + msg;
+						if (!(this.getStatus().equals(GameStatus.FINISHED))){
+							String msg = " leader left the game.";
+							
+							if (p.getRole().equals(Role.WHITEPLAYER)) 
+								msg = "White" + msg;
+							else
+								msg = "Black" + msg;
+							this.endGame(msg);
+						}
 						else
-							msg = "Black" + msg;
-						this.endGame(msg);
+						{
+							GamesRegister.getInstance().removeGame(this);
+						}
 					}
 
 				}
