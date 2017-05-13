@@ -288,7 +288,7 @@ public class Game {
 
 	public boolean removePlayer(Player player) {
 		boolean returnValue = false;
-		Participant participant = null;
+//		Participant participant = null;
 
 		// Find if player is already participating in the game and determine his
 		// role
@@ -296,9 +296,8 @@ public class Game {
 			if (p.getPlayers().contains(player)) {
 				// Get a reference to the player's game so that we can and it if
 				// necessary after we remove the player
-				Game game = GamesRegister.getInstance().searchGameByPlayer(player);
 				returnValue = true;
-				participant = p;
+//				participant = p;
 				p.removePlayer(player);
 
 				// Send message to player so that he gets his new connection
@@ -318,7 +317,7 @@ public class Game {
 							msg = "White" + msg;
 						else
 							msg = "Black" + msg;
-						game.endGame(msg);
+						this.endGame(msg);
 					}
 
 				}
@@ -329,13 +328,13 @@ public class Game {
 			}
 		}
 
-		if (returnValue) {
-			// End the game when there are no players in the player role
-			if (getStatus().equals(GameStatus.IN_PROGRESS) && (participant.getRole().equals(Role.WHITEPLAYER)
-					|| participant.getRole().equals(Role.BLACKPLAYER)) && participant.getPlayers().isEmpty()) {
-				GamesRegister.getInstance().removeGame(GamesRegister.getInstance().searchGameByPlayer(player));
-			}
-		}
+//		if (returnValue) {
+//			// End the game when there are no players in the player role
+//			if (getStatus().equals(GameStatus.IN_PROGRESS) && (participant.getRole().equals(Role.WHITEPLAYER)
+//					|| participant.getRole().equals(Role.BLACKPLAYER)) && participant.getPlayers().isEmpty()) {
+//				GamesRegister.getInstance().removeGame(this);
+//			}
+//		}
 		return returnValue;
 	}
 
