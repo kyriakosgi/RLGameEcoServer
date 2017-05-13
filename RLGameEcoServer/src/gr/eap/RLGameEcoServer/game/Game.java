@@ -73,9 +73,9 @@ public class Game {
 	}
 
 	public Participant getWhitePlayer() {
-		//Create a new Participant so that the method never returns null
-		if (whitePlayer == null){
-			whitePlayer= new Participant();
+		// Create a new Participant so that the method never returns null
+		if (whitePlayer == null) {
+			whitePlayer = new Participant();
 			whitePlayer.setRole(Role.WHITEPLAYER);
 			participants.add(whitePlayer);
 		}
@@ -83,9 +83,9 @@ public class Game {
 	}
 
 	public Participant getBlackPlayer() {
-		//Create a new Participant so that the method never returns null
-		if (blackPlayer == null){
-			blackPlayer= new Participant();
+		// Create a new Participant so that the method never returns null
+		if (blackPlayer == null) {
+			blackPlayer = new Participant();
 			blackPlayer.setRole(Role.BLACKPLAYER);
 			participants.add(blackPlayer);
 		}
@@ -93,9 +93,9 @@ public class Game {
 	}
 
 	public Participant getSpectator() {
-		//Create a new Participant so that the method never returns null
-		if (spectator == null){
-			spectator= new Participant();
+		// Create a new Participant so that the method never returns null
+		if (spectator == null) {
+			spectator = new Participant();
 			spectator.setRole(Role.SPECTATOR);
 			participants.add(spectator);
 		}
@@ -160,24 +160,24 @@ public class Game {
 		this.baseSize = baseSize;
 		this.numberOfPawns = numberOfPawns;
 		this.setStatus(GameStatus.WAITING_FOR_PLAYERS);
-		Pawn [] whitePawn = new Pawn[numberOfPawns];
-		Pawn [] blackPawn = new Pawn[numberOfPawns];
+		Pawn[] whitePawn = new Pawn[numberOfPawns];
+		Pawn[] blackPawn = new Pawn[numberOfPawns];
 
 		for (int i = 0; i < numberOfPawns; i++) {
 			whitePawn[i] = new Pawn(i, true, boardSize, baseSize);
 			blackPawn[i] = new Pawn(i, false, boardSize, baseSize);
 		}
 		state = new GameState(boardSize, baseSize, whitePawn, blackPawn);
-		//state.setBoard(new int[boardSize * boardSize]);
+		// state.setBoard(new int[boardSize * boardSize]);
 	}
 
 	public boolean addPlayer(Player player, Participant.Role role) {
 		boolean returnValue = true;
 
-		//Only a spectator can join the game after it has started
+		// Only a spectator can join the game after it has started
 		if (!(getStatus().equals(GameStatus.WAITING_FOR_PLAYERS)) && !(role.equals(Participant.Role.SPECTATOR)))
 			returnValue = false;
-		
+
 		// Find if player is already participating in the game
 		if (returnValue) {
 			for (Participant participant : participants) {
@@ -187,7 +187,7 @@ public class Game {
 				}
 			}
 		}
-		
+
 		if (returnValue) {
 			// Find if there is already a participant with the desired role
 			Participant participant = null;
@@ -221,11 +221,12 @@ public class Game {
 			// Finally add the player to the new or existing participant
 			participant.addPlayer(player);
 
-			//If a player is added to a game in progress (should only be a spectator) we have to update her connection state
-			if (getStatus().equals(GameStatus.IN_PROGRESS)){
+			// If a player is added to a game in progress (should only be a
+			// spectator) we have to update her connection state
+			if (getStatus().equals(GameStatus.IN_PROGRESS)) {
 				player.setConnectionState(ConnectionState.IN_GAME);
 			}
-			
+
 			// Refresh games list for all clients
 			GamesRegister.getInstance().sendGamesList();
 		}
@@ -233,7 +234,6 @@ public class Game {
 		return returnValue;
 
 	}
-
 
 	private boolean checkForGameStart() {
 		if (getStatus().equals(GameStatus.WAITING_FOR_PLAYERS) && !(getWhitePlayer().getPlayers().isEmpty())
@@ -246,29 +246,27 @@ public class Game {
 
 	}
 
-	public List<Player> getPlayers(){
+	public List<Player> getPlayers() {
 		ArrayList<Player> players = new ArrayList<Player>();
 		for (Participant participant : participants) {
 			for (Player player : participant.getPlayers()) {
-				players.add(player); 
+				players.add(player);
 			}
 		}
-		
-		
-		
+
 		return players;
 	}
-	
+
 	private void startGame() {
 		// Set the start date and time as the current date and time
 		setStartDateTime(new Date());
 
 		// Set the game and players status
 		setStatus(GameStatus.IN_PROGRESS);
-		for (Player player : getPlayers()){
+		for (Player player : getPlayers()) {
 			player.setConnectionState(ConnectionState.IN_GAME);
 		}
-		
+
 		// Send a message to all participants so that the client knows that they
 		// are now in game
 		Message message = new Message();
@@ -288,56 +286,73 @@ public class Game {
 
 	}
 
-	public boolean removePlayer(Player player){
+	public boolean removePlayer(Player player) {
 		boolean returnValue = false;
 		Participant participant = null;
-		
-		// Find if player is already participating in the game and determine his role
-			for (Participant p : participants) {
-				if (p.getPlayers().contains(player)) {
-					returnValue = true;
-					participant = p;
-					p.removePlayer(player);
-					
-					//Send message to player so that he gets his new connection state
-					Message message = new Message();
-					message.setType(Type.SYSTEM_INTERNAL);
-					message.getRecipients().add(player);
-					message.send();
-					
-					//things to do when the player is not a spectator
-					if (p.getRole().equals(Role.WHITEPLAYER) || p.getRole().equals(Role.BLACKPLAYER)){
-						//if the player being removed was a team leader then the game is over
-						if (p.getTeamLeader() == null){
-							GamesRegister.getInstance().endGame(GamesRegister.getInstance().searchGameByPlayer(player));
-						}
 
+		// Find if player is already participating in the game and determine his
+		// role
+		for (Participant p : participants) {
+			if (p.getPlayers().contains(player)) {
+				// Get a reference to the player's game so that we can and it if
+				// necessary after we remove the player
+				Game game = GamesRegister.getInstance().searchGameByPlayer(player);
+				returnValue = true;
+				participant = p;
+				p.removePlayer(player);
+
+				// Send message to player so that he gets his new connection
+				// state
+				Message message = new Message();
+				message.setType(Type.SYSTEM_INTERNAL);
+				message.getRecipients().add(player);
+				message.send();
+
+				// things to do when the player is not a spectator
+				if (p.getRole().equals(Role.WHITEPLAYER) || p.getRole().equals(Role.BLACKPLAYER)) {
+					// if the player being removed was a team leader then the
+					// game is over
+					if (p.getTeamLeader() == null) {
+						GamesRegister.getInstance().endGame(game);
 					}
-					//refresh games list so that the player wont show as participant
-					GamesRegister.getInstance().sendGamesList();
-					break;
-				}
-			}
 
-		if (returnValue){
+				}
+				// refresh games list so that the player wont show as
+				// participant
+				GamesRegister.getInstance().sendGamesList();
+				break;
+			}
+		}
+
+		if (returnValue) {
 			// End the game when there are no players in the player role
-			if (getStatus().equals(GameStatus.IN_PROGRESS) && (participant.getRole().equals(Role.WHITEPLAYER) || participant.getRole().equals(Role.BLACKPLAYER)) && participant.getPlayers().isEmpty()){
+			if (getStatus().equals(GameStatus.IN_PROGRESS) && (participant.getRole().equals(Role.WHITEPLAYER)
+					|| participant.getRole().equals(Role.BLACKPLAYER)) && participant.getPlayers().isEmpty()) {
 				GamesRegister.getInstance().endGame(GamesRegister.getInstance().searchGameByPlayer(player));
 			}
 		}
 		return returnValue;
 	}
-	
+
 	public void shareState() {
 		GameStateResponse r = new GameStateResponse(state, getUid());
-		for (Player player : getPlayers()){
+		for (Player player : getPlayers()) {
 			r.setSocket(player.getConnection());
 			r.setConnectionState(player.getConnectionState());
 			r.setUserId(player.getId());
 			r.send();
-			
+
 		}
 	}
 
+	@Override
+	public boolean equals(Object object) {
+		return getUid().equals(((Game) object).getUid());
+	}
+
+	@Override
+	public int hashCode() {
+		return this.uid.hashCode();
+	}
 
 }
