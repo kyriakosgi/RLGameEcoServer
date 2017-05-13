@@ -351,6 +351,10 @@ public class Game {
 	}
 	
 	public void endGame(String endMessage){
+		Boolean remove = false;
+		if (this.getStatus().equals(GameStatus.WAITING_FOR_PLAYERS)) remove = true;
+		
+		this.setStatus(GameStatus.FINISHED);
 		for (Player player : this.getPlayers()){
 			player.setConnectionState(ConnectionState.LOGGED_IN);
 		}
@@ -360,7 +364,7 @@ public class Game {
 		message.getRecipients().addAll(this.getPlayers());
 		message.send();
 		
-
+		if (remove) GamesRegister.getInstance().removeGame(this);
 	}
 
 	@Override
