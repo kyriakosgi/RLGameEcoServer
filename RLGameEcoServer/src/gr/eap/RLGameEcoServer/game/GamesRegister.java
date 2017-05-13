@@ -51,7 +51,7 @@ public class GamesRegister {
 		for (Player player : game.getPlayers()){
 			player.setConnectionState(ConnectionState.LOGGED_IN);
 		}
-		games.remove(game);
+		games.remove(game.getUid());
 		sendGamesList();
 		Message message = new Message();
 		String msgText = "Game ended. Winner is ";
