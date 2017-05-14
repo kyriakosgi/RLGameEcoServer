@@ -70,8 +70,8 @@ public class Participant {
 		if (getTeamLeader().equals(player)){
 			setTeamLeader(null);
 		}
-		player.setConnectionState(ConnectionState.CONNECTED);
 		players.remove(player);
+		player.setConnectionState(ConnectionState.LOGGED_IN);
 		if (name.contains(player.getName() + ", ")){
 			name = name.replace(player.getName() + ", ", "");
 		}
