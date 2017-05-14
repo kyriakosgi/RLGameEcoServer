@@ -323,7 +323,8 @@ public class Game {
 						}
 						else
 						{
-							GamesRegister.getInstance().removeGame(this);
+							this.endGame("");
+							//GamesRegister.getInstance().removeGame(this);
 						}
 					}
 
@@ -357,13 +358,17 @@ public class Game {
 	}
 	
 	public void endGame(String endMessage){
-		Boolean remove = false;
-		if (this.getStatus().equals(GameStatus.WAITING_FOR_PLAYERS)) remove = true;
+		Boolean remove = true;
+		if (this.getState().isFinal() && (this.getWhitePlayer().getTeamLeader() != null && this.getBlackPlayer().getTeamLeader() != null)) remove = false;
 		
 		this.setStatus(GameStatus.FINISHED);
-		for (Player player : this.getPlayers()){
-			player.setConnectionState(ConnectionState.LOGGED_IN);
+		
+		if (remove){
+			for (Player player : this.getPlayers()){
+				player.setConnectionState(ConnectionState.LOGGED_IN);
+			}
 		}
+	
 		if (endMessage != null && !endMessage.isEmpty()){
 			Message message = new Message();
 			message.setText(endMessage);

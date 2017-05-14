@@ -32,6 +32,7 @@ public class Move {
 	public void perform(){
 		//Find gameState
 		Game game = GamesRegister.getInstance().searchGameByPlayer(getPlayer());
+		if (!(game.getStatus().equals(GameStatus.IN_PROGRESS))) return;
 		pawn.movePawn(pawn.getPosition(), toSquare);
 		//Refresh gameState
 		game.getState().refreshGameState();
