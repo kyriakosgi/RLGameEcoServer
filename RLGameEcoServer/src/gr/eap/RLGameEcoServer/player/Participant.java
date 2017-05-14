@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import gr.eap.RLGameEcoServer.comm.ConnectionState;
 import gr.eap.RLGameEcoServer.game.GamesRegister;
 import gr.eap.RLGameEcoServer.game.Move;
 
@@ -69,7 +70,7 @@ public class Participant {
 		if (getTeamLeader().equals(player)){
 			setTeamLeader(null);
 		}
-		
+		player.setConnectionState(ConnectionState.CONNECTED);
 		players.remove(player);
 		if (name.contains(player.getName() + ", ")){
 			name = name.replace(player.getName() + ", ", "");
