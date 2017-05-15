@@ -61,6 +61,11 @@ public class Move {
 	}
 	
 	@Override
+	public boolean equals(Object object){
+		return (hashCode() == object.hashCode());
+	}
+	
+	@Override
 	public int hashCode() {
 		int hash = 23;
 		hash = 31 * hash + (pawn == null ? 0 : pawn.hashCode());

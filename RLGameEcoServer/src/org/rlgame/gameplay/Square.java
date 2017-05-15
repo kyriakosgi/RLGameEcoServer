@@ -98,9 +98,9 @@ public class Square {
 	
 	@Override
 	public int hashCode() {
-		int hash = 11;
-		hash = 17 * hash + getXCoord();
-		hash = 17 * hash + getYCoord();
+		int hash = 23;
+		hash = 31 * hash + getXCoord();
+		hash = 31 * hash + getYCoord();
 		return hash;
 	}
 
