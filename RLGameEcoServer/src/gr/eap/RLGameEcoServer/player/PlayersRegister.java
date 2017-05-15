@@ -76,9 +76,13 @@ public class PlayersRegister {
 				existingPlayer.setConnection(socket);
 				//if logged in player is already registered, we leave his connection state intact so that he can continue playing a game that he was participating
 				//if player is in game, system has to send her the game state
-				if (existingPlayer.getConnectionState().equals(ConnectionState.IN_GAME)){
-					game = GamesRegister.getInstance().searchGameByPlayer(existingPlayer);
+				game = GamesRegister.getInstance().searchGameByPlayer(existingPlayer);
+				if (game != null){
+					existingPlayer.setConnectionState(ConnectionState.IN_GAME);
 					//we do not send the gamestate yet. We must first send the games list so the client has info on the game
+				}
+				else{
+					existingPlayer.setConnectionState(ConnectionState.LOGGED_IN);
 				}
 			}
 			else{
@@ -106,7 +110,7 @@ public class PlayersRegister {
 		//TODO if player is in a game, change game status to INTERRUPTED and send games list
 	}
 	
-	private void sendPlayersList(){
+	public void sendPlayersList(){
 		PlayersListResponse r = new PlayersListResponse();
 		players.forEach((k,v)-> {
 			r.setSocket(v.getConnection());

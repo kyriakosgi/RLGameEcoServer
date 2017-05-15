@@ -16,11 +16,13 @@ import org.java_websocket.handshake.ClientHandshake;
 import org.java_websocket.server.WebSocketServer;
 
 import gr.eap.RLGameEcoServer.comm.Command;
+import gr.eap.RLGameEcoServer.comm.ConnectionState;
 import gr.eap.RLGameEcoServer.comm.JsonCommObjectSerializer;
 import gr.eap.RLGameEcoServer.comm.LoginCommand;
 import gr.eap.RLGameEcoServer.comm.Message;
 import gr.eap.RLGameEcoServer.comm.Message.Type;
 import gr.eap.RLGameEcoServer.db.MySQLHelper;
+import gr.eap.RLGameEcoServer.player.PlayersRegister;
 
 public class Server extends WebSocketServer {
 
@@ -36,8 +38,9 @@ public class Server extends WebSocketServer {
 	public void onClose(WebSocket arg0, int arg1, String arg2, boolean arg3) {
 		System.out.println("closed " + arg2);
 		// When a connection closes we have to remove the associated player from register
-		//PlayersRegister.getInstance().deregisterPlayer(arg0);
-
+		PlayersRegister.getInstance().getPlayerBySocket(arg0).setConnectionState(ConnectionState.DISCONNECTED);
+		PlayersRegister.getInstance().sendPlayersList();
+		
 	}
 
 	@Override
