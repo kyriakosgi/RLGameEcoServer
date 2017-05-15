@@ -35,6 +35,8 @@ public class MySQLHelper {
 			try {
 				connection = DriverManager.getConnection(MySQLHelper.dbLocation, MySQLHelper.userName,
 						MySQLHelper.password);
+				//String connectionString = String.format("mysql://1$:2$@localhost/mydb?autoReconnect=true", args)
+				
 			} catch (SQLException e) {
 				System.err.println("Connect: " + e);
 				return null;
@@ -54,25 +56,35 @@ public class MySQLHelper {
 	public ResultSet query(String SQLString, List<parameterValue<?>> parameters) {
 		Connection conn = getConnection();
 		ResultSet rs = null;
-		try {
-			PreparedStatement statement = conn.prepareStatement(SQLString, ResultSet.TYPE_FORWARD_ONLY,
-					ResultSet.CONCUR_READ_ONLY); //Statement doesn't get destroyed after execution. TODO Check for potential memory leak
-			for (int i = 0; i < parameters.size(); i++) {
-				statement.setObject(i + 1, parameters.get(i).value);
-			}
-
-			rs = statement.executeQuery();
-
-		} catch (Exception e) {
-			System.err.println("Query: " + e.getMessage());
-		} // finally {
-		// if (rs != null)
-		// try {
-		// rs.close();
-		// } catch (SQLException e) {
-		// System.err.println(e.getMessage());
-		// }
-		// }
+		int count = 0;
+		while (count<2){
+			
+			try {
+				PreparedStatement statement = conn.prepareStatement(SQLString, ResultSet.TYPE_FORWARD_ONLY,
+						ResultSet.CONCUR_READ_ONLY); //Statement doesn't get destroyed after execution. TODO Check for potential memory leak
+				for (int i = 0; i < parameters.size(); i++) {
+					statement.setObject(i + 1, parameters.get(i).value);
+				}
+	
+				rs = statement.executeQuery();
+				count=2;
+			} catch (Exception e) {
+				if (e.getMessage().contains("The last packet successfully received from the server was"))
+					count++;
+				else
+					count=2;
+				
+				System.err.println("Query: " + e.getMessage());
+			} 
+			// finally {
+			// if (rs != null)
+			// try {
+			// rs.close();
+			// } catch (SQLException e) {
+			// System.err.println(e.getMessage());
+			// }
+			// }
+		}
 		return rs;
 	}
 }
