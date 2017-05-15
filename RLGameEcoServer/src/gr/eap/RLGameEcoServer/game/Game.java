@@ -362,6 +362,7 @@ public class Game {
 		if (this.getState().isFinal() && (this.getWhitePlayer().getTeamLeader() != null && this.getBlackPlayer().getTeamLeader() != null)) remove = false;
 		
 		this.setStatus(GameStatus.FINISHED);
+		if (!remove) GamesRegister.getInstance().sendGamesList();
 		
 		if (remove){
 			for (Player player : this.getPlayers()){
