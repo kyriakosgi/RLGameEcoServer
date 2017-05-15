@@ -22,6 +22,7 @@ import gr.eap.RLGameEcoServer.comm.LoginCommand;
 import gr.eap.RLGameEcoServer.comm.Message;
 import gr.eap.RLGameEcoServer.comm.Message.Type;
 import gr.eap.RLGameEcoServer.db.MySQLHelper;
+import gr.eap.RLGameEcoServer.player.Player;
 import gr.eap.RLGameEcoServer.player.PlayersRegister;
 
 public class Server extends WebSocketServer {
@@ -38,8 +39,11 @@ public class Server extends WebSocketServer {
 	public void onClose(WebSocket arg0, int arg1, String arg2, boolean arg3) {
 		System.out.println("closed " + arg2);
 		// When a connection closes we have to remove the associated player from register
-		PlayersRegister.getInstance().getPlayerBySocket(arg0).setConnectionState(ConnectionState.DISCONNECTED);
-		PlayersRegister.getInstance().sendPlayersList();
+		Player player = PlayersRegister.getInstance().getPlayerBySocket(arg0);
+		if (player != null){
+			player.setConnectionState(ConnectionState.DISCONNECTED);
+			PlayersRegister.getInstance().sendPlayersList();
+		}
 		
 	}
 
