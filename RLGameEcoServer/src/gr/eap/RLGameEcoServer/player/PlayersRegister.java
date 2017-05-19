@@ -114,6 +114,7 @@ public class PlayersRegister {
 		PlayersListResponse r = new PlayersListResponse();
 		players.forEach((k,v)-> {
 			r.setSocket(v.getConnection());
+			r.setConnectionState(v.getConnectionState());
 			r.send();
 		});
 	}
