@@ -41,4 +41,7 @@ public abstract class Response extends CommunicationsObject {
 	public void setConnectionState(ConnectionState connectionState) {
 		this.connectionState = connectionState;
 	}
+	
+	public abstract void process();
+
 }
