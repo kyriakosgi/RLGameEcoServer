@@ -22,4 +22,10 @@ public class GamesListResponse extends Response {
 		return gamesList;
 	}
 
+	@Override
+	public void process() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

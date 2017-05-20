@@ -22,5 +22,11 @@ public class GameStateResponse extends Response {
 		this.setType("gr.eap.RLGameEcoServer.comm.GameStateResponse");
 	}
 
+	@Override
+	public void process() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }
