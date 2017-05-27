@@ -21,6 +21,10 @@ public class MoveCommand extends Command {
 	private int toYCoord;
 	private UUID gameUid;
 	
+	public MoveCommand(){
+		this.setType("gr.eap.RLGameEcoServer.comm.MoveCommand");
+	}
+
 	private UUID getGameUid() {
 		return gameUid;
 	}
