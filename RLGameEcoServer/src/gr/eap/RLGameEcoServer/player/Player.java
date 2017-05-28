@@ -18,6 +18,7 @@ public abstract class Player {
 	private int score;
 	private int id;
 	private String name;
+	private boolean isHuman;
 
 	public int getId() {
 		return id;
@@ -71,6 +72,15 @@ public abstract class Player {
 		this.score = score;
 	}
 
+	
+	public boolean isHuman() {
+		return isHuman;
+	}
+	public void setHuman(boolean isHuman) {
+		this.isHuman = isHuman;
+	}
+	
+	
 	public static Player getPlayer(int id) {
 		// Gets the player
 		ArrayList<parameterValue<?>> params = new ArrayList<MySQLHelper.parameterValue<?>>();
@@ -102,6 +112,8 @@ public abstract class Player {
 					newPlayer = new Member();
 				else
 					newPlayer = new Avatar();
+
+				newPlayer.setHuman(isHuman);
 				newPlayer.setId(rs.getInt("player_ID"));
 				newPlayer.setName(rs.getString("player_Name"));
 				newPlayer.setUserName(rs.getString("player_Username"));
