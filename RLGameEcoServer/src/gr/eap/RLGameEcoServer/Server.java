@@ -18,7 +18,6 @@ import org.java_websocket.server.WebSocketServer;
 import gr.eap.RLGameEcoServer.comm.Command;
 import gr.eap.RLGameEcoServer.comm.ConnectionState;
 import gr.eap.RLGameEcoServer.comm.JsonCommObjectSerializer;
-import gr.eap.RLGameEcoServer.comm.LoginCommand;
 import gr.eap.RLGameEcoServer.comm.Message;
 import gr.eap.RLGameEcoServer.comm.Message.Type;
 import gr.eap.RLGameEcoServer.db.MySQLHelper;
@@ -103,21 +102,6 @@ public class Server extends WebSocketServer {
 			return;
 		}
 
-		LoginCommand lg = new LoginCommand();
-		lg.setId(1);
-		lg.setPassword("pass");
-		lg.setUserId(2);
-		lg.setUserName("kyriakos");
-		// lg.setConnection(null);
-
-		try {
-			JsonCommObjectSerializer ser = new JsonCommObjectSerializer();
-			System.out.println(ser.serialize(lg));
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			System.err.println("e1: " + e1.getMessage());
-		}
 
 		// Initialize SQL connection parameters
 		MySQLHelper.getInstance().initializeConnectionParameters(settings.getProperty("dbLocation"),
