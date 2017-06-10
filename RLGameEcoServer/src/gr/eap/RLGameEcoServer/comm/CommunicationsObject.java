@@ -4,6 +4,7 @@ import org.java_websocket.WebSocket;
 
 public abstract class CommunicationsObject {
 	private int userId;
+	private int avatarId;
 //	private UUID gameId;
 	private String type;
 	private transient WebSocket socket;
@@ -20,6 +21,14 @@ public abstract class CommunicationsObject {
 //	public void setGameId(UUID gameId) {
 //		this.gameId = gameId;
 //	}
+	public int getAvatarId() {
+		return avatarId;
+	}
+	
+	public void setAvatarId(int avatarId) {
+		this.avatarId = avatarId;
+	}
+
 	public String getType() {
 		return type;
 	}
