@@ -13,6 +13,7 @@ import gr.eap.RLGameEcoServer.comm.ConnectionState;
 import gr.eap.RLGameEcoServer.comm.GameStateResponse;
 import gr.eap.RLGameEcoServer.comm.Message;
 import gr.eap.RLGameEcoServer.comm.Message.Type;
+import gr.eap.RLGameEcoServer.player.Member;
 import gr.eap.RLGameEcoServer.player.Participant;
 import gr.eap.RLGameEcoServer.player.Participant.Role;
 import gr.eap.RLGameEcoServer.player.Player;
@@ -352,6 +353,7 @@ public class Game {
 			r.setSocket(player.getConnection());
 			r.setConnectionState(player.getConnectionState());
 			r.setUserId(player.getId());
+			if (player.isHuman()) r.setAvatarId(((Member)player).getAvatar().getId());
 			r.send();
 
 		}

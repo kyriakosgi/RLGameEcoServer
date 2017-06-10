@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import gr.eap.RLGameEcoServer.comm.ConnectionState;
 import gr.eap.RLGameEcoServer.comm.GamesListResponse;
+import gr.eap.RLGameEcoServer.player.Member;
 import gr.eap.RLGameEcoServer.player.Participant;
 import gr.eap.RLGameEcoServer.player.Player;
 import gr.eap.RLGameEcoServer.player.PlayersRegister;
@@ -69,6 +70,7 @@ public class GamesRegister {
 			r.setSocket(v.getConnection());
 			r.setConnectionState(v.getConnectionState());
 			r.setUserId(k);
+			if (v.isHuman()) r.setAvatarId(((Member)v).getAvatar().getId());
 			r.send();
 		});
 	}

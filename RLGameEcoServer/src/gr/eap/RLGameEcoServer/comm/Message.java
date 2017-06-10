@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.java_websocket.WebSocket;
 
+import gr.eap.RLGameEcoServer.player.Member;
 import gr.eap.RLGameEcoServer.player.Player;
 
 public class Message {
@@ -112,6 +113,7 @@ public class Message {
 					response.setConnectionState(recipient.getConnectionState());
 					response.setSocket(recipient.getConnection());
 					response.setUserId(recipient.getId());
+					if (recipient.isHuman()) response.setAvatarId(((Member)recipient).getAvatar().getId());
 					response.setConnectionState(recipient.getConnectionState());
 					response.send();
 				}
