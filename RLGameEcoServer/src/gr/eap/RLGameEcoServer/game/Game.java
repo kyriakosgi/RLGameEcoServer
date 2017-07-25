@@ -353,7 +353,7 @@ public class Game {
 			r.setSocket(player.getConnection());
 			r.setConnectionState(player.getConnectionState());
 			r.setUserId(player.getId());
-			if (player.isHuman()) r.setAvatarId(((Member)player).getAvatar().getId());
+			if (player.isHuman() && ((Member)player).getAvatar() != null) r.setAvatarId(((Member)player).getAvatar().getId());
 			r.send();
 
 		}

@@ -115,7 +115,7 @@ public class PlayersRegister {
 		players.forEach((k,v)-> {
 			r.setSocket(v.getConnection());
 			r.setUserId(k);
-			if (v.isHuman()) r.setAvatarId(((Member)v).getAvatar().getId());
+			if (v.isHuman() && ((Member)v).getAvatar() != null) r.setAvatarId(((Member)v).getAvatar().getId());
 			r.setConnectionState(v.getConnectionState());
 			r.send();
 		});
