@@ -15,4 +15,10 @@ public class MessageResponse extends Response {
 		this.setType("gr.eap.RLGameEcoServer.comm.MessageResponse");
 	}
 
+	@Override
+	public void process() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

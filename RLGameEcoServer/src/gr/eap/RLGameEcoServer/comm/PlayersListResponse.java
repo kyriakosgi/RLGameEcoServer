@@ -16,4 +16,10 @@ public class PlayersListResponse extends Response {
 		return playersList;
 	}
 
+	@Override
+	public void process() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
