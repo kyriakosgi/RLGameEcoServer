@@ -9,6 +9,7 @@ import org.java_websocket.WebSocket;
 import gr.eap.RLGameEcoServer.comm.ConnectionState;
 import gr.eap.RLGameEcoServer.comm.PlayersListResponse;
 import gr.eap.RLGameEcoServer.game.Game;
+import gr.eap.RLGameEcoServer.game.GameStatus;
 import gr.eap.RLGameEcoServer.game.GamesRegister;
 
 
@@ -77,7 +78,7 @@ public class PlayersRegister {
 				//if logged in player is already registered, we leave his connection state intact so that he can continue playing a game that he was participating
 				//if player is in game, system has to send her the game state
 				game = GamesRegister.getInstance().searchGameByPlayer(existingPlayer);
-				if (game != null){
+				if (game != null && game.getStatus() == GameStatus.IN_PROGRESS){
 					existingPlayer.setConnectionState(ConnectionState.IN_GAME);
 					//we do not send the gamestate yet. We must first send the games list so the client has info on the game
 				}
