@@ -76,6 +76,32 @@ public class MySQLHelper {
 				
 				System.err.println("Query: " + e.getMessage());
 			} 
+		}
+		return rs;
+	}
+	public boolean exec(String SQLString, List<parameterValue<?>> parameters) {
+		Connection conn = getConnection();
+		boolean rs = false;
+		int count = 0;
+		while (count<2){
+			
+			try {
+				PreparedStatement statement = conn.prepareStatement(SQLString, ResultSet.TYPE_FORWARD_ONLY,
+						ResultSet.CONCUR_READ_ONLY); //Statement doesn't get destroyed after execution. TODO Check for potential memory leak
+				for (int i = 0; i < parameters.size(); i++) {
+					statement.setObject(i + 1, parameters.get(i).value);
+				}
+	
+				rs = statement.execute();
+				count=2;
+			} catch (Exception e) {
+				if (e.getMessage().contains("The last packet successfully received from the server was"))
+					count++;
+				else
+					count=2;
+				
+				System.err.println("Query: " + e.getMessage());
+			} 
 			// finally {
 			// if (rs != null)
 			// try {
