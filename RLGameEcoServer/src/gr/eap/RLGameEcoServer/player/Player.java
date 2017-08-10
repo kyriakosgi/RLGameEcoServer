@@ -69,10 +69,24 @@ public abstract class Player {
 	}
 
 	public void setScore(int score) {
-		this.score = score;
+		//Everytime the score changes, the database should be updated
+		if (this.score != score){
+			this.score = score;
+			writeScore();
+		}
 	}
 
 	
+	private void writeScore() {
+		ArrayList<parameterValue<?>> params = new ArrayList<MySQLHelper.parameterValue<?>>();
+		params.add(new MySQLHelper.parameterValue<Integer>(score));
+		params.add(new MySQLHelper.parameterValue<Integer>(id));
+	
+		MySQLHelper.getInstance().exec("Update Players set Score = ? where ID = ?", params);
+		
+		PlayersRegister.getInstance().sendPlayersList();
+		
+	}
 	public boolean isHuman() {
 		return isHuman;
 	}
