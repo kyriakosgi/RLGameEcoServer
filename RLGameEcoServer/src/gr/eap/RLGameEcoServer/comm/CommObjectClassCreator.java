@@ -14,6 +14,8 @@ public class CommObjectClassCreator {
 			return ConfirmStartGameCommand.class;
 		else if (commObjectType.equals("gr.eap.RLGameEcoServer.comm.LeaveGameCommand"))
 			return LeaveGameCommand.class;
+		else if (commObjectType.equals("gr.eap.RLGameEcoServer.comm.InviteCommand"))
+			return InviteCommand.class;
 		else if (commObjectType.equals("gr.eap.RLGameEcoServer.comm.MoveCommand"))
 			return MoveCommand.class;
 		else if (commObjectType.equals("gr.eap.RLGameEcoServer.comm.MessageResponse"))
