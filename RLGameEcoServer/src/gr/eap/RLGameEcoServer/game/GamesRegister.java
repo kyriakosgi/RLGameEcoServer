@@ -38,11 +38,18 @@ public class GamesRegister {
 		return games.get(gameUid);
 	}
 	
-	public void createGame(Player player1, int boardSize, int baseSize, int numberOfPawns) {
+	public Game createGame(Player player1, int boardSize, int baseSize, int numberOfPawns) {
 		Game newGame = new Game(boardSize, baseSize, numberOfPawns);
 		newGame.addPlayer(player1, Participant.Role.WHITEPLAYER);
 		newGame.setStatus(GameStatus.WAITING_FOR_PLAYERS);
 		games.put(newGame.getUid(), newGame);
+		return newGame;
+	}
+	
+	public Game createGame(Player player1, Player player2, int boardSize, int baseSize, int numberOfPawns) {
+		Game newGame = createGame(player1, boardSize, baseSize, numberOfPawns);
+		newGame.addPlayer(player2, Participant.Role.BLACKPLAYER);
+		return newGame;
 	}
 
 	public void removeGame(Game game){
